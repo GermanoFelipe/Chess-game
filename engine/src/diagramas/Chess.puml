@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Game{
+        - players: Player[]
+        - board Board
+        - rules
+        + getBoard()
+        + endGame()
+}
+
+interface Rules{
+        + winCondition()
+}
+
+class CheckMate implements Rules{
+        + winCondition()
+}
+
+class Piece{
+        - color: Color
+        - initialPosition: Position
+        + actualPosition: Position
+        - isAlive: boolean
+        - hasMoved: boolean
+        + isAlive(): boolean
+        + getColor(): Color
+        + getPosition(): Position
+        + move(pos Position): void
+}
+
+class Board {
+        - xCord: int
+        - yCord: int
+        - piece: Piece
+        + getX()
+        + getY()
+        + getPiece()
+}
+
+class Player {
+        - turn: boolean
+        - color: Color
+        + pieces[]: Piece
+        + deadPieces[]: Piece
+        + movement (piece Piece, pos Position): void
+}
+
+Enum Color {
+        BLACK
+        WHITE
+}
+
+Enum PieceType  {
+        PAWN
+        ROOK
+        KNIGHT
+        BISHOP
+        QUEEN
+        KING
+}
+
+
+interface Movement {
+        + move(pos Position): void
+
+}
+
+class MoveUp implements Movement{
+        + move(pos Position): void
+}
+
+
+Player --> Color
+
+Board --> Movement
+Rules--> Piece
+Player --> Piece
+Board o-- Piece
+Piece -> Color
+Game *--- Rules
+Game *--- Player
+Game o--- Board
+Piece --> PieceType
+@enduml

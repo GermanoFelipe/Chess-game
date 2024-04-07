@@ -1,0 +1,51 @@
+Aleatorio de Fischer: la ubicación de las piezas en la 1. y 8. fila es aleatoria
+
+Desplazado: algunas piezas en la posición inicial son intercambiadas, por ejemplo,
+            el rey y la dama blanca.
+
+Trascendental: similar al ajedrez aleatorio de Fischer, pero las posiciones de
+               apertura blancas y negras no son imágenes especulares la una de la otra.
+
+Jubilado: Las piezas iniciales son sólo el rey y los peones.
+
+Mariposa: Los peones forman líneas diagonales con los peones,
+          el resto de las reglas y proporción de fichas es igual.
+
+Constructor:  Dos nuevas formas de ganar: alineando cuatro peones en una
+              columna o alineando 3 peones en la séptima fila.
+
+Extincion: Un jugador tiene que capturar todas las piezas del oponente para ganar.
+
+3 jaques: gana el primero que dé jaque tres veces o jaque mate.
+
+De los caballeros jedi: Los caballos pueden moverse tres espacios diagonalmente u
+                        horizontalmente o ambos, dependiendo de las reglas aceptadas.
+
+Progresivo: el blanco mueve una, después el negro mueve dos, el blanco tres y así sucesivamente.
+
+Monstruoso: el blanco tiene el rey y cuatro peones contra todo el ejército negro pero puede hacer
+            dos movimientos sucesivos por turno.
+
+Rey batallador: El Rey Batallador mueve y captura a cualquier distancia del tablero en diagonal,
+                vertical u horizontal. Tiene las siguientes limitaciones: Al recibir jaque, el Rey
+                Batallador, para rehuirlo, solo puede mover a un paso o casilla en cualquier dirección,
+                como el rey clásico, excepto si decide tomar por sí mismo pieza, ya sea aquella que le
+                amenaza u otra. En todo caso, en su siguiente turno de juego, recupera toda su fuerza
+                de desplazamiento y de ataque (siempre que no haya recibido un nuevo jaque).
+
+Berlines:  que utiliza el Peón Berlina en vez del peón normal, el resto de cosas es igual.
+                (el peón de berolina avanza 1 casilla siempre hacia adelante con excepción
+                del movimiento inicial que pueden ser 2, pero siempre en diagonal, lo que la
+                mayoría de veces le brinda dos caminos posibles (c1>, o1X>, o2X>).También la
+                forma de captura es distinta, pues captura moviendo una sola casilla hacia adelante,
+                diferente al ajedrez tradicional donde normalmente puede amenazar dos casillas diagonalmente.
+                La captura al paso se realiza con un peón de frente a la primera casilla en diagonal por la
+                que se desplaza)
+
+Capablanca: Jugado en un tablero de 10×8 con un ministro (T+C) y un arzobispo (A+C).
+
+Aleatorio de capablanca: Una generalización de todas las variantes posibles del ajedrez de Capablanca
+                         con posiciones iniciales aleatorias siguiendo un método similar al utilizado
+                         en el Ajedrez aleatorio de Fischer.
+
+Grandioso: Jugado en un tablero de 10×10 con un mariscal (T+C) y un cardenal (A+C).
