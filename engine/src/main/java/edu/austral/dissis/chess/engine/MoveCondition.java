@@ -1,5 +1,5 @@
 package edu.austral.dissis.chess.engine;
 
-public interface Rules {
+public interface MoveCondition {
   void RuleCondition();
 }

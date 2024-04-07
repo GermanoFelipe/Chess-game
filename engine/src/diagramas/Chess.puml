@@ -9,11 +9,19 @@ class Game{
         + endGame()
 }
 
-interface PieceRules{
+interface MoveCondition{
         + ruleCondition()
 }
 
-class CheckMate implements PieceRules{
+interface WinCondition{
+        + winCondtion()
+}
+
+class checkMate implements WinCondition{
+        + winCondtion()
+}
+
+class ValidMove implements MoveCondition{
         + ruleCondition()
 }
 
@@ -30,12 +38,12 @@ class Piece{
 }
 
 class Board {
-        - xCord: int
-        - yCord: int
         - piece: Piece
+        - board: List<List>
         + getX()
         + getY()
         + getPiece()
+        + getBoard()
 }
 
 class Player {
@@ -63,7 +71,6 @@ Enum PieceType  {
 
 interface Movement {
         + move(pos Position): void
-
 }
 
 class MoveUp implements Movement{
@@ -83,14 +90,23 @@ class MoveLeft implements Movement{
 }
 
 
+class Position {
+        - x: int
+        - y: int
+        + getX()
+        + getY()
+}
+
 Player --> Color
 Board --> Movement
-PieceRules--> Board
+Board o-- MoveCondition
 Player --> Piece
 Board o-- Piece
+Movement o-- Piece
 Piece -> Color
-Game *--- PieceRules
+Game *--- MoveCondition
 Game *--- Player
 Game o--- Board
 Piece --> PieceType
+Board o-- WinCondition
 @enduml

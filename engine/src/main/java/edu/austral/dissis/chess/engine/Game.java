@@ -4,19 +4,25 @@ import java.util.List;
 
 public class Game {
 
-  private Board board;
-  private List<Player> players;
+  private final Board board;
+  private final Player player;
 
-  public Game(Board board, List<Player> players) {
+  public Game(Board board, Player player) {
     this.board = board;
-    this.players = players;
+    this.player = player;
   }
 
   public Board getBoard() {
     return board;
   }
+  
+  public Color getColor() {
+    return player.color;
+  }
 
   public void endGame() {
-    // TODO
+    if (new CheckMate().winCondition(board, player.getColor())) {
+      System.out.println("Checkmate! Game Over!");
+    }
   }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 public class Player {
 
   private boolean turn;
-  private Color color;
+  public Color color;
   public List<Piece> pieces;
   public List<Piece> deadPieces;
 
@@ -15,4 +15,10 @@ public class Player {
     this.pieces = pieces;
     this.deadPieces = deadPieces;
   }
+
+  public Color getColor() {
+    return color;
+  }
+
+  //public
 }

@@ -1,14 +1,16 @@
 package edu.austral.dissis.chess.engine;
 
 
-public class Piece {
+import java.util.List;
+
+public class Piece{
   private Color color;
-  private int initialPosition;
-  public int actualPosition;
+  private List<List> initialPosition;
+  public List<List> actualPosition;
   private boolean isAlive;
   private boolean hasMoved;
 
-  public Piece(Color color, int initialPosition, int actualPosition, boolean isAlive, boolean hasMoved) {
+  public Piece(Color color, List<List> initialPosition, List<List> actualPosition, boolean isAlive, boolean hasMoved) {
     this.color = color;
     this.initialPosition = initialPosition;
     this.actualPosition = actualPosition;
@@ -22,7 +24,14 @@ public class Piece {
   public Color getColor() {
     return color;
   }
-  public int getActualPosition() {
+  public List<List> getActualPosition() {
     return actualPosition;
+  }
+
+  public void move(Board board){
+    hasMoved = true;
+  }
+
+  public void moveDown() {
   }
 }
