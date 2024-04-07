@@ -9,12 +9,12 @@ class Game{
         + endGame()
 }
 
-interface Rules{
-        + winCondition()
+interface PieceRules{
+        + ruleCondition()
 }
 
-class CheckMate implements Rules{
-        + winCondition()
+class CheckMate implements PieceRules{
+        + ruleCondition()
 }
 
 class Piece{
@@ -26,7 +26,7 @@ class Piece{
         + isAlive(): boolean
         + getColor(): Color
         + getPosition(): Position
-        + move(pos Position): void
+        + move(Board board): void
 }
 
 class Board {
@@ -70,15 +70,26 @@ class MoveUp implements Movement{
         + move(pos Position): void
 }
 
+class MoveDown implements Movement{
+        + move(pos Position): void
+}
+
+class MoveRight implements Movement{
+        + move(pos Position): void
+}
+
+class MoveLeft implements Movement{
+        + move(pos Position): void
+}
+
 
 Player --> Color
-
 Board --> Movement
-Rules--> Piece
+PieceRules--> Board
 Player --> Piece
 Board o-- Piece
 Piece -> Color
-Game *--- Rules
+Game *--- PieceRules
 Game *--- Player
 Game o--- Board
 Piece --> PieceType
