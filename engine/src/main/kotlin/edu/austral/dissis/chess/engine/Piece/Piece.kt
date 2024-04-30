@@ -1,7 +1,7 @@
 package edu.austral.dissis.chess.engine.Piece
 
 class Piece(val initialPosition: Position, val actualPosition: Position, val pieceColor: Color,
-            val type: PieceType, val hasMoveed: Boolean, val movements: List<Position>, val id: String) {
+            val type: PieceType, val hasMoveed: Boolean, val movements: List<Position> , val id: String) {
 
   fun getInitialPosition(): Position {
     return initialPosition
@@ -19,7 +19,7 @@ class Piece(val initialPosition: Position, val actualPosition: Position, val pie
     return type
   }
 
-  fun getMovements(): List<Position> {
+  fun getMovements(): List<Position> { //posibles movimientos
     return movements
   }
 
@@ -27,6 +27,8 @@ class Piece(val initialPosition: Position, val actualPosition: Position, val pie
     return id
   }
 
-
+  fun hasMoved(): Boolean {
+    return hasMoveed
+  }
 
 }

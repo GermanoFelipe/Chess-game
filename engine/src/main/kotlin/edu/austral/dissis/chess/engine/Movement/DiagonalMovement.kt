@@ -6,12 +6,11 @@ import edu.austral.dissis.chess.engine.Piece.Piece
 
 class DiagonalMovement : Movement {
   private val inBoardValidator = InBoardValidator()
-  override fun move(from: Position, to: Position, board: Board): Piece {
-    if (InBoardValidator.checkMovement(from, to, board)) {
-      }
-
-    return Piece()
-    }
+  override fun move(from: Position, to: Position, board: Board): Board {
+    val pieceToMove = board.pieces[from]
+    val newPosition = Pair(to, pieceToMove)
+    val pieceMoved = Pair(from, null)
+    val finalPieces = board.pieces + newPosition + pieceMoved
+    return Board(board.size, finalPieces, board.deadPieces)
   }
-
 }

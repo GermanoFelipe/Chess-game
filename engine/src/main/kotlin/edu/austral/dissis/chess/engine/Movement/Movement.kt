@@ -5,5 +5,5 @@ import edu.austral.dissis.chess.engine.Piece.Piece
 import edu.austral.dissis.chess.engine.Piece.Position
 
 interface Movement {
-  fun move(from: Position, to: Position, board: Board): Piece
+  fun move(from: Position, to: Position, board: Board): Board
 }

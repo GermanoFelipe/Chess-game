@@ -17,4 +17,6 @@ class Board (val size: Position, val pieces: Map<Position, Piece?>, val deadPiec
     return Board(size, newPieces, deadPieces)
   }
 
+
+
 }

@@ -5,7 +5,11 @@ import edu.austral.dissis.chess.engine.Piece.Position
 
 class RowMovement : Movement{
 
-  override fun move(from: Position, to: Position, board: Board): Position {
-    TODO("Not yet implemented")
+  override fun move(from: Position, to: Position, board: Board): Board {
+    val pieceToMove = board.pieces[from]
+    val newPosition = Pair(to, pieceToMove)
+    val pieceMoved = Pair(from, null)
+    val finalPieces = board.pieces + newPosition + pieceMoved
+    return Board(board.size, finalPieces, board.deadPieces)
   }
 }
