@@ -4,7 +4,7 @@ import edu.austral.dissis.chess.engine.Piece.Color
 
 interface Turn {
 
-  fun colorTurn(): Color
+  fun colorTurn(initialTurn: Int): Color
 
-  fun turnNumber(): Int
+  fun turnNumberUpdate()
 }

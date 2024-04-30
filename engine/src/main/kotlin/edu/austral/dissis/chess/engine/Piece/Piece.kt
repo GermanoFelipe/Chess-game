@@ -26,4 +26,7 @@ class Piece(val initialPosition: Position, val actualPosition: Position, val pie
   fun getId(): String {
     return id
   }
+
+
+
 }

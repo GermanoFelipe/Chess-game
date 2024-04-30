@@ -1,14 +1,17 @@
 package edu.austral.dissis.chess.engine.Movement
 import edu.austral.dissis.chess.engine.Game.Board
 import edu.austral.dissis.chess.engine.Piece.Position
+import edu.austral.dissis.chess.engine.Movement.Validator.InBoardValidator
+import edu.austral.dissis.chess.engine.Piece.Piece
 
 class DiagonalMovement : Movement {
-  override fun moveValidation(oldPosition: Position, newPosition: Position, board: Board): Boolean {
-    TODO("Not yet implemented")
-  }
+  private val inBoardValidator = InBoardValidator()
+  override fun move(from: Position, to: Position, board: Board): Piece {
+    if (InBoardValidator.checkMovement(from, to, board)) {
+      }
 
-  override fun move(from: Position, to: Position, board: Board): Position {
-    TODO("Not yet implemented")
+    return Piece()
+    }
   }
 
 }
