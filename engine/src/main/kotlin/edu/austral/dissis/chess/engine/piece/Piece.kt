@@ -7,5 +7,4 @@ class Piece(val type: PieceType, val pieceColor: Color, val hasMoveed: Boolean,
   fun hasMoved(): Boolean {
     return hasMoveed
   }
-
 }

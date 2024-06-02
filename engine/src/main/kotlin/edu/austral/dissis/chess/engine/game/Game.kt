@@ -20,7 +20,7 @@ class Game (val board: Board, val winConditions: List<WinCondition>, val gameTyp
     val result1 = DefaultResult(possibleBoard, winConditions)
     val finalResult = result1.possibleOutcome(possibleBoard, winConditions)
     return if (finalResult == Results.WIN) {
-      possibleBoard
+      possibleBoard //.endgame()
     } else {
       possibleBoard
     }
