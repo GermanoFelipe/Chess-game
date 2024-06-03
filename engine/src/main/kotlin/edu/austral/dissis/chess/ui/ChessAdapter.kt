@@ -1,6 +1,5 @@
 package edu.austral.dissis.chess.ui
 
-import edu.austral.dissis.chess.engine.board.Board
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
@@ -13,7 +12,6 @@ class ChessAdapter : GameEngine {
 
   override fun init(): InitialState {
     val pieces = mapOf<Position, Piece?>()
-
     val newSize = boardSizeAdapter(Position(8, 8))
     val newPieces = piecesAdapter(pieces)
     val currentPlayer = colorAdapter(Color.WHITE)

@@ -1,4 +1,16 @@
-package edu.austral.dissis.chess.engine.movement.validator
+package edu.austral.dissis.chess.engine.movement.piecesMovRules
+
+import edu.austral.dissis.chess.engine.movement.validator.*
+import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.AndValidator
+import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.OrValidator
+import edu.austral.dissis.chess.engine.movement.validator.directions.ColumnDirectionValidator
+import edu.austral.dissis.chess.engine.movement.validator.directions.DiagonalDirectionValidator
+import edu.austral.dissis.chess.engine.movement.validator.directions.RowDirectionValidator
+import edu.austral.dissis.chess.engine.movement.validator.inPath.ColumnNoPieceInPathValidator
+import edu.austral.dissis.chess.engine.movement.validator.inPath.DiagonalNoPieceInPathValidator
+import edu.austral.dissis.chess.engine.movement.validator.inPath.RowNoPieceInPathValidator
+import edu.austral.dissis.chess.engine.movement.validator.limits.InBoardValidator
+import edu.austral.dissis.chess.engine.movement.validator.limits.LimitValidator
 
 class DefaultMovementRules {
   fun createRookRules(): MovementValidator {
