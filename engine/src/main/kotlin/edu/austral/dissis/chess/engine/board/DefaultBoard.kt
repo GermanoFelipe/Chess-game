@@ -12,7 +12,7 @@ class DefaultBoard (val size: Position, val pieces: Map<Position, Piece?>) : Boa
   }
 
   override fun getSize(): Position {
-    TODO("Not yet implemented")
+    return size
   }
 
   override fun getPiece (position: Position): Piece? {

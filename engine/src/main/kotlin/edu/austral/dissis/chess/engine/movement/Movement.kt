@@ -13,7 +13,7 @@ class Movement () {
   }
 
   fun move(from: Position, to: Position, defaultBoard: DefaultBoard): DefaultBoard {
-    if (allowMovement(from, to, defaultBoard) == true) {
+    if (allowMovement(from, to, defaultBoard)) {
       val pieceToMove = defaultBoard.pieces[from]
       val newPosition = Pair(to, pieceToMove)
       val pieceMoved = Pair(from, null)
