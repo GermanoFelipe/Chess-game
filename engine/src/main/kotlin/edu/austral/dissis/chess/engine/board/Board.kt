@@ -6,8 +6,9 @@ import edu.austral.dissis.chess.engine.piece.Position
 
 interface Board {
 
-  fun getSize(): Position
-
   fun getPiece(position: Position): Piece?
 
+  fun getUsedPositions(): List<Position>
+
+  fun movePiece(from: Position, to: Position): Board
 }
