@@ -1,9 +1,13 @@
 package edu.austral.dissis.chess.ui
 
+import edu.austral.dissis.chess.engine.game.Game
+import edu.austral.dissis.chess.engine.game.Turn
+import edu.austral.dissis.chess.engine.game.results.InvalidMovement
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
 import edu.austral.dissis.chess.engine.game.results.MovementResult
+import edu.austral.dissis.chess.engine.game.results.ValidMovement
 import edu.austral.dissis.chess.gui.*
 
 class ChessAdapter : GameEngine {
@@ -60,5 +64,22 @@ class ChessAdapter : GameEngine {
   fun invalidMoveAdapter(invalid : MovementResult): MoveResult {
     val message = invalid.getMessage()
     return InvalidMove(message)
+  }
+
+//  fun newGameStateAdapter(state: Game): GameState {
+//    val newPieces = piecesAdapter(state.pieces)
+//
+//    return NewGameState()
+//  }
+
+  fun moveAdapter(from: Position, to: Position): Move {
+    val newFrom = positionAdapter(from)
+    val newTo = positionAdapter(to)
+    return Move(newFrom, newTo)
+  }
+
+  fun gameOverAdapter(turn: Turn): MoveResult {
+    return if (turn.actualTurn(Color.WHITE) == Color.WHITE) GameOver(PlayerColor.WHITE)
+    else GameOver(PlayerColor.BLACK)
   }
 }
