@@ -3,6 +3,7 @@ package edu.austral.dissis.chess.ui
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.chess.engine.game.results.MovementResult
 import edu.austral.dissis.chess.gui.*
 
 class ChessAdapter : GameEngine {
@@ -54,5 +55,10 @@ class ChessAdapter : GameEngine {
     val row = position.row
     val column = position.column
     return edu.austral.dissis.chess.gui.Position(row, column)
+  }
+
+  fun invalidMoveAdapter(invalid : MovementResult): MoveResult {
+    val message = invalid.getMessage()
+    return InvalidMove(message)
   }
 }

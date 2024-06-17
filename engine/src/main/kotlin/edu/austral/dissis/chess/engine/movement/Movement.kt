@@ -1,9 +1,10 @@
 package edu.austral.dissis.chess.engine.movement
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
 
-class Movement () {
+class Movement (from: Position, to: Position, piece: Piece) {
 
   fun allowMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {
     val pieceToMove = defaultBoard.pieces[from]
