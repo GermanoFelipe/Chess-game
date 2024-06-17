@@ -11,4 +11,6 @@ interface Board {
   fun getUsedPositions(): List<Position>
 
   fun movePiece(from: Position, to: Position): Board
+
+  fun positionExists(position: Position): Boolean
 }
