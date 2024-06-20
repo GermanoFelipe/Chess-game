@@ -1,18 +1,35 @@
 package edu.austral.dissis.chess.ui
 
+import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.game.Game
-import edu.austral.dissis.chess.engine.game.Turn
-import edu.austral.dissis.chess.engine.game.results.InvalidMovement
+import edu.austral.dissis.chess.engine.game.TurnManager
+import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
 import edu.austral.dissis.chess.engine.game.results.MovementResult
 import edu.austral.dissis.chess.engine.game.results.ValidMovement
+import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 
-class ChessAdapter : GameEngine {
+class ChessAdapter : GameEngine { //chess engine implements GameEngine, adapter in another class
+  val board = DefaultBoard(boardSizeAdapter() )
+  val ruleManager = RuleManager()
+  val game = Game(board, TurnDefault, mapOf<Piece, List<Movement>>(), ruleManager)
+
   override fun applyMove(move: Move): MoveResult {
-    TODO("Not yet implemented")
+    val from = Position(move.from.row, move.from.column)
+    val to = Position(move.to.row, move.to.column)
+    val result = game.movePiece(move.from, move.to)
+    return if (result is ValidMovement) {
+      val newPieces = piecesAdapter(Game.board.pieces)
+      val newTurn = Game.turn.actualTurn(Color.WHITE)
+      val newGameState = NewGameState(newPieces, colorAdapter(newTurn), undoState = undo())
+      return MoveResult(newGameState)
+    } else {
+      invalidMoveAdapter(result)
+    }
   }
 
   override fun init(): InitialState {
@@ -68,7 +85,8 @@ class ChessAdapter : GameEngine {
 
 //  fun newGameStateAdapter(state: Game): GameState {
 //    val newPieces = piecesAdapter(state.pieces)
-//
+//    val actualTurn = state.turn.actualTurn(Color.WHITE)
+//    val undoState = undo()
 //    return NewGameState()
 //  }
 
@@ -78,7 +96,7 @@ class ChessAdapter : GameEngine {
     return Move(newFrom, newTo)
   }
 
-  fun gameOverAdapter(turn: Turn): MoveResult {
+  fun gameOverAdapter(turn: TurnManager): MoveResult {
     return if (turn.actualTurn(Color.WHITE) == Color.WHITE) GameOver(PlayerColor.WHITE)
     else GameOver(PlayerColor.BLACK)
   }

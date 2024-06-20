@@ -1,6 +1,5 @@
 package edu.austral.dissis.chess.engine.board
 
-import edu.austral.dissis.chess.engine.game.Turn
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
 
