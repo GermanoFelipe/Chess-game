@@ -2,6 +2,7 @@ package edu.austral.dissis.chess.engine.movement
 
 import edu.austral.dissis.chess.engine.board.Board
 import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.chess.engine.game.TurnManager
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
@@ -11,7 +12,7 @@ data class Movement (
   private val to: Position,
   private val board: Board,
   private val piece: Piece,
-  private val color: Color
+  private val turn: TurnManager
   ) {
 
   fun getFrom(): Position {
@@ -29,8 +30,8 @@ data class Movement (
     return piece
   }
 
-  fun getColor(): Color {
-    return color
+  fun getTurn(): TurnManager {
+    return turn
   }
 
 

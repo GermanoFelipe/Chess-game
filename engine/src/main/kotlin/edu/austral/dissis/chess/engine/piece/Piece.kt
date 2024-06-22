@@ -1,20 +1,14 @@
 package edu.austral.dissis.chess.engine.piece
 
-import edu.austral.dissis.chess.engine.movement.Movement
-import edu.austral.dissis.chess.engine.movement.validator.MovementValidator
+import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 
-class Piece(val type: PieceType,
+class Piece(val type: ChessPieceType,
             val pieceColor: Color,
             val hasMoveed: Boolean,
-            val movements: Movement,
             val id: String,
-            val pieceValidator: MovementValidator
+            val pieceRules: DefaultMovementRules,
             ) {
   fun hasMoved(): Boolean {
     return hasMoveed
-  }
-
-  fun pieceValidator(): MovementValidator {
-    return pieceValidator
   }
 }

@@ -11,25 +11,31 @@ import edu.austral.dissis.chess.engine.rules.RuleManager
 
 class Game (
   val board: Board,
-  val turn: Color,
+  val turn: TurnManager,
   val history: Map<Piece, List<Movement>>,
   val ruleManager: RuleManager
   ) {
 
+  val initialTurn = TurnDefault(Color.WHITE)
+
   fun movePiece(from: Position, to: Position): MovementResult {
     val piece = board.getPiece(from) ?: return InvalidNoPiece()
-    when (ruleManager.checkMovement(from, to, board)) {
+
+
+    val movement = Movement(from, to, board, piece, initialTurn)
+
+    when (ruleManager.checkMovement(movement)) {
       is ValidMovement -> {
         val newBoard = board.movePiece(from, to)
 
         val newHistory = history.toMutableMap()
         newHistory[piece] = newHistory[piece]?: listOf()
-        val updateMovements = newHistory[piece]!!.toMutableList()
+        val updateMovements = newHistory[piece]!! + movement
         newHistory[piece] = updateMovements
 
+        var changeTurn = initialTurn.nextTurn(initialTurn.color)
 
-        Game(newBoard, turn, newHistory, ruleManager)
-        return ValidMovement()
+        return ValidMovement(Game(newBoard, initialTurn, newHistory, ruleManager))
       }
 
       is InvalidMovement -> {

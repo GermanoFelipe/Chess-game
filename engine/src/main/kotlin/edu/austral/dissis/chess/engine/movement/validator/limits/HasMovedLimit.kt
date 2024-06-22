@@ -4,12 +4,11 @@ import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.movement.validator.MovementValidator
 import edu.austral.dissis.chess.engine.piece.Position
 
-class LimitValidator(
-                    val limit: Int
-                    ): MovementValidator {
+class HasMovedLimit: MovementValidator {
   override fun checkMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {
-    val absMoveColumn = from.column - to.column
-    val absMoveRow = from.row - to.row
-    return absMoveColumn <= limit && absMoveRow <= limit
+    val piece = defaultBoard.pieces[from]
+    val pieceMoved = piece!!.hasMoved() //true if moved
+    if (pieceMoved) return false
+    return true
   }
 }

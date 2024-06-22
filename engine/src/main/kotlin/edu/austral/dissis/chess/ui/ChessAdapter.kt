@@ -13,40 +13,40 @@ import edu.austral.dissis.chess.engine.movement.Movement
 import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 
-class ChessAdapter : GameEngine { //chess engine implements GameEngine, adapter in another class
-  val board = DefaultBoard(boardSizeAdapter() )
-  val ruleManager = RuleManager()
-  val game = Game(board, TurnDefault, mapOf<Piece, List<Movement>>(), ruleManager)
+class ChessAdapter { //chess engine implements GameEngine, adapter in another class
+//  val board = DefaultBoard(boardSizeAdapter() )
+//  val ruleManager = RuleManager()
+//  val game = Game(board, TurnDefault, mapOf<Piece, List<Movement>>(), ruleManager)
 
-  override fun applyMove(move: Move): MoveResult {
-    val from = Position(move.from.row, move.from.column)
-    val to = Position(move.to.row, move.to.column)
-    val result = game.movePiece(move.from, move.to)
-    return if (result is ValidMovement) {
-      val newPieces = piecesAdapter(Game.board.pieces)
-      val newTurn = Game.turn.actualTurn(Color.WHITE)
-      val newGameState = NewGameState(newPieces, colorAdapter(newTurn), undoState = undo())
-      return MoveResult(newGameState)
-    } else {
-      invalidMoveAdapter(result)
-    }
-  }
-
-  override fun init(): InitialState {
-    val pieces = mapOf<Position, Piece?>()
-    val newSize = boardSizeAdapter(Position(8, 8))
-    val newPieces = piecesAdapter(pieces)
-    val currentPlayer = colorAdapter(Color.WHITE)
-    return InitialState(newSize, newPieces, currentPlayer)
-  }
-
-  override fun redo(): NewGameState {
-    TODO("Not yet implemented")
-  }
-
-  override fun undo(): NewGameState {
-    TODO("Not yet implemented")
-  }
+ // override fun applyMove(move: Move): MoveResult {
+ //   val from = Position(move.from.row, move.from.column)
+ //   val to = Position(move.to.row, move.to.column)
+ //   val result = game.movePiece(move.from, move.to)
+ //   return if (result is ValidMovement) {
+ //     val newPieces = piecesAdapter(Game.board.pieces)
+ //     val newTurn = Game.turn.actualTurn(Color.WHITE)
+ //     val newGameState = NewGameState(newPieces, colorAdapter(newTurn), undoState = undo())
+ //     return MoveResult(newGameState)
+ //   } else {
+ //     invalidMoveAdapter(result)
+ //   }
+ // }
+//
+ // override fun init(): InitialState {
+ //   val pieces = mapOf<Position, Piece?>()
+ //   val newSize = boardSizeAdapter(Position(8, 8))
+ //   val newPieces = piecesAdapter(pieces)
+ //   val currentPlayer = colorAdapter(Color.WHITE)
+ //   return InitialState(newSize, newPieces, currentPlayer)
+ // }
+//
+ // override fun redo(): NewGameState {
+ //   TODO("Not yet implemented")
+ // }
+//
+ // override fun undo(): NewGameState {
+ //   TODO("Not yet implemented")
+ // }
 
   fun boardSizeAdapter(position: Position): BoardSize {
     val column = position.row
