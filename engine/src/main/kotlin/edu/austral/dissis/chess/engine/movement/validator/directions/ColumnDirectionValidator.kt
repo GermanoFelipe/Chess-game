@@ -6,6 +6,6 @@ import edu.austral.dissis.chess.engine.piece.Position
 
 class ColumnDirectionValidator: MovementValidator {
   override fun checkMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {
-    return from.row == to.row && from.column != to.column
+    return from.row != to.row && from.column == to.column
   }
 }

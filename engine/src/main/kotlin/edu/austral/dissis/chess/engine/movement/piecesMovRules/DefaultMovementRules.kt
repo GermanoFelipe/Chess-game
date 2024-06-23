@@ -13,7 +13,7 @@ import edu.austral.dissis.chess.engine.movement.validator.limits.InBoardValidato
 import edu.austral.dissis.chess.engine.movement.validator.limits.LimitValidator
 
 class DefaultMovementRules {
-  fun createRookRules(): MovementValidator {
+  fun createRookRules(): MovementValidator{
     val limit = 7
     val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
     val rowValidator = AndValidator(RowNoPieceInPathValidator(), RowDirectionValidator())
@@ -61,10 +61,22 @@ class DefaultMovementRules {
   }
 
   fun createPawnRules(): MovementValidator {
-    return TODO("Provide the return value")
+    val limit = 1
+    val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
+
+    val movementInBoard = AndValidator(columnValidator, InBoardValidator())
+    val movement = AndValidator(movementInBoard, LimitValidator(limit))
+    return movement
   }
 
   fun createKnightRules(): MovementValidator {
-    return TODO("Provide the return value")
+    val limit = 1
+    val columnValidator = ColumnDirectionValidator()
+    val rowValidator = RowDirectionValidator()
+
+    val movementValidator = OrValidator(columnValidator, rowValidator)
+    val movementInBoard = AndValidator(movementValidator, InBoardValidator())
+    val movement = AndValidator(movementInBoard, LimitValidator(limit))
+    return movement
   }
 }

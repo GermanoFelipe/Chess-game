@@ -10,9 +10,8 @@ import edu.austral.dissis.chess.engine.piece.Position
 data class Movement (
   private val from: Position,
   private val to: Position,
-  private val board: Board,
+  private val board: DefaultBoard,
   private val piece: Piece,
-  private val turn: TurnManager
   ) {
 
   fun getFrom(): Position {
@@ -23,18 +22,12 @@ data class Movement (
     return to
   }
 
-  fun getBoard(): Board {
+  fun getBoard(): DefaultBoard {
     return board
   }
   fun getPiece(): Piece {
     return piece
   }
-
-  fun getTurn(): TurnManager {
-    return turn
-  }
-
-
 }
 
 // fun allowMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {

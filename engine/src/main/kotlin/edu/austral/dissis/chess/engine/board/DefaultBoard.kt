@@ -4,7 +4,9 @@ import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
 
 class DefaultBoard (
-  val size: Position,
+  val row: Int,
+  val column: Int,
+  //val size: Position,
   private val pieces: Map<Position, Piece>
   ) : Board {
 
@@ -15,7 +17,7 @@ class DefaultBoard (
   override fun movePiece(from: Position, to: Position): DefaultBoard {
     val piece = pieces[from] ?: throw IllegalArgumentException("No piece at $from")
     val newPieces = pieces - from + Pair(to, piece)
-    return DefaultBoard(size, newPieces)
+    return DefaultBoard(8,8, newPieces)
   }
 
   override fun positionExists(position: Position): Boolean {
@@ -23,10 +25,10 @@ class DefaultBoard (
   }
 
   override fun getPiece (position: Position): Piece? {
-    return pieces[position]
+    return pieces.get(position)
   }
 
   override fun getUsedPositions(): List<Position> {
-    return pieces.filterValues { it != null }.keys.toList()
+    return pieces.keys.toList()
   }
 }

@@ -13,5 +13,5 @@ interface Board {
 
   fun positionExists(position: Position): Boolean
 
-  fun getPieces(): Map<Position, Piece?>
+  fun getPieces(): Map<Position, Piece>
 }

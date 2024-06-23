@@ -17,10 +17,9 @@ import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 import java.util.Stack
 
-
 class ChessEngine : GameEngine {
 
-  val board = DefaultBoard((Position(8, 8)), pieceCreator())
+  val board = DefaultBoard(8,8, pieceCreator())
 
   private val turn = TurnDefault(Color.WHITE)
 
@@ -33,28 +32,22 @@ class ChessEngine : GameEngine {
   val redoStack = Stack<Game>()
 
   override fun applyMove(move: Move): MoveResult {
-
-    print(board.getPieces())
-
     val from = Position(move.from.row, move.from.column)
     val to = Position(move.to.row, move.to.column)
 
-    val moveAdapted = moveAdapter(from, to)
+    //val moveAdapted = moveAdapter(from, to)
     val result = game.movePiece(from, to)
 
     return if (result is ValidMovement) {
       val newPieces = piecesAdapter(board.getPieces())
 
       val newTurn = game.turn.nextTurn()
-      //val newColor = newTurn.actualTurn()
 
-      val undoState = undo()
-      val newGameState =
-        NewGameState(newPieces,
-          colorAdapter(newTurn.actualTurn()),
-          UndoState(canUndo(), canRedo()))
-
-      return newGameState
+      return NewGameState(
+        newPieces,
+        colorAdapter(newTurn.actualTurn()),
+        UndoState(canUndo(), canRedo())
+      )
     } else {
       invalidMoveAdapter(result)
     }
@@ -73,13 +66,13 @@ class ChessEngine : GameEngine {
   override fun redo(): NewGameState {
     redoMove()
     val result = game
-    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
+    return NewGameState(piecesAdapter(result.board.getPieces() as Map<Position, Piece>), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
 
   override fun undo(): NewGameState {
     undoMove()
     val result = game
-    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
+    return NewGameState(piecesAdapter(result.board.getPieces() as Map<Position, Piece>), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
 
 
@@ -105,13 +98,13 @@ class ChessEngine : GameEngine {
     return edu.austral.dissis.chess.gui.Position(row, column)
   }
 
-  fun piecesAdapter(pieces: Map<Position, Piece?>): List<ChessPiece> {
+  fun piecesAdapter(pieces: Map<Position, Piece>): List<ChessPiece> {
     val chessPieces = mutableListOf<ChessPiece>()
     for (piece in pieces){
       val id = piece.key.toString()
-      val color = colorAdapter(piece.value?.pieceColor!!)
+      val color = colorAdapter(piece.value.pieceColor)
       val position = positionAdapter(piece.key)
-      val pieceId = piece.value!!.id
+      val pieceId = piece.value.id
       chessPieces.add(ChessPiece(id, color, position, pieceId))
     }
     return chessPieces
@@ -171,33 +164,31 @@ class ChessEngine : GameEngine {
     val pieces = mutableMapOf<Position, Piece>()
 
     for (i in 1..8){
-      pieces[Position(2, i)] = Piece(ChessPieceType.PAWN, Color.WHITE, false, ChessPieceType.PAWN.string, DefaultMovementRules())
-      pieces[Position(7, i)] = Piece(ChessPieceType.PAWN, Color.BLACK, false, ChessPieceType.PAWN.string, DefaultMovementRules())
+      pieces[Position(2, i)] = Piece(ChessPieceType.PAWN, Color.WHITE, false, ChessPieceType.PAWN.string, DefaultMovementRules().createPawnRules())
+      pieces[Position(7, i)] = Piece(ChessPieceType.PAWN, Color.BLACK, false, ChessPieceType.PAWN.string, DefaultMovementRules().createPawnRules())
     }
 
-    pieces[Position(1, 1)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules())
-    pieces[Position(1, 8)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules())
-    pieces[Position(8, 1)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules())
-    pieces[Position(8, 8)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules())
+    pieces[Position(1, 1)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
+    pieces[Position(1, 8)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
+    pieces[Position(8, 1)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
+    pieces[Position(8, 8)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
 
-    pieces[Position(1, 2)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules())
-    pieces[Position(1, 7)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules())
-    pieces[Position(8, 2)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules())
-    pieces[Position(8, 7)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules())
+    pieces[Position(1, 2)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
+    pieces[Position(1, 7)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
+    pieces[Position(8, 2)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
+    pieces[Position(8, 7)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
 
-    pieces[Position(1, 3)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules())
-    pieces[Position(1, 6)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules())
-    pieces[Position(8, 3)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules())
-    pieces[Position(8, 6)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules())
+    pieces[Position(1, 3)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
+    pieces[Position(1, 6)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
+    pieces[Position(8, 3)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
+    pieces[Position(8, 6)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
 
-    pieces[Position(1, 4)] = Piece(ChessPieceType.QUEEN, Color.WHITE, false, ChessPieceType.QUEEN.string, DefaultMovementRules())
-    pieces[Position(8, 4)] = Piece(ChessPieceType.QUEEN, Color.BLACK, false, ChessPieceType.QUEEN.string, DefaultMovementRules())
+    pieces[Position(1, 4)] = Piece(ChessPieceType.QUEEN, Color.WHITE, false, ChessPieceType.QUEEN.string, DefaultMovementRules().createQueenRules())
+    pieces[Position(8, 4)] = Piece(ChessPieceType.QUEEN, Color.BLACK, false, ChessPieceType.QUEEN.string, DefaultMovementRules().createQueenRules())
 
-    pieces[Position(1, 5)] = Piece(ChessPieceType.KING, Color.WHITE, false, ChessPieceType.KING.string, DefaultMovementRules())
-    pieces[Position(8, 5)] = Piece(ChessPieceType.KING, Color.BLACK, false, ChessPieceType.KING.string, DefaultMovementRules())
+    pieces[Position(1, 5)] = Piece(ChessPieceType.KING, Color.WHITE, false, ChessPieceType.KING.string, DefaultMovementRules().createKingRules())
+    pieces[Position(8, 5)] = Piece(ChessPieceType.KING, Color.BLACK, false, ChessPieceType.KING.string, DefaultMovementRules().createKingRules())
 
-
-    print (board.getPieces())
     return pieces
   }
 }
