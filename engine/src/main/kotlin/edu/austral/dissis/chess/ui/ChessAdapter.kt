@@ -97,7 +97,7 @@ class ChessAdapter { //chess engine implements GameEngine, adapter in another cl
   }
 
   fun gameOverAdapter(turn: TurnManager): MoveResult {
-    return if (turn.actualTurn(Color.WHITE) == Color.WHITE) GameOver(PlayerColor.WHITE)
+    return if (turn.actualTurn() == Color.WHITE) GameOver(PlayerColor.WHITE)
     else GameOver(PlayerColor.BLACK)
   }
 }

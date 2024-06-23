@@ -21,7 +21,6 @@ class Game (
   fun movePiece(from: Position, to: Position): MovementResult {
     val piece = board.getPiece(from) ?: return InvalidNoPiece()
 
-
     val movement = Movement(from, to, board, piece, initialTurn)
 
     when (ruleManager.checkMovement(movement)) {
@@ -33,7 +32,7 @@ class Game (
         val updateMovements = newHistory[piece]!! + movement
         newHistory[piece] = updateMovements
 
-        var changeTurn = initialTurn.nextTurn(initialTurn.color)
+        //var changeTurn = initialTurn.nextTurn(initialTurn.color)
 
         return ValidMovement(Game(newBoard, initialTurn, newHistory, ruleManager))
       }

@@ -9,7 +9,7 @@ class RowNoPieceInPathValidator : MovementValidator {
     val min = minOf(from.column, to.column)
     val max = maxOf(from.column, to.column)
     for (i in min until max) {
-      if (defaultBoard.pieces[Position(i, from.row)] != null) return false
+      if (defaultBoard.getPieces()[Position(i, from.row)] != null) return false
     }
     return true
   }

@@ -2,18 +2,62 @@ package edu.austral.dissis.chess.ui
 
 import edu.austral.dissis.chess.engine.board.Board
 import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.chess.engine.game.Game
+import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.chess.engine.game.results.MovementResult
+import edu.austral.dissis.chess.engine.game.results.ValidMovement
+import edu.austral.dissis.chess.engine.movement.Movement
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.chess.engine.rules.ChessRuleManager
+import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
+import java.util.Stack
+
 
 class ChessEngine : GameEngine {
 
+  val board = DefaultBoard((Position(8, 8)), pieceCreator())
+
+  private val turn = TurnDefault(Color.WHITE)
+
+  val rules = ChessRuleManager()
+
+  var game = Game(board, turn, mapOf<Piece, List<Movement>>(), rules)
+
+  val undoStack = Stack<Game>()
+
+  val redoStack = Stack<Game>()
+
   override fun applyMove(move: Move): MoveResult {
-    TODO("Not yet implemented")
+
+    print(board.getPieces())
+
+    val from = Position(move.from.row, move.from.column)
+    val to = Position(move.to.row, move.to.column)
+
+    val moveAdapted = moveAdapter(from, to)
+    val result = game.movePiece(from, to)
+
+    return if (result is ValidMovement) {
+      val newPieces = piecesAdapter(board.getPieces())
+
+      val newTurn = game.turn.nextTurn()
+      //val newColor = newTurn.actualTurn()
+
+      val undoState = undo()
+      val newGameState =
+        NewGameState(newPieces,
+          colorAdapter(newTurn.actualTurn()),
+          UndoState(canUndo(), canRedo()))
+
+      return newGameState
+    } else {
+      invalidMoveAdapter(result)
+    }
   }
 
   override fun init(): InitialState {
@@ -25,13 +69,19 @@ class ChessEngine : GameEngine {
     return InitialState(newSize, newPieces, currentPlayer)
   }
 
+
   override fun redo(): NewGameState {
-    TODO("Not yet implemented")
+    redoMove()
+    val result = game
+    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
 
   override fun undo(): NewGameState {
-    TODO("Not yet implemented")
+    undoMove()
+    val result = game
+    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
+
 
   //Adapter methods
   
@@ -74,12 +124,12 @@ class ChessEngine : GameEngine {
     return InvalidMove(message)
   }
 
- // fun newGameStateAdapter(state: DefaultBoard): NewGameState {
- //   val newPieces = piecesAdapter(state.pieces)
- //   val actualTurn = state.turn.actualTurn(Color.WHITE)
- //   val undoState = undo()
- //   return NewGameState(newPieces, actualTurn, undoState)
- // }
+// fun newGameStateAdapter(state: DefaultBoard): NewGameState {
+//   val newPieces = piecesAdapter(state.pieces)
+//   val actualTurn = colorAdapter(state.turn.actualTurn()
+//   val undoState = undo()
+//   return NewGameState(newPieces, actualTurn, UndoState(canUndo(), canRedo()))
+// }
 
   fun gameOverAdapter(color: Color): MoveResult {
     val winner = colorAdapter(color)
@@ -91,22 +141,34 @@ class ChessEngine : GameEngine {
   }
 
   fun initialStateAdapter(state: DefaultBoard): InitialState {
-    val newPieces = piecesAdapter(state.pieces)
+    val newPieces = piecesAdapter(state.getPieces())
     //val currentPlayer = colorAdapter(state.turn.actualTurn(Color.WHITE))
     val newSize = boardSizeAdapter(Position(8, 8))
     return InitialState(newSize, newPieces, colorAdapter(Color.WHITE)) //bad color
   }
 
- // fun undoStateAdapter(state: DefaultBoard): NewGameState {
- //   val newPieces = piecesAdapter(state.pieces)
- //   val currentPlayer = colorAdapter(state.turn.actualTurn(Color.WHITE))
- //   val undoState = undo()
- //   return NewGameState(newPieces, currentPlayer, undoState)
- // }
+  fun undoMove() {
+    redoStack.push(game)
+    val lastState = undoStack.pop()
+    game = lastState
+  }
 
+  fun redoMove() {
+    undoStack.push(game)
+    val lastState = redoStack.pop()
+    game = lastState
+  }
 
-  fun pieceCreator(): Map<Position, Piece?> {
-    val pieces = mutableMapOf<Position, Piece?>()
+  fun canUndo(): Boolean {
+    return !undoStack.isEmpty()
+  }
+
+  fun canRedo(): Boolean {
+    return !redoStack.isEmpty()
+  }
+
+  fun pieceCreator(): Map<Position, Piece> {
+    val pieces = mutableMapOf<Position, Piece>()
 
     for (i in 1..8){
       pieces[Position(2, i)] = Piece(ChessPieceType.PAWN, Color.WHITE, false, ChessPieceType.PAWN.string, DefaultMovementRules())
@@ -135,6 +197,7 @@ class ChessEngine : GameEngine {
     pieces[Position(8, 5)] = Piece(ChessPieceType.KING, Color.BLACK, false, ChessPieceType.KING.string, DefaultMovementRules())
 
 
+    print (board.getPieces())
     return pieces
   }
 }

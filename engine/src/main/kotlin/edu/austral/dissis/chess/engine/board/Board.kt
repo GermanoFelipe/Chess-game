@@ -12,4 +12,6 @@ interface Board {
   fun movePiece(from: Position, to: Position): Board
 
   fun positionExists(position: Position): Boolean
+
+  fun getPieces(): Map<Position, Piece?>
 }

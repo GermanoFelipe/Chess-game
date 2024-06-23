@@ -12,7 +12,7 @@ class DiagonalNoPieceInPathValidator : MovementValidator {
     val minRow = minOf(from.row, to.row)
     val minColumn = minOf(from.column, to.column)
     for (i in 1 until steps) {
-      if (defaultBoard.pieces[Position(minRow + i, minColumn + i)] != null) return false
+      if (defaultBoard.getPieces()[Position(minRow + i, minColumn + i)] != null) return false
     }
     return true
   }

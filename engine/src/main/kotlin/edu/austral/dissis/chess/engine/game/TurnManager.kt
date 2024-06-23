@@ -4,8 +4,10 @@ import edu.austral.dissis.chess.engine.piece.Color
 
 interface TurnManager {
 
-  fun actualTurn(actualColor: Color) : Color
+  fun initialTurn() : Color
+  fun actualTurn() : Color
 
-  fun nextTurn(actualColor: Color) : TurnManager
+  fun nextTurn() : TurnManager
 
+  fun nextColor(turn: Color) : Color
 }
