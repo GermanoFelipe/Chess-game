@@ -17,19 +17,23 @@ import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 import java.util.Stack
 
-class ChessEngine : GameEngine {
+class ChessEngine () : GameEngine {
 
-  val board = DefaultBoard(8,8, pieceCreator())
+  val board = DefaultBoard(8,8, emptyMap())
 
   private val turn = TurnDefault(Color.WHITE)
 
   val rules = ChessRuleManager()
 
-  var game = Game(board, turn, mapOf<Piece, List<Movement>>(), rules)
+  private var game = Game(board, turn, mapOf<Piece, List<Movement>>(), rules)
 
   val undoStack = Stack<Game>()
 
   val redoStack = Stack<Game>()
+
+  fun setGame(game: Game) {
+    this.game = game
+  }
 
   override fun applyMove(move: Move): MoveResult {
     val from = Position(move.from.row, move.from.column)
@@ -66,13 +70,13 @@ class ChessEngine : GameEngine {
   override fun redo(): NewGameState {
     redoMove()
     val result = game
-    return NewGameState(piecesAdapter(result.board.getPieces() as Map<Position, Piece>), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
+    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
 
   override fun undo(): NewGameState {
     undoMove()
     val result = game
-    return NewGameState(piecesAdapter(result.board.getPieces() as Map<Position, Piece>), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
+    return NewGameState(piecesAdapter(result.board.getPieces()), colorAdapter(result.turn.actualTurn()), UndoState(canUndo(), canRedo()))
   }
 
 

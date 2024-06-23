@@ -1,5 +1,6 @@
 package edu.austral.dissis.chess.ui
 
+import edu.austral.dissis.chess.engine.game.Game
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
 import edu.austral.dissis.chess.gui.GameView
