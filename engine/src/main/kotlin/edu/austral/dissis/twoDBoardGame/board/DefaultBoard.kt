@@ -17,8 +17,11 @@ class DefaultBoard (
 
   override fun movePiece(from: Position, to: Position): DefaultBoard {
     val piece = pieces[from] ?: throw IllegalArgumentException("No piece at $from")
-    val newPieces = pieces - from + Pair(to, piece.copy(hasMoved = true))
-    return DefaultBoard(8,8, newPieces)
+
+    return DefaultBoard(8,8, pieces + Pair(to, piece.copy(
+      hasMoved = true,
+      id = piece.getId()
+    )) - from)
   }
 
   override fun positionExists(position: Position): Boolean {
@@ -43,5 +46,9 @@ class DefaultBoard (
 
   override fun getColumn(): Int {
     return column
+  }
+
+  override fun addPiece(position: Position, piece: Piece): DefaultBoard {
+    return DefaultBoard(8,8, pieces + Pair(position, piece))
   }
 }

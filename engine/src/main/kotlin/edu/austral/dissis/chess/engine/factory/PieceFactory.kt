@@ -92,7 +92,7 @@ fun createKnight(color: Color): Piece {
     "",
     OrValidator(
       listOf(
-        KnightMovement()
+        moveInL()
       )
     )
   )

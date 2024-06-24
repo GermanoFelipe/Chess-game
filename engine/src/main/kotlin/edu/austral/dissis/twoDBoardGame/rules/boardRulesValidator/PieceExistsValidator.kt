@@ -9,6 +9,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class PieceExistsValidator : RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    return if (game.board.getPiece(movement.getFrom()) == null) Invalid("Not piece selected") else Valid()
+    return if (game.getBoard().getPiece(movement.getFrom()) == null) Invalid("Not piece selected")
+    else Valid()
   }
 }

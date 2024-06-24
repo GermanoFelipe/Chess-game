@@ -14,6 +14,7 @@ class LimitValidator(
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
     val absColumn = abs(movement.getFrom().column - movement.getTo().column)
     val absRow = abs (movement.getFrom().row - movement.getTo().row)
+
     return if (absColumn <= limit && absRow <= limit) {
       Valid()
     } else Invalid("Invalid Movement: Limit Exceeded")

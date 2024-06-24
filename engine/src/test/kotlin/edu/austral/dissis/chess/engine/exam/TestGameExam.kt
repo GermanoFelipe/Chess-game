@@ -4,7 +4,7 @@ import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.chess.engine.factory.*
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
-import edu.austral.dissis.chess.engine.winCondition.CheckMate
+import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -23,7 +23,7 @@ import edu.austral.dissis.chess.test.game.TestMoveFailure
 import edu.austral.dissis.chess.test.game.TestMoveResult
 import edu.austral.dissis.chess.test.game.TestMoveSuccess
 import edu.austral.dissis.chess.ui.ChessEngine
-import edu.austral.dissis.twoDBoardGame.results.ValidMovement
+import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
 import java.util.*
@@ -42,7 +42,7 @@ class TestGameExam () : TestGameRunner {
     val fromCol = newPos.column
     val result = engine.game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
 
-    return if (result is ValidMovement) {
+    return if (result is SuccessfullMovementResult) {
       return TestMoveSuccess(this)
     } else {
       TestMoveFailure(this.getBoard())
@@ -134,17 +134,17 @@ class TestGameExam () : TestGameRunner {
     }
     val newBoard = DefaultBoard(board.size.rows, board.size.cols, pieces)
     val rules = mutableListOf<RuleManager>()
-    val winCondition = CheckMate()
+    val winCondition = IsCheckMate()
     val newGame = Game(newBoard, engine.game.turn, rules, emptyMap(), winCondition, engine.game.movementApplier)
     engine = ChessEngine()
     return this
   }
 
 
-  fun updateBoard(board: DefaultBoard): DefaultBoard {
-    val newBoard = DefaultBoard(8, 8, board.getPieces())
-    return newBoard
-  }
+ // fun updateBoard(board: DefaultBoard): DefaultBoard {
+ //   val newBoard = DefaultBoard(8, 8, board.getPieces())
+ //   return newBoard
+ // }
   //pieces = pieces + Pair(  Pair (piece.key.col, piece.key.row),
   //Piece(reverseTranslatePosition(piece.key).toString(),
   //PieceType.king, reverseTranslatePieceColor(piece.value.playerColorSymbol),

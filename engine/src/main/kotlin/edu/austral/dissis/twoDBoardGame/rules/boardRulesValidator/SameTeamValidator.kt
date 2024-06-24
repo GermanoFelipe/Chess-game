@@ -9,13 +9,11 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class SameTeamValidator: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val fromPiece = movement.getBoard().getPiece(movement.getFrom())
+  val fromPiece = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("No piece to selected")
 
     movement.getBoard().getPiece(movement.getTo())?.let {
-      if (fromPiece != null) {
         if (it.pieceColor == fromPiece.pieceColor) return Invalid("You can't move to a square with a piece of the same team")
-      }
-      else return Valid()
+        else return Valid()
     }
     return Valid()
   }

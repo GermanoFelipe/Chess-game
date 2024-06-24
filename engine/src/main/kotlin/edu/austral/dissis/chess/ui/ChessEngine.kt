@@ -7,8 +7,8 @@ import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.twoDBoardGame.board.Board
-import edu.austral.dissis.twoDBoardGame.results.InvalidMovement
-import edu.austral.dissis.twoDBoardGame.results.ValidMovement
+import edu.austral.dissis.twoDBoardGame.results.UnsuccessfullMovementResult
+import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
 import edu.austral.dissis.twoDBoardGame.results.WinnerResult
 import java.util.Stack
 
@@ -29,12 +29,12 @@ class ChessEngine: GameEngine {
     val to = Position(move.to.row, move.to.column)
 
     return when (val result = game.movePiece(from, to)) {
-      is ValidMovement -> {
+      is SuccessfullMovementResult -> {
         undoStack.push(game)
         redoStack.clear()
         newGameStateAdapter(result)
       }
-      is InvalidMovement -> {
+      is UnsuccessfullMovementResult -> {
         InvalidMove(result.message)
       }
       is WinnerResult -> {
@@ -73,7 +73,7 @@ class ChessEngine: GameEngine {
 
 
   fun boardSizeAdapter(): BoardSize {
-    val board = game.board
+    val board = game.getBoard()
     return BoardSize(board.getColumn(), board.getRow())
   }
 
@@ -89,7 +89,7 @@ class ChessEngine: GameEngine {
   }
 
   fun getPieces(): List<ChessPiece>{
-    val board = game.board
+    val board = game.getBoard()
     return piecesAdapter(board.getUsedPositions(), board)
   }
 
@@ -120,7 +120,7 @@ class ChessEngine: GameEngine {
   // MoveResult adapters
 
 
-fun newGameStateAdapter(state: ValidMovement): MoveResult {
+fun newGameStateAdapter(state: SuccessfullMovementResult): MoveResult {
   game = state.game
   return NewGameState(getPieces(), getActualPlayerColor(), UndoState(canUndo(), canRedo()))
 }

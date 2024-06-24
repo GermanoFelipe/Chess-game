@@ -2,6 +2,7 @@ package edu.austral.dissis.twoDBoardGame.rules.andOrValidator
 
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
+import edu.austral.dissis.twoDBoardGame.results.ActionResult
 import edu.austral.dissis.twoDBoardGame.results.Invalid
 import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid
@@ -9,10 +10,11 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import java.lang.IllegalArgumentException
 
 class AndValidator (
-                    val rules: List<RuleManager>
+                    val rules: List<RuleManager>,
+                    val actions: List<ActionResult> = emptyList()
                     ): RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    var validResult: RuleResult= Valid()
+    var validResult: RuleResult= Valid(actions)
     for (rule in rules) {
       val result = rule.checkMovement(game, movement)
       if (result is Invalid) {
@@ -28,20 +30,20 @@ class AndValidator (
       is Valid -> {
         when(newResult){
           is Valid -> {
-            return Valid()
+            return Valid(result.getActionResult() + newResult.getActionResult())
           }
           is Invalid -> {
-            throw IllegalArgumentException("Invalid result")
+            throw IllegalArgumentException("Should not be Invalid")
           }
         }
       }
       is Invalid -> {
-        if (newResult is Valid) {
-          return newResult
-        } else {
-          return Invalid("Invalid result")
-        }
+        throw IllegalArgumentException("Should not be Invalid")
       }
     }
+  }
+
+  fun withSpecial(action: List<ActionResult>): RuleManager{
+    return AndValidator(rules, action)
   }
 }

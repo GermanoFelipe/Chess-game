@@ -2,20 +2,11 @@ package edu.austral.dissis.chess.engine
 
 import edu.austral.dissis.chess.engine.factory.createDefaultBoard
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
-import edu.austral.dissis.twoDBoardGame.game.Game
-import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
-import edu.austral.dissis.chess.engine.winCondition.CheckMate
-import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
-import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
-import edu.austral.dissis.twoDBoardGame.results.Invalid
-import edu.austral.dissis.twoDBoardGame.results.InvalidMovement
-import edu.austral.dissis.twoDBoardGame.results.Valid
-import edu.austral.dissis.twoDBoardGame.results.ValidMovement
-import edu.austral.dissis.twoDBoardGame.rules.RuleManager
+import edu.austral.dissis.twoDBoardGame.results.UnsuccessfullMovementResult
+import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
 import org.junit.jupiter.api.Test
 
 class ChessTests {
@@ -40,7 +31,7 @@ class ChessTests {
     assert(piece!!.type == ChessPieceType.PAWN)
 
     val result = game.movePiece(Position(2, 1), Position(3, 1))
-    val newGame = (result as ValidMovement).game
+    val newGame = (result as SuccessfullMovementResult).game
     assert(newGame.board.getPiece(Position(3, 1))!!.type == ChessPieceType.PAWN)
     assert(newGame.board.getPiece(Position(2, 1)) == null)
     assert(newGame.turn.actualTurn() == Color.BLACK)
@@ -49,7 +40,7 @@ class ChessTests {
   @Test
   fun invalidMoveTest(): Unit{
     val result = game.movePiece(Position(2, 1), Position(6, 1))
-    assert(result is InvalidMovement)
+    assert(result is UnsuccessfullMovementResult)
   }
 
   @Test

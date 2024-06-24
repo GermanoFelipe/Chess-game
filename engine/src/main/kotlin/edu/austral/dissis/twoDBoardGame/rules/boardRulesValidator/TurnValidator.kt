@@ -9,10 +9,8 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class TurnValidator: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val fromPiece = movement.getBoard().getPiece(movement.getFrom())
-
-    return if (fromPiece != null) {
-      if (fromPiece.pieceColor == game.turn.actualTurn()) Valid() else Invalid("Not your turn!")
-    } else Invalid("No piece in the selected position!")
+    val fromPiece = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("No piece to selected")
+    return if(fromPiece.pieceColor == game.turn.actualTurn()) Valid()
+    else Invalid("It's not your turn!")
   }
 }

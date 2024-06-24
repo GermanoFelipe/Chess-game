@@ -5,9 +5,9 @@ import edu.austral.dissis.twoDBoardGame.game.Game
 sealed interface RuleResult {
 }
 
-class Valid : RuleResult {
-  fun getMessage(): String {
-    return "Valid Movement"
+class Valid (private val actions: List<ActionResult> = emptyList() ): RuleResult {
+  fun getActionResult(): List<ActionResult> {
+    return actions
   }
 }
 class Invalid (var message: String): RuleResult {

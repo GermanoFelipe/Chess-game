@@ -1,18 +1,26 @@
 package edu.austral.dissis.chess.engine.factory
 
 import edu.austral.dissis.chess.engine.rules.uniques.KnightMovement
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.results.ApplyMovement
+import edu.austral.dissis.twoDBoardGame.results.ConvertPiece
+import edu.austral.dissis.twoDBoardGame.results.RelativePosition
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.AndValidator
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
+import edu.austral.dissis.twoDBoardGame.rules.directionsValidator.ToLeftValidator
+import edu.austral.dissis.twoDBoardGame.rules.directionsValidator.ToRightValidator
 import edu.austral.dissis.twoDBoardGame.rules.directionsValidator.VerticalFowValidator
 import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.ColumnNoPieceInPathValidator
 import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.DiagonalNoPieceInPathValidator
 import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.RowNoPieceInPathValidator
 import edu.austral.dissis.twoDBoardGame.rules.limitsValidator.LimitValidator
+import edu.austral.dissis.twoDBoardGame.rules.limitsValidator.PermanentLimit
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.ColumnDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.DiagonalDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.RowDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.FirstMovement
+import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.OppositeRow
 import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.PawnEats
 
 fun moveInRow(): RuleManager{
@@ -61,7 +69,33 @@ fun move1(): RuleManager{
   )
 }
 
-// fun castling right and left
+fun castlingRight(): RuleManager{
+  return AndValidator(
+    listOf(
+      FirstMovement(),
+      RowDirectionValidator(),
+      RowNoPieceInPathValidator(),
+      PermanentLimit(2),
+      ToRightValidator()
+    )
+  ).withSpecial(listOf(
+    ApplyMovement(RelativePosition(0,3), RelativePosition(0,1))
+  ))
+}
+
+fun castlingLeft(): RuleManager{
+  return AndValidator(
+    listOf(
+      FirstMovement(),
+      RowDirectionValidator(),
+      RowNoPieceInPathValidator(),
+      PermanentLimit(2),
+      ToLeftValidator()
+    )
+  ).withSpecial(listOf(
+    ApplyMovement(RelativePosition(0,-4), RelativePosition(0,-1))
+  ))
+}
 
 fun pawnMove(): RuleManager{
   return AndValidator(
@@ -96,10 +130,51 @@ fun pawnAttack(): RuleManager{
   )
 }
 
-// fun crown
+fun crown(color: Color): RuleManager{
+  return OrValidator(
+    listOf(
+      crownFoward(color),
+      crownLeft(color),
+      crownRight(color)
+    )
+  )
+}
 
-// fun crownForward
+fun crownFoward(color: Color): RuleManager{
+  return AndValidator(
+    listOf(
+      ColumnDirectionValidator(),
+      LimitValidator(1),
+      ColumnNoPieceInPathValidator(true),
+      VerticalFowValidator(),
+      OppositeRow()
+    )).withSpecial(listOf(
+      ConvertPiece(RelativePosition(1,0), createQueen(color))
+  )
 
-// fun crowncapture right
+  )
+}
 
-// fun crowncapture left
+fun crownRight(color: Color): RuleManager{
+  return AndValidator(
+    listOf(
+      pawnAttack(),
+      ToRightValidator(),
+      OppositeRow()
+    )
+  ).withSpecial(listOf(
+    ConvertPiece(RelativePosition(1,1), createQueen(color))
+  ))
+}
+
+fun crownLeft(color: Color): RuleManager{
+  return AndValidator(
+    listOf(
+      pawnAttack(),
+      ToLeftValidator(),
+      OppositeRow()
+    )
+  ).withSpecial(listOf(
+    ConvertPiece(RelativePosition(1,-1), createQueen(color))
+  ))
+}

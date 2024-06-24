@@ -20,4 +20,6 @@ interface Board {
   fun getRow(): Int
 
   fun getColumn(): Int
+
+  fun addPiece(position: Position, piece: Piece): Board
 }

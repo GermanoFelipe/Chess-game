@@ -9,8 +9,15 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class InBoardValidator : RuleManager {
     override fun checkMovement(game: Game, movement: Movement): RuleResult {
-        return if (movement.getFrom().row in 1..8 && movement.getFrom().column in 1..8 &&
-            movement.getTo().row in 1..8 && movement.getTo().column in 1..8
+        val fromRow = movement.getFrom().row
+        val fromColumn = movement.getFrom().column
+        val toRow = movement.getTo().row
+        val toColumn = movement.getTo().column
+        val row = game.getBoard().getRow()
+        val column = game.getBoard().getColumn()
+
+        return if (fromRow in 1..row && fromColumn in 1..column
+            && toRow in 1..row && toColumn in 1..column
         ) Valid()
         else Invalid("Movement out of board")
     }
