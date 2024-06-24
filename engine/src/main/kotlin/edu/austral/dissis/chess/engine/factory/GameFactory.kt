@@ -43,5 +43,6 @@ fun createNormalRules(): List<RuleManager>{
   return listOf(PieceExistsValidator(),
     TurnValidator(),
     SameTeamValidator(),
-    IsNotInCheck())
+    IsNotInCheck()
+  )
 }

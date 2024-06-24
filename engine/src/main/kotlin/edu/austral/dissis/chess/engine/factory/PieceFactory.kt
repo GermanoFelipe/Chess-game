@@ -16,9 +16,9 @@ fun createPawn(color: Color): Piece {
     OrValidator(
       listOf(
         //crown
-        pawnAttack(),
+        pawnFirstMove(),
         pawnMove(),
-        pawnFirstMove()
+        pawnAttack()
       )
     )
   )

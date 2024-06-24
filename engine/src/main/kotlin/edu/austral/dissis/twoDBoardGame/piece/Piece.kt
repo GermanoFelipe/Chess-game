@@ -20,6 +20,10 @@ data class Piece(val type: PieceType,
     return hasMoved
   }
 
+  fun changeHasMoved() {
+    hasMoved = true
+  }
+
   fun getId(): String{
     return if (id!= "") id
     else this.hashCode().toString()

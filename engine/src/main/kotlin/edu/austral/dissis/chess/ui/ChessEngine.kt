@@ -1,20 +1,15 @@
 package edu.austral.dissis.chess.ui
 
-import edu.austral.dissis.chess.engine.factory.createDefaultBoard
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
-import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.winCondition.CheckMate
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.twoDBoardGame.board.Board
-import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.results.InvalidMovement
 import edu.austral.dissis.twoDBoardGame.results.ValidMovement
 import edu.austral.dissis.twoDBoardGame.results.WinnerResult
-import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import java.util.Stack
 
 class ChessEngine: GameEngine {
