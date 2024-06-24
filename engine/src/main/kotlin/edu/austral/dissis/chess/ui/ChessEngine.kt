@@ -108,24 +108,6 @@ class ChessEngine: GameEngine {
     }
   }
 
-  // MoveResult adapters
-
-  fun invalidMoveAdapter(invalid : MovementResult): MoveResult {
-    val message = invalid.getMessage()
-    return InvalidMove(message)
-  }
-
-fun newGameStateAdapter(state: ValidMovement): MoveResult {
-  game = state.game
-  return NewGameState(getPieces(), getActualPlayerColor(), UndoState(canUndo(), canRedo()))
-}
-
-  fun gameOverAdapter(color: Color): MoveResult {
-    val winner = colorAdapter(color)
-    return GameOver(winner)
-  }
-
-
   fun getPiecePlayerColor(piece: Piece): PlayerColor {
     if (piece.pieceColor == Color.WHITE) return PlayerColor.WHITE
     return PlayerColor.BLACK
@@ -143,6 +125,23 @@ fun newGameStateAdapter(state: ValidMovement): MoveResult {
   fun getActualPlayerColor(): PlayerColor {
     if (game.turn.actualTurn() == Color.WHITE) return PlayerColor.WHITE
     return PlayerColor.BLACK
+  }
+
+  // MoveResult adapters
+
+  fun invalidMoveAdapter(invalid : MovementResult): MoveResult {
+    val message = invalid.getMessage()
+    return InvalidMove(message)
+  }
+
+fun newGameStateAdapter(state: ValidMovement): MoveResult {
+  game = state.game
+  return NewGameState(getPieces(), getActualPlayerColor(), UndoState(canUndo(), canRedo()))
+}
+
+  fun gameOverAdapter(color: Color): MoveResult {
+    val winner = colorAdapter(color)
+    return GameOver(winner)
   }
 
   fun updateGame(newGame: Game){
