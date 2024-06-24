@@ -9,30 +9,11 @@ import edu.austral.dissis.twoDBoardGame.position.Position
 fun createDefaultBoard(): DefaultBoard {
   val map: MutableMap<Position, Piece> = mutableMapOf()
 
- // // Pawn
- // for (i in 1..8){
- //   map[Position(2,i)] = createPawn(Color.WHITE)
- //   map[Position(7,i)] = createPawn(Color.BLACK)
- // }
-
-  // Pawns
-
-  map[Position(2,1)] = createPawn(Color.WHITE)
-  map[Position(2,2)] = createPawn(Color.WHITE)
-  map[Position(2,3)] = createPawn(Color.WHITE)
-  map[Position(2,4)] = createPawn(Color.WHITE)
-  map[Position(2,5)] = createPawn(Color.WHITE)
-  map[Position(2,6)] = createPawn(Color.WHITE)
-  map[Position(2,7)] = createPawn(Color.WHITE)
-  map[Position(2,8)] = createPawn(Color.WHITE)
-  map[Position(7,1)] = createPawn(Color.BLACK)
-  map[Position(7,2)] = createPawn(Color.BLACK)
-  map[Position(7,3)] = createPawn(Color.BLACK)
-  map[Position(7,4)] = createPawn(Color.BLACK)
-  map[Position(7,5)] = createPawn(Color.BLACK)
-  map[Position(7,6)] = createPawn(Color.BLACK)
-  map[Position(7,7)] = createPawn(Color.BLACK)
-  map[Position(7,8)] = createPawn(Color.BLACK)
+ // Pawn
+ for (i in 1..8){
+   map[Position(2,i)] = createPawn(Color.WHITE)
+   map[Position(7,i)] = createPawn(Color.BLACK)
+ }
 
   // Rook
   map[Position(1,1)] = createRook(Color.WHITE)

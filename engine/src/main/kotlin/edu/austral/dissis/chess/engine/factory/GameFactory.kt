@@ -40,7 +40,8 @@ fun createDefaultChess (): Game {
 }
 
 fun createNormalRules(): List<RuleManager>{
-  return listOf(PieceExistsValidator(),
+  return listOf(
+    PieceExistsValidator(),
     TurnValidator(),
     SameTeamValidator(),
     IsNotInCheck()

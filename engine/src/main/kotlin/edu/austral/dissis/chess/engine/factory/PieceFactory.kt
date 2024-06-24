@@ -15,7 +15,7 @@ fun createPawn(color: Color): Piece {
     "",
     OrValidator(
       listOf(
-        //crown
+        crown(color),
         pawnFirstMove(),
         pawnMove(),
         pawnAttack()
@@ -77,8 +77,9 @@ fun createKing(color: Color): Piece {
     "",
     OrValidator(
       listOf(
-        move1()
-        //castling
+        move1(),
+        castlingLeft(),
+        castlingRight()
       )
     )
   )
@@ -97,3 +98,8 @@ fun createKnight(color: Color): Piece {
     )
   )
 }
+
+// variantes extras
+
+// fun createArchibishop
+// fun createCancellor
