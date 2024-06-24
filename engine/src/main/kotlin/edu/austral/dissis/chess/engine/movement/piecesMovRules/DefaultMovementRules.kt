@@ -1,11 +1,11 @@
 package edu.austral.dissis.chess.engine.movement.piecesMovRules
 
 import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
-import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.AndValidator
-import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.OrValidator
-import edu.austral.dissis.chess.engine.movement.validator.directions.ColumnDirectionValidator
+import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.AndValidator
+import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
+import edu.austral.dissis.twoDBoardGame.rules.orientation.ColumnDirectionValidator
 import edu.austral.dissis.chess.engine.movement.validator.directions.DiagonalDirectionValidator
-import edu.austral.dissis.chess.engine.movement.validator.directions.RowDirectionValidator
+import edu.austral.dissis.twoDBoardGame.rules.orientation.RowDirectionValidator
 import edu.austral.dissis.chess.engine.movement.validator.inPath.ColumnNoPieceInPathValidator
 import edu.austral.dissis.chess.engine.movement.validator.inPath.DiagonalNoPieceInPathValidator
 import edu.austral.dissis.chess.engine.movement.validator.inPath.RowNoPieceInPathValidator

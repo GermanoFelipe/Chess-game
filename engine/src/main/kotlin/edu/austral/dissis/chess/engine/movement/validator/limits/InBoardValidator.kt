@@ -2,7 +2,7 @@ package edu.austral.dissis.chess.engine.movement.validator.limits
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
-import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.twoDBoardGame.position.Position
 
 class InBoardValidator : PieceRuleValidator {
     override fun checkMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {

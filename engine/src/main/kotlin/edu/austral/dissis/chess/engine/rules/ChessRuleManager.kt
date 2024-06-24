@@ -1,10 +1,11 @@
 package edu.austral.dissis.chess.engine.rules
 
-import edu.austral.dissis.chess.engine.game.Game
-import edu.austral.dissis.chess.engine.game.results.InvalidMovement
-import edu.austral.dissis.chess.engine.game.results.MovementResult
-import edu.austral.dissis.chess.engine.game.results.Valid
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.twoDBoardGame.game.Game
+import edu.austral.dissis.twoDBoardGame.results.Invalid
+import edu.austral.dissis.twoDBoardGame.results.MovementResult
+import edu.austral.dissis.twoDBoardGame.results.Valid
+import edu.austral.dissis.twoDBoardGame.game.Movement
+import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class ChessRuleManager: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): MovementResult {
@@ -18,6 +19,6 @@ class ChessRuleManager: RuleManager {
     val state = ruleResult.checkMovement(from, to, board)
     return if (state){
       Valid(game)
-    } else InvalidMovement()
+    } else Invalid()
   }
 }

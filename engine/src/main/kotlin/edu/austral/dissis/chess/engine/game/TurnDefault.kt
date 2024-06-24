@@ -1,10 +1,11 @@
 package edu.austral.dissis.chess.engine.game
 
+import edu.austral.dissis.twoDBoardGame.game.TurnManager
 import edu.austral.dissis.chess.engine.piece.Color
 
 class TurnDefault (
         private val turnColor: Color
-        ) : TurnManager{
+        ) : TurnManager {
   override fun initialTurn(): Color {
     return Color.WHITE
   }

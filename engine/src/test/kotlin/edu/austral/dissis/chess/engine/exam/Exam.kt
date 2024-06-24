@@ -1,12 +1,11 @@
 package edu.austral.dissis.chess.engine.exam
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.game.Game
+import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.rules.ChessRuleManager
-import edu.austral.dissis.chess.test.TestGame
 import edu.austral.dissis.chess.test.game.GameTester
 import edu.austral.dissis.chess.ui.ChessEngine
 import org.junit.jupiter.api.DynamicTest

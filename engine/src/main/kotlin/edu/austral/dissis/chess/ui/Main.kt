@@ -1,15 +1,14 @@
 package edu.austral.dissis.chess.ui
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.game.Game
+import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.rules.ChessRuleManager
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
-import edu.austral.dissis.chess.gui.GameView
 import edu.austral.dissis.chess.gui.SimpleGameEngine
 import edu.austral.dissis.chess.gui.createGameViewFrom
 import javafx.application.Application

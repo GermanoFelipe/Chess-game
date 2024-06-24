@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.game
+package edu.austral.dissis.twoDBoardGame.game
 
 import edu.austral.dissis.chess.engine.piece.Color
 

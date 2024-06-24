@@ -1,7 +1,7 @@
-package edu.austral.dissis.chess.engine.board
+package edu.austral.dissis.twoDBoardGame.Board
 
 import edu.austral.dissis.chess.engine.piece.Piece
-import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.twoDBoardGame.position.Position
 
 interface Board {
 
@@ -14,4 +14,6 @@ interface Board {
   fun positionExists(position: Position): Boolean
 
   fun getPieces(): Map<Position, Piece>
+
+  fun removePiece(from: Position): Board
 }

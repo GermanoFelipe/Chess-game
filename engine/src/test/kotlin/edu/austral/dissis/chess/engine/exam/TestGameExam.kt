@@ -1,13 +1,13 @@
 package edu.austral.dissis.chess.engine.exam
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.game.Game
-import edu.austral.dissis.chess.engine.game.results.Valid
+import edu.austral.dissis.twoDBoardGame.game.Game
+import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
-import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.test.TestBoard
 import edu.austral.dissis.chess.test.TestPiece
 import edu.austral.dissis.chess.test.TestPieceSymbols.BISHOP

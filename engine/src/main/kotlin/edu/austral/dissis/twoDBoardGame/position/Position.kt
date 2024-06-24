@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.piece
+package edu.austral.dissis.twoDBoardGame.position
 
 import java.util.*
 

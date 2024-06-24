@@ -1,15 +1,17 @@
 package edu.austral.dissis.chess.engine
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.game.Game
+import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
-import edu.austral.dissis.chess.engine.piece.Position
+import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.engine.rules.ChessRuleManager
+import edu.austral.dissis.twoDBoardGame.results.Invalid
+import edu.austral.dissis.twoDBoardGame.results.Valid
 import org.junit.jupiter.api.Test
 
 class ChessTests {
@@ -71,7 +73,7 @@ class ChessTests {
     assert(piece!!.type == ChessPieceType.PAWN)
 
     val result = game.movePiece(Position(2, 1), Position(3, 1))
-    val newGame = (result as edu.austral.dissis.chess.engine.game.results.Valid).game
+    val newGame = (result as Valid).game
     assert(newGame.board.getPiece(Position(3, 1))!!.type == ChessPieceType.PAWN)
     assert(newGame.board.getPiece(Position(2, 1)) == null)
     assert(newGame.turn.actualTurn() == Color.BLACK)
@@ -80,7 +82,7 @@ class ChessTests {
   @Test
   fun invalidMoveTest(): Unit{
     val result = game.movePiece(Position(2, 1), Position(6, 1))
-    assert(result is edu.austral.dissis.chess.engine.game.results.InvalidMovement)
+    assert(result is Invalid)
   }
 
 }
