@@ -9,7 +9,7 @@ import java.util.stream.Stream
 class Exam {
     @TestFactory
     fun `required exam tests`(): Stream<DynamicTest> {
-        return GameTester(TestGameExam(ChessEngine())).test()
+        return GameTester(TestGameExam()).test()
         //return GameTester(DummyTestGameRunner()).test()
     }
 

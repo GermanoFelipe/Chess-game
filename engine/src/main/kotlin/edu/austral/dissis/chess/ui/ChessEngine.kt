@@ -1,6 +1,7 @@
 package edu.austral.dissis.chess.ui
 
 import edu.austral.dissis.chess.engine.factory.createDefaultBoard
+import edu.austral.dissis.chess.engine.factory.createDefaultChess
 import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.chess.engine.winCondition.CheckMate
 import edu.austral.dissis.twoDBoardGame.game.Game
@@ -18,14 +19,7 @@ import java.util.Stack
 
 class ChessEngine: GameEngine {
 
-  val board = createDefaultBoard()
-  val turn = TurnDefault(Color.WHITE)
-  val rules = mutableListOf<RuleManager>()
-  val winCondition = CheckMate()
-  val movementApplier = DefaultMovApplier()
-
-  var game = Game(board, turn, rules, emptyMap(), winCondition, movementApplier)
-
+  var game = createDefaultChess()
 
   val undoStack = Stack<Game>()
 
@@ -91,7 +85,11 @@ class ChessEngine: GameEngine {
   fun piecesAdapter(positions: List<Position>, board: Board): List<ChessPiece> {
     return positions.map {
       val piece = board.getPiece(it)!!
-      ChessPiece(getId(piece), getPiecePlayerColor(piece), getPiecePosition(it), getPieceType(piece))
+      ChessPiece(
+        getId(piece),
+        getPiecePlayerColor(piece),
+        getPiecePosition(it),
+        getPieceType(piece))
     }
   }
 
@@ -111,14 +109,12 @@ class ChessEngine: GameEngine {
     if (piece.pieceColor == Color.WHITE) return PlayerColor.WHITE
     return PlayerColor.BLACK
   }
-  fun getId (piece:Piece): String{
-    return piece.id
-  }
+  fun getId (piece:Piece) = piece.getId()
 
   fun getPiecePosition (position: Position) = edu.austral.dissis.chess.gui.Position(position.row, position.column)
 
   fun getPieceType (piece: Piece): String{
-    return piece.type.toString()
+    return piece.type.string()
   }
 
   fun getActualPlayerColor(): PlayerColor {

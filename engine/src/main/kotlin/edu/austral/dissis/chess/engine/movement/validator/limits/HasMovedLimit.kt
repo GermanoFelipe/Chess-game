@@ -11,7 +11,7 @@ class HasMovedLimit: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
     val piece = game.board.getPiece(movement.getFrom())
     val pieceMoved = piece!!.hasMoved() //true if moved
-    return if (pieceMoved) Invalid()
+    return if (pieceMoved) Invalid("Piece has already moved")
     else Valid()
   }
 }

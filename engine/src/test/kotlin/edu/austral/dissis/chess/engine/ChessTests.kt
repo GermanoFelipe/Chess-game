@@ -1,6 +1,7 @@
 package edu.austral.dissis.chess.engine
 
 import edu.austral.dissis.chess.engine.factory.createDefaultBoard
+import edu.austral.dissis.chess.engine.factory.createDefaultChess
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -19,16 +20,7 @@ import org.junit.jupiter.api.Test
 
 class ChessTests {
 
-  val board = createDefaultBoard()
-
-  private val turn = TurnDefault(Color.WHITE)
-
-  val rules = mutableListOf<RuleManager>()
-
-  val winCondition = CheckMate()
-  val movementApplier = DefaultMovApplier()
-
-  var game = Game(board, turn, rules, emptyMap(), winCondition, movementApplier)
+  var game = createDefaultChess()
 
 
   @Test
@@ -38,7 +30,7 @@ class ChessTests {
     assert(piece!!.type == ChessPieceType.ROOK)
     assert(piece.pieceColor == Color.WHITE)
     assert(piece.hasMoved == false)
-    assert(piece.id == ChessPieceType.ROOK.string)
+    assert(piece.getId() == ChessPieceType.ROOK.string())
     //assert(piece.pieceRules == DefaultMovementRules().createRookRules())
   }
 
@@ -58,6 +50,17 @@ class ChessTests {
   fun invalidMoveTest(): Unit{
     val result = game.movePiece(Position(2, 1), Position(6, 1))
     assert(result is InvalidMovement)
+  }
+
+  @Test
+  fun boardCraeatorTest(): Unit{
+    val board = createDefaultBoard()
+    assert(board.getPiece(Position(1, 1))!!.type == ChessPieceType.ROOK)
+    assert(board.getPiece(Position(1, 1))!!.pieceColor == Color.WHITE)
+    assert(board.getPiece(Position(1, 1))!!.hasMoved == false)
+    assert(board.getPiece(Position(1, 1))!!.getId() == ChessPieceType.ROOK.string())
+
+    assert(board.getPiece(Position(2, 1))!!.type == ChessPieceType.PAWN)
   }
 
 }

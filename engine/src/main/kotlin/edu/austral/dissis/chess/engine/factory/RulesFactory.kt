@@ -1,5 +1,6 @@
 package edu.austral.dissis.chess.engine.factory
 
+import edu.austral.dissis.chess.engine.rules.uniques.KnightMovement
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.AndValidator
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
@@ -41,9 +42,9 @@ fun moveInDiagonal(): RuleManager{
   )
 }
 
-// fun moveInL(): RuleManager{
-//   return LValidator
-// }
+fun moveInL(): RuleManager{
+  return KnightMovement()
+}
 
 fun move1(): RuleManager{
   return AndValidator(

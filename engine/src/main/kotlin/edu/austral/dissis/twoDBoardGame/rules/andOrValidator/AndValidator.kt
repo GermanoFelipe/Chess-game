@@ -39,7 +39,7 @@ class AndValidator (
         if (newResult is Valid) {
           return newResult
         } else {
-          return Invalid()
+          return Invalid("Invalid result")
         }
       }
     }

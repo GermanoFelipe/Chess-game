@@ -23,6 +23,6 @@ class OrValidator(
         }
       }
     }
-    return Invalid()
+    return Invalid("Invalid Movement")
   }
 }

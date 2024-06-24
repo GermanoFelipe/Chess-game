@@ -12,11 +12,11 @@ class PermanentLimit (
                       val exactLimit: Int
                       ): RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val absColumn = abs(movement.getTo().column - movement.getTo().column)
+    val absColumn = abs(movement.getFrom().column - movement.getTo().column)
     val absRow = abs(movement.getFrom().row - movement.getTo().row)
 
     return if (absRow == exactLimit || absColumn == exactLimit) {
       Valid()
-    } else Invalid("Invalid Movement")
+    } else Invalid("Limit passed or not reached")
   }
 }

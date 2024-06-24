@@ -28,11 +28,13 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
 import java.util.*
 
-class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
+class TestGameExam () : TestGameRunner {
 
   val undoStack = Stack<Game>()
 
   val redoStack = Stack<Game>()
+
+  private var engine = ChessEngine()
 
   override fun executeMove(from: TestPosition, to: TestPosition): TestMoveResult {
     val newPos = positionAdapterFromThemToMine(from)

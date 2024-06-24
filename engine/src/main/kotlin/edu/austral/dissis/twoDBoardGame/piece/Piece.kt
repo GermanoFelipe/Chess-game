@@ -9,7 +9,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 data class Piece(val type: PieceType,
                  val pieceColor: Color,
                  var hasMoved: Boolean,
-                 val id: String,
+                 private val id: String,
                  val pieceRuleManager: RuleManager,
             ) {
 
@@ -18,5 +18,10 @@ data class Piece(val type: PieceType,
   }
   fun hasMoved(): Boolean {
     return hasMoved
+  }
+
+  fun getId(): String{
+    return if (id!= "") id
+    else this.hashCode().toString()
   }
 }

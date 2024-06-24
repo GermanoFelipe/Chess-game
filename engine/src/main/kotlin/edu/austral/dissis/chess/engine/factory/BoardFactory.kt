@@ -9,37 +9,56 @@ import edu.austral.dissis.twoDBoardGame.position.Position
 fun createDefaultBoard(): DefaultBoard {
   val map: MutableMap<Position, Piece> = mutableMapOf()
 
-  // Pawn
-  for (i in 1..8){
-    map[Position(i,2)] = createPawn(Color.WHITE)
-    map[Position(i,7)] = createPawn(Color.BLACK)
-  }
+ // // Pawn
+ // for (i in 1..8){
+ //   map[Position(2,i)] = createPawn(Color.WHITE)
+ //   map[Position(7,i)] = createPawn(Color.BLACK)
+ // }
+
+  // Pawns
+
+  map[Position(2,1)] = createPawn(Color.WHITE)
+  map[Position(2,2)] = createPawn(Color.WHITE)
+  map[Position(2,3)] = createPawn(Color.WHITE)
+  map[Position(2,4)] = createPawn(Color.WHITE)
+  map[Position(2,5)] = createPawn(Color.WHITE)
+  map[Position(2,6)] = createPawn(Color.WHITE)
+  map[Position(2,7)] = createPawn(Color.WHITE)
+  map[Position(2,8)] = createPawn(Color.WHITE)
+  map[Position(7,1)] = createPawn(Color.BLACK)
+  map[Position(7,2)] = createPawn(Color.BLACK)
+  map[Position(7,3)] = createPawn(Color.BLACK)
+  map[Position(7,4)] = createPawn(Color.BLACK)
+  map[Position(7,5)] = createPawn(Color.BLACK)
+  map[Position(7,6)] = createPawn(Color.BLACK)
+  map[Position(7,7)] = createPawn(Color.BLACK)
+  map[Position(7,8)] = createPawn(Color.BLACK)
 
   // Rook
   map[Position(1,1)] = createRook(Color.WHITE)
-  map[Position(8,1)] = createRook(Color.WHITE)
-  map[Position(1,8)] = createRook(Color.BLACK)
+  map[Position(1,8)] = createRook(Color.WHITE)
+  map[Position(8,1)] = createRook(Color.BLACK)
   map[Position(8,8)] = createRook(Color.BLACK)
 
   // Knight
-  map[Position(2,1)] = createKnight(Color.WHITE)
-  map[Position(7,1)] = createKnight(Color.WHITE)
-  map[Position(2,8)] = createKnight(Color.BLACK)
-  map[Position(7,8)] = createKnight(Color.BLACK)
+  map[Position(1,2)] = createKnight(Color.WHITE)
+  map[Position(1,7)] = createKnight(Color.WHITE)
+  map[Position(8,2)] = createKnight(Color.BLACK)
+  map[Position(8,7)] = createKnight(Color.BLACK)
 
   // Bishop
-  map[Position(3,1)] = createBishop(Color.WHITE)
-  map[Position(6,1)] = createBishop(Color.WHITE)
-  map[Position(3,8)] = createBishop(Color.BLACK)
-  map[Position(6,8)] = createBishop(Color.BLACK)
+  map[Position(1,3)] = createBishop(Color.WHITE)
+  map[Position(1,6)] = createBishop(Color.WHITE)
+  map[Position(8,3)] = createBishop(Color.BLACK)
+  map[Position(8,6)] = createBishop(Color.BLACK)
 
   // Queen
-  map[Position(4,1)] = createQueen(Color.WHITE)
-  map[Position(4,8)] = createQueen(Color.BLACK)
+  map[Position(1,4)] = createQueen(Color.WHITE)
+  map[Position(8,4)] = createQueen(Color.BLACK)
 
   // King
-  map[Position(5,1)] = createKing(Color.WHITE)
-  map[Position(5,8)] = createKing(Color.BLACK)
+  map[Position(1,5)] = createKing(Color.WHITE)
+  map[Position(8,5)] = createKing(Color.BLACK)
 
   return DefaultBoard(8,8,map)
 }

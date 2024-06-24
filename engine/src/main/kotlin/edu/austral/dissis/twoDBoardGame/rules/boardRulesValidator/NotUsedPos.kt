@@ -9,6 +9,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class NotUsedPos: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    return if (movement.getBoard().getPiece(movement.getTo()) == null) Valid() else Invalid("Position in use")
+    return if (movement.getBoard().getPiece(movement.getTo()) == null) Valid()
+    else Invalid("Position in use")
   }
 }
