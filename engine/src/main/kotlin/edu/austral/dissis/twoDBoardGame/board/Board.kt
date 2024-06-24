@@ -16,4 +16,8 @@ interface Board {
   fun getPieces(): Map<Position, Piece>
 
   fun removePiece(from: Position): Board
+
+  fun getRow(): Int
+
+  fun getColumn(): Int
 }

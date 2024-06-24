@@ -6,7 +6,7 @@ import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
-fun createNormalBoard(): Board {
+fun createDefaultBoard(): Board {
   val map: MutableMap<Position, Piece> = mutableMapOf()
 
   // Pawn

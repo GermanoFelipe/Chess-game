@@ -5,8 +5,8 @@ import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
 class DefaultBoard (
-  val row: Int,
-  val column: Int,
+  private val row: Int,
+  private val column: Int,
   //val size: Position,
   private val pieces: Map<Position, Piece>
   ) : Board {
@@ -36,5 +36,13 @@ class DefaultBoard (
 
   override fun removePiece(from: Position): DefaultBoard {
     return DefaultBoard(8,8, pieces - from)
+  }
+
+  override fun getRow(): Int {
+    return row
+  }
+
+  override fun getColumn(): Int {
+    return column
   }
 }

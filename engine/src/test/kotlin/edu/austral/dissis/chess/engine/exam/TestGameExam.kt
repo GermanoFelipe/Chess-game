@@ -1,10 +1,11 @@
 package edu.austral.dissis.chess.engine.exam
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.chess.engine.factory.*
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.results.Valid
-import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
+import edu.austral.dissis.chess.engine.winCondition.CheckMate
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -23,6 +24,9 @@ import edu.austral.dissis.chess.test.game.TestMoveFailure
 import edu.austral.dissis.chess.test.game.TestMoveResult
 import edu.austral.dissis.chess.test.game.TestMoveSuccess
 import edu.austral.dissis.chess.ui.ChessEngine
+import edu.austral.dissis.twoDBoardGame.results.ValidMovement
+import edu.austral.dissis.twoDBoardGame.rules.RuleManager
+import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
 import java.util.*
 
 class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
@@ -37,7 +41,7 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
     val fromCol = newPos.column
     val result = engine.game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
 
-    return if (result is Valid) {
+    return if (result is ValidMovement) {
       return TestMoveSuccess(this)
     } else {
       TestMoveFailure(this.getBoard())
@@ -45,8 +49,8 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
   }
 
   override fun getBoard(): TestBoard {
-    val rowSize = engine.game.board.row
-    val colSize = engine.game.board.column
+    val rowSize = engine.game.board.getRow()
+    val colSize = engine.game.board.getColumn()
     val translatedSize = TestSize(rowSize, colSize)
     var translatedPiece: Map<TestPosition, TestPiece> = mapOf()
     for (piece in engine.game.board.getPieces()){
@@ -68,34 +72,70 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
       val id = pieceTypeTranslated.toString()
       val position = positionAdapterFromThemToMine(piece.key)
       if (pieceName == KING) {
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createKingRules())
+        val pieceTranslated =
+          Piece(pieceTypeTranslated,
+            pieceColorTranslated,
+            false,
+            id,
+            OrValidator(listOf(move1())
+        ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
       }
       if (pieceName == PAWN){
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createPawnRules())
+        val pieceTranslated =
+          Piece(pieceTypeTranslated,
+            pieceColorTranslated,
+            false,
+            id,
+            OrValidator(listOf(pawnMove(), pawnFirstMove())
+          ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
       }
       if (pieceName == QUEEN){
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createQueenRules())
+        val pieceTranslated =
+          Piece(pieceTypeTranslated,
+            pieceColorTranslated,
+            false,
+            id,
+            OrValidator(listOf(moveInRow(), moveInColumn(), moveInDiagonal())
+            ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
       }
       if (pieceName == KNIGHT){
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createKnightRules())
+        val pieceTranslated = Piece(pieceTypeTranslated,
+          pieceColorTranslated,
+          false,
+          id,
+          OrValidator(listOf(move1())
+          ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
       }
       if (pieceName == BISHOP){
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createBishopRules())
+        val pieceTranslated =
+          Piece(pieceTypeTranslated,
+          pieceColorTranslated,
+            false,
+            id,
+            OrValidator(listOf(moveInDiagonal())
+            ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
       }
       if (pieceName == ROOK){
-        val pieceTranslated = Piece(pieceTypeTranslated, pieceColorTranslated, false, id, DefaultMovementRules().createRookRules())
+        val pieceTranslated = Piece(pieceTypeTranslated,
+          pieceColorTranslated,
+          false,
+          id,
+          OrValidator(listOf(moveInRow(), moveInColumn())
+          ))
         pieces = pieces + (Position(position.row, position.column) to pieceTranslated)
 
       }
     }
     val newBoard = DefaultBoard(board.size.rows, board.size.cols, pieces)
-    val newGame = Game(newBoard, engine.game.turn, mapOf(), engine.game.ruleManager)
-    engine = ChessEngine(newGame)
+    val rules = mutableListOf<RuleManager>()
+    val winCondition = CheckMate()
+    val newGame = Game(newBoard, engine.game.turn, rules, emptyMap(), winCondition, engine.game.movementApplier)
+    engine = ChessEngine()
     return this
   }
 
@@ -129,6 +169,8 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
       ChessPieceType.BISHOP -> 'B'
       ChessPieceType.QUEEN -> 'Q'
       ChessPieceType.KING -> 'K'
+      else -> {
+        throw IllegalArgumentException("Invalid piece type")}
     }
   }
 
@@ -157,37 +199,5 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
     val row = position.row
     val column = position.col
     return edu.austral.dissis.chess.gui.Position(row, column)
-  }
-
-  fun pieceCreator(): Map<Position, Piece> {
-    val pieces = mutableMapOf<Position, Piece>()
-
-    for (i in 1..8){
-      pieces[Position(2, i)] = Piece(ChessPieceType.PAWN, Color.WHITE, false, ChessPieceType.PAWN.string, DefaultMovementRules().createPawnRules())
-      pieces[Position(7, i)] = Piece(ChessPieceType.PAWN, Color.BLACK, false, ChessPieceType.PAWN.string, DefaultMovementRules().createPawnRules())
-    }
-
-    pieces[Position(1, 1)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
-    pieces[Position(1, 8)] = Piece(ChessPieceType.ROOK, Color.WHITE, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
-    pieces[Position(8, 1)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
-    pieces[Position(8, 8)] = Piece(ChessPieceType.ROOK, Color.BLACK, false, ChessPieceType.ROOK.string, DefaultMovementRules().createRookRules())
-
-    pieces[Position(1, 2)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
-    pieces[Position(1, 7)] = Piece(ChessPieceType.KNIGHT, Color.WHITE, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
-    pieces[Position(8, 2)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
-    pieces[Position(8, 7)] = Piece(ChessPieceType.KNIGHT, Color.BLACK, false, ChessPieceType.KNIGHT.string, DefaultMovementRules().createKnightRules())
-
-    pieces[Position(1, 3)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
-    pieces[Position(1, 6)] = Piece(ChessPieceType.BISHOP, Color.WHITE, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
-    pieces[Position(8, 3)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
-    pieces[Position(8, 6)] = Piece(ChessPieceType.BISHOP, Color.BLACK, false, ChessPieceType.BISHOP.string, DefaultMovementRules().createBishopRules())
-
-    pieces[Position(1, 4)] = Piece(ChessPieceType.QUEEN, Color.WHITE, false, ChessPieceType.QUEEN.string, DefaultMovementRules().createQueenRules())
-    pieces[Position(8, 4)] = Piece(ChessPieceType.QUEEN, Color.BLACK, false, ChessPieceType.QUEEN.string, DefaultMovementRules().createQueenRules())
-
-    pieces[Position(1, 5)] = Piece(ChessPieceType.KING, Color.WHITE, false, ChessPieceType.KING.string, DefaultMovementRules().createKingRules())
-    pieces[Position(8, 5)] = Piece(ChessPieceType.KING, Color.BLACK, false, ChessPieceType.KING.string, DefaultMovementRules().createKingRules())
-
-    return pieces
   }
 }
