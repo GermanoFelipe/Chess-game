@@ -2,15 +2,12 @@ package edu.austral.dissis.chess.engine.exam
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.game.Game
-import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.game.results.ValidMovement
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.chess.engine.game.results.Valid
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
-import edu.austral.dissis.chess.engine.rules.ChessRuleManager
 import edu.austral.dissis.chess.test.TestBoard
 import edu.austral.dissis.chess.test.TestPiece
 import edu.austral.dissis.chess.test.TestPieceSymbols.BISHOP
@@ -30,8 +27,6 @@ import java.util.*
 
 class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
 
-
-
   val undoStack = Stack<Game>()
 
   val redoStack = Stack<Game>()
@@ -42,7 +37,7 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
     val fromCol = newPos.column
     val result = engine.game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
 
-    return if (result is ValidMovement) {
+    return if (result is Valid) {
       return TestMoveSuccess(this)
     } else {
       TestMoveFailure(this.getBoard())

@@ -1,6 +1,6 @@
 package edu.austral.dissis.chess.engine.movement.piecesMovRules
 
-import edu.austral.dissis.chess.engine.movement.validator.*
+import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
 import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.AndValidator
 import edu.austral.dissis.chess.engine.movement.validator.andOrValidator.OrValidator
 import edu.austral.dissis.chess.engine.movement.validator.directions.ColumnDirectionValidator
@@ -13,7 +13,7 @@ import edu.austral.dissis.chess.engine.movement.validator.limits.InBoardValidato
 import edu.austral.dissis.chess.engine.movement.validator.limits.LimitValidator
 
 class DefaultMovementRules {
-  fun createRookRules(): MovementValidator{
+  fun createRookRules(): PieceRuleValidator {
     val limit = 7
     val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
     val rowValidator = AndValidator(RowNoPieceInPathValidator(), RowDirectionValidator())
@@ -24,7 +24,7 @@ class DefaultMovementRules {
     return movement
   }
 
-  fun createKingRules(): MovementValidator {
+  fun createKingRules(): PieceRuleValidator {
     val limit = 1
     val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
     val rowValidator = AndValidator(RowNoPieceInPathValidator(), RowDirectionValidator())
@@ -38,7 +38,7 @@ class DefaultMovementRules {
     return movement
   }
 
-  fun createQueenRules(): MovementValidator {
+  fun createQueenRules(): PieceRuleValidator {
     val limit = 7
     val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
     val rowValidator = AndValidator(RowNoPieceInPathValidator(), RowDirectionValidator())
@@ -51,7 +51,7 @@ class DefaultMovementRules {
     val movement = AndValidator(movementInBoard, LimitValidator(limit))
     return movement
   }
-  fun createBishopRules(): MovementValidator {
+  fun createBishopRules(): PieceRuleValidator {
     val limit = 7
     val diagonalValidator = AndValidator(DiagonalNoPieceInPathValidator(), DiagonalDirectionValidator())
 
@@ -60,7 +60,7 @@ class DefaultMovementRules {
     return movement
   }
 
-  fun createPawnRules(): MovementValidator {
+  fun createPawnRules(): PieceRuleValidator {
     val limit = 1
     val columnValidator = AndValidator(ColumnNoPieceInPathValidator(), ColumnDirectionValidator())
 
@@ -69,7 +69,7 @@ class DefaultMovementRules {
     return movement
   }
 
-  fun createKnightRules(): MovementValidator {
+  fun createKnightRules(): PieceRuleValidator {
     val limit = 1
     val columnValidator = ColumnDirectionValidator()
     val rowValidator = RowDirectionValidator()

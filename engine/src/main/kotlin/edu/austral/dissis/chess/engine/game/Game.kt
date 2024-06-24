@@ -1,14 +1,11 @@
 package edu.austral.dissis.chess.engine.game
 
-import edu.austral.dissis.chess.engine.board.Board
 import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.game.results.*
 import edu.austral.dissis.chess.engine.piece.Position
 import edu.austral.dissis.chess.engine.movement.Movement
-import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.rules.ChessRuleManager
-import edu.austral.dissis.chess.engine.rules.RuleManager
 
 
 class Game (
@@ -25,7 +22,7 @@ class Game (
     val movement = Movement(from, to, board, piece)
 
     when (ruleManager.checkMovement(this, movement)) {
-      is ValidMovement -> {
+      is Valid -> {
         val newBoard = board.movePiece(from, to)
 
         val newHistory = history.toMutableMap()
@@ -35,7 +32,7 @@ class Game (
 
         val changeTurn = turn.nextTurn()
 
-        return ValidMovement(Game(newBoard, changeTurn, newHistory, ruleManager))
+        return Valid(Game(newBoard, changeTurn, newHistory, ruleManager))
       }
 
       is InvalidMovement -> {

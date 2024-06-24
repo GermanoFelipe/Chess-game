@@ -1,28 +1,36 @@
 package edu.austral.dissis.chess.engine.game.results
 
+import edu.austral.dissis.chess.engine.board.DefaultBoard
+
 sealed interface GameResult {
   fun getMessage(): String
 }
 
-class CheckMate : GameResult {
+class GameRuleBrokenResult : GameResult {
   override fun getMessage(): String {
-    return "CheckMate"
+    return "Game Rule Broken"
   }
 }
 
-class Check : GameResult {
+class LeavesInCheck : GameResult {
   override fun getMessage(): String {
-    return "Check"
+    return "Leaves in check!"
   }
 }
 
-class InvalidGame : GameResult {
+class UsedPosicion : GameResult {
   override fun getMessage(): String {
-    return "Invalid Game"
+    return "This position is used"
   }
 }
 
 class ValidGame : GameResult {
+  override fun getMessage(): String {
+    return "Valid Game"
+  }
+}
+
+class ValidWithBoard(val board: DefaultBoard) : GameResult {
   override fun getMessage(): String {
     return "Valid Game"
   }

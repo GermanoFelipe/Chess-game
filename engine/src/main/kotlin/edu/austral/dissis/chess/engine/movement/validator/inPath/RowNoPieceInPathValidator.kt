@@ -1,10 +1,10 @@
 package edu.austral.dissis.chess.engine.movement.validator.inPath
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.movement.validator.MovementValidator
+import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
 import edu.austral.dissis.chess.engine.piece.Position
 
-class RowNoPieceInPathValidator : MovementValidator {
+class RowNoPieceInPathValidator : PieceRuleValidator {
   override fun checkMovement(from: Position, to: Position, defaultBoard: DefaultBoard): Boolean {
     val min = minOf(from.column, to.column)
     val max = maxOf(from.column, to.column)

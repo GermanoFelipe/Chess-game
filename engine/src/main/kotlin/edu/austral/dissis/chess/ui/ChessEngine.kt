@@ -1,19 +1,14 @@
 package edu.austral.dissis.chess.ui
 
-import edu.austral.dissis.chess.engine.board.Board
 import edu.austral.dissis.chess.engine.board.DefaultBoard
 import edu.austral.dissis.chess.engine.game.Game
-import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.chess.engine.game.results.MovementResult
-import edu.austral.dissis.chess.engine.game.results.ValidMovement
-import edu.austral.dissis.chess.engine.movement.Movement
+import edu.austral.dissis.chess.engine.game.results.Valid
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.piece.Color
 import edu.austral.dissis.chess.engine.piece.Piece
 import edu.austral.dissis.chess.engine.piece.Position
-import edu.austral.dissis.chess.engine.rules.ChessRuleManager
-import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 import java.util.Stack
 
@@ -32,7 +27,7 @@ class ChessEngine (var game: Game) : GameEngine {
     //val moveAdapted = moveAdapter(from, to)
     val result = game.movePiece(from, to)
 
-    return if (result is ValidMovement) {
+    return if (result is Valid) {
       val newPieces = piecesAdapter(game.board.getPieces())
 
       val newTurn = game.turn.nextTurn()

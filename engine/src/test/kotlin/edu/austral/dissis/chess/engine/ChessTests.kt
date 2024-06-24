@@ -71,7 +71,7 @@ class ChessTests {
     assert(piece!!.type == ChessPieceType.PAWN)
 
     val result = game.movePiece(Position(2, 1), Position(3, 1))
-    val newGame = (result as edu.austral.dissis.chess.engine.game.results.ValidMovement).game
+    val newGame = (result as edu.austral.dissis.chess.engine.game.results.Valid).game
     assert(newGame.board.getPiece(Position(3, 1))!!.type == ChessPieceType.PAWN)
     assert(newGame.board.getPiece(Position(2, 1)) == null)
     assert(newGame.turn.actualTurn() == Color.BLACK)
