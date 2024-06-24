@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.movement.validator.limits
+package edu.austral.dissis.twoDBoardGame.rules.uniqueRules
 
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -7,11 +7,11 @@ import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
-class HasMovedLimit: RuleManager {
+class PawnEats : RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val piece = game.board.getPiece(movement.getFrom())
-    val pieceMoved = piece!!.hasMoved() //true if moved
-    return if (pieceMoved) Invalid()
-    else Valid()
+    val pieceToEat = game.board.getPiece(movement.getTo()) ?: return Invalid()
+    val piece = game.board.getPiece(movement.getFrom()) ?: return Invalid()
+    if (pieceToEat.pieceColor != piece.pieceColor) return Valid()
+    else return Invalid()
   }
 }

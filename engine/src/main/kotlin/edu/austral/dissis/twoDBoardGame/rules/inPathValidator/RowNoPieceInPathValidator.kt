@@ -1,7 +1,5 @@
 package edu.austral.dissis.twoDBoardGame.rules.inPathValidator
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.position.Position

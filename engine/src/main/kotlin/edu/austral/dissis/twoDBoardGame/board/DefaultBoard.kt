@@ -1,6 +1,5 @@
-package edu.austral.dissis.chess.engine.board
+package edu.austral.dissis.twoDBoardGame.board
 
-import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
@@ -18,6 +17,7 @@ class DefaultBoard (
 
   override fun movePiece(from: Position, to: Position): DefaultBoard {
     val piece = pieces[from] ?: throw IllegalArgumentException("No piece at $from")
+    piece.hasMoved = true
     val newPieces = pieces - from + Pair(to, piece)
     return DefaultBoard(8,8, newPieces)
   }

@@ -8,7 +8,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 data class Piece(val type: PieceType,
                  val pieceColor: Color,
-                 val hasMoved: Boolean,
+                 var hasMoved: Boolean,
                  val id: String,
                  val pieceRuleManager: RuleManager,
             ) {

@@ -11,6 +11,8 @@ import edu.austral.dissis.twoDBoardGame.rules.limitsValidator.LimitValidator
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.ColumnDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.DiagonalDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.RowDirectionValidator
+import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.FirstMovement
+import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.PawnEats
 
 fun moveInRow(): RuleManager{
   return AndValidator(
@@ -74,7 +76,7 @@ fun pawnMove(): RuleManager{
 fun pawnFirstMove(): RuleManager{
   return AndValidator(
     listOf(
-
+      FirstMovement(),
       ColumnDirectionValidator(),
       LimitValidator(2),
       ColumnNoPieceInPathValidator(),
@@ -83,15 +85,15 @@ fun pawnFirstMove(): RuleManager{
   )
 }
 
-//fun pawnAttack(): RuleManager{
-//  return AndValidator(
-//    listOf(
-//
-//      DiagonalDirectionValidator(),
-//      LimitValidator(1),
-//    )
-//  )
-//} falta el hasEnemy
+fun pawnAttack(): RuleManager{
+  return AndValidator(
+    listOf(
+      PawnEats(),
+      DiagonalDirectionValidator(),
+      LimitValidator(1),
+    )
+  )
+}
 
 // fun crown
 

@@ -1,9 +1,8 @@
 package edu.austral.dissis.chess.engine.exam
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.chess.engine.factory.*
 import edu.austral.dissis.twoDBoardGame.game.Game
-import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
 import edu.austral.dissis.chess.engine.winCondition.CheckMate
 import edu.austral.dissis.twoDBoardGame.piece.Color

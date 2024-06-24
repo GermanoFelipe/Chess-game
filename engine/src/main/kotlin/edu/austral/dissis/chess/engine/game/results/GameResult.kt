@@ -1,6 +1,6 @@
 package edu.austral.dissis.chess.engine.game.results
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 
 sealed interface GameResult {
   fun getMessage(): String

@@ -1,6 +1,6 @@
 package edu.austral.dissis.chess.engine.factory
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
