@@ -1,6 +1,6 @@
-package edu.austral.dissis.twoDBoardGame.rules.directions
+package edu.austral.dissis.twoDBoardGame.rules.directionsValidator
 
-import edu.austral.dissis.chess.engine.piece.Color
+import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -11,7 +11,8 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class VerticalBack: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    return if (movement.getPiece().pieceColor == Color.WHITE) {
+    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid()
+    return if (pieceToUse.pieceColor == Color.WHITE) {
       forWhite(movement.getFrom(), movement.getTo())
     } else {
       forBlack(movement.getFrom(), movement.getTo())

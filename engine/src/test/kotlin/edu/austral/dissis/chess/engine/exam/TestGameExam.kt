@@ -5,8 +5,8 @@ import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
-import edu.austral.dissis.chess.engine.piece.Color
-import edu.austral.dissis.chess.engine.piece.Piece
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.test.TestBoard
 import edu.austral.dissis.chess.test.TestPiece
@@ -132,7 +132,7 @@ class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
     }
   }
 
-  fun translateTheirColorToMine(color: Char): Color{
+  fun translateTheirColorToMine(color: Char): Color {
     return when(color){
       'W' -> Color.WHITE
       'B' -> Color.BLACK

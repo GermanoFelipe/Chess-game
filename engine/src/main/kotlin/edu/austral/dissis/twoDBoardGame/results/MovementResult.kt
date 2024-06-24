@@ -1,6 +1,7 @@
 package edu.austral.dissis.twoDBoardGame.results
 
-import edu.austral.dissis.chess.engine.piece.Color
+import edu.austral.dissis.twoDBoardGame.game.Game
+import edu.austral.dissis.twoDBoardGame.piece.Color
 
 sealed interface MovementResult{
     fun getMessage(): String
@@ -12,7 +13,7 @@ class InvalidMovement : MovementResult {
     }
 }
 
-class ValidMovement: MovementResult {
+class ValidMovement (val game: Game): MovementResult {
     override fun getMessage(): String {
         return "Valid Movement"
     }

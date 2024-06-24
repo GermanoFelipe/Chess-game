@@ -6,8 +6,8 @@ import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.chess.engine.movement.piecesMovRules.DefaultMovementRules
 import edu.austral.dissis.chess.engine.piece.ChessPieceType
-import edu.austral.dissis.chess.engine.piece.Color
-import edu.austral.dissis.chess.engine.piece.Piece
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.engine.rules.ChessRuleManager
 import edu.austral.dissis.twoDBoardGame.results.Invalid
@@ -62,7 +62,7 @@ class ChessTests {
     assert(piece != null)
     assert(piece!!.type == ChessPieceType.ROOK)
     assert(piece.pieceColor == Color.WHITE)
-    assert(piece.hasMoveed == false)
+    assert(piece.hasMoved == false)
     assert(piece.id == ChessPieceType.ROOK.string)
     //assert(piece.pieceRules == DefaultMovementRules().createRookRules())
   }

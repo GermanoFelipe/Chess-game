@@ -1,14 +1,16 @@
 package edu.austral.dissis.twoDBoardGame.game
 
 import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.piece.Piece
+import edu.austral.dissis.twoDBoardGame.board.Board
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
 data class Movement (
   private val from: Position,
   private val to: Position,
-  private val board: DefaultBoard,
-  private val piece: Piece,
+  private val board: Board,
+  private val turn: Color
   ) {
 
   fun getFrom(): Position {
@@ -19,10 +21,10 @@ data class Movement (
     return to
   }
 
-  fun getBoard(): DefaultBoard {
+  fun getBoard(): Board {
     return board
   }
-  fun getPiece(): Piece {
-    return piece
+  fun getTurn(): Color {
+    return turn
   }
 }

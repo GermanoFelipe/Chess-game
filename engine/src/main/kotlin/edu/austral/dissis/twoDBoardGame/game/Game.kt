@@ -1,51 +1,78 @@
 package edu.austral.dissis.twoDBoardGame.game
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.game.results.*
 import edu.austral.dissis.twoDBoardGame.position.Position
-import edu.austral.dissis.chess.engine.piece.Piece
-import edu.austral.dissis.chess.engine.rules.ChessRuleManager
-import edu.austral.dissis.twoDBoardGame.results.Invalid
-import edu.austral.dissis.twoDBoardGame.results.MovementResult
-import edu.austral.dissis.twoDBoardGame.results.Valid
+import edu.austral.dissis.twoDBoardGame.piece.Piece
+import edu.austral.dissis.twoDBoardGame.board.Board
+import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
+import edu.austral.dissis.twoDBoardGame.game.mover.MovementApplier
+import edu.austral.dissis.twoDBoardGame.results.*
+import edu.austral.dissis.twoDBoardGame.rules.RuleManager
+import edu.austral.dissis.twoDBoardGame.winCondition.WinCondition
 
 
 class Game (
-  val board: DefaultBoard,
+  val board: Board,
   val turn: TurnManager,
-  val rules: List<Rule>,
-  val history: Map<Piece, List<Movement>>,
-  val ruleManager: ChessRuleManager
+  val rules: List<RuleManager>,
+  val history: Map<Piece?, List<Movement>>,
+  val winningCondition: WinCondition,
+  val movementApplier: MovementApplier = DefaultMovApplier()
   ) {
 
 
   fun movePiece(from: Position, to: Position): MovementResult {
-    val piece = board.getPiece(from) ?: return Invalid()
+    val move = Movement(from, to, this.board, turn.actualTurn())
 
-    val movement = Movement(from, to, board, piece)
+    val gameValidation = validateGameRules(move)
+    if (gameValidation !is ValidMovement) return gameValidation
 
-    when (ruleManager.checkMovement(this, movement)) {
-      is Valid -> {
-        val newBoard = board.movePiece(from, to)
+    val pieceValidation = validatePieceRules(move)
+    if (pieceValidation !is ValidMovement) return pieceValidation
 
-        val newHistory = history.toMutableMap()
-        newHistory[piece] = newHistory[piece]?: listOf()
-        val updateMovements = newHistory[piece]!! + movement
-        newHistory[piece] = updateMovements
+    val turnValidation = validateTurnRules(move)
+    if (turnValidation !is ValidMovement) return turnValidation
 
-        val changeTurn = turn.nextTurn()
+    //checkMate
 
-        return Valid(Game(newBoard, changeTurn, newHistory, ruleManager))
+    return pieceValidation
+    }
+
+  fun validateGameRules (move: Movement): MovementResult {
+    for (rule in rules) {
+      return when(val result = rule.checkMovement(this, move)) {
+        is Invalid -> InvalidMovement()
+        is Valid -> continue
       }
+    }
+    return ValidMovement(this)
+  }
 
-      is Invalid -> {
-        return Invalid()
-      }
+  fun validatePieceRules(move: Movement): MovementResult {
+    val pieceToMove = board.getPiece(move.getFrom()) ?: return InvalidMovement()
 
-     // is GameRuleBroken -> TODO()
-     // is NoPieceInPosition -> TODO()
-     // is PieceRuleBroken -> TODO()
+    return when(val result = pieceToMove.validateMovement(move, this)){
+      is Valid -> makeMovement(move, board)
+      is Invalid -> InvalidMovement()
     }
   }
+
+  fun makeMovement(move: Movement, board: Board): ValidMovement{
+    val newBoard = movementApplier.applyMovement(move, board)
+    val newHistory = history + (move.getBoard().getPiece(move.getFrom())
+            to (history[move.getBoard().getPiece(move.getFrom())] ?: listOf()) + move)
+    return ValidMovement(
+      Game(newBoard, turn.nextTurn(), rules, newHistory, winningCondition, movementApplier))
+  }
+
+  fun validateTurnRules(move: Movement): MovementResult {
+    return when(val result = turn.validateTurn(move, board)){
+      is Valid -> ValidMovement(this)
+      is Invalid -> InvalidMovement()
+    }
+  }
+
+  // fun getEnemyColor
+  // fun isCheckMate
+
 
 }

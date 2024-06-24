@@ -1,6 +1,6 @@
-package edu.austral.dissis.twoDBoardGame.Board
+package edu.austral.dissis.twoDBoardGame.board
 
-import edu.austral.dissis.chess.engine.piece.Piece
+import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
 interface Board {

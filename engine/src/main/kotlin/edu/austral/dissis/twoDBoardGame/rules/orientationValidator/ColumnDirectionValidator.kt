@@ -1,10 +1,7 @@
-package edu.austral.dissis.twoDBoardGame.rules.orientation
+package edu.austral.dissis.twoDBoardGame.rules.orientationValidator
 
-import edu.austral.dissis.chess.engine.board.DefaultBoard
-import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
-import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.twoDBoardGame.results.Invalid
 import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid

@@ -1,7 +1,11 @@
 package edu.austral.dissis.chess.engine.game
 
+import edu.austral.dissis.twoDBoardGame.board.Board
+import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.game.TurnManager
-import edu.austral.dissis.chess.engine.piece.Color
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.results.RuleResult
+import edu.austral.dissis.twoDBoardGame.results.Valid
 
 class TurnDefault (
         private val turnColor: Color
@@ -22,5 +26,9 @@ class TurnDefault (
   override fun nextColor(turn: Color): Color {
     return if (turn == Color.WHITE) Color.BLACK
     else Color.WHITE
+  }
+
+  override fun validateTurn(move: Movement, board: Board): RuleResult {
+    return Valid()
   }
 }

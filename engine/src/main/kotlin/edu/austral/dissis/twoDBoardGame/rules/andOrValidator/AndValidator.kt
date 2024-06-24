@@ -11,8 +11,7 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import java.lang.IllegalArgumentException
 
-class AndValidator (val validator1: PieceRuleValidator,
-                    val validator2: PieceRuleValidator,
+class AndValidator (
                     val rules: List<RuleManager>
                     ): RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
