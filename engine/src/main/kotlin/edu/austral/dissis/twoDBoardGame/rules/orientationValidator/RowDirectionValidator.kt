@@ -12,6 +12,6 @@ class RowDirectionValidator : RuleManager {
     override fun checkMovement(game: Game, movement: Movement): RuleResult {
         return if (movement.getFrom().row == movement.getTo().row
             && movement.getFrom().column != movement.getTo().column) Valid()
-        else Invalid()
+        else Invalid("Invalid movement: Pieces can only move in the same row")
     }
 }

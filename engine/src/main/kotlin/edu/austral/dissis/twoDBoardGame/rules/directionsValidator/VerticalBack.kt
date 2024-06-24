@@ -11,7 +11,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class VerticalBack: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid()
+    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("There is no piece to move")
     return if (pieceToUse.pieceColor == Color.WHITE) {
       forWhite(movement.getFrom(), movement.getTo())
     } else {
@@ -20,10 +20,10 @@ class VerticalBack: RuleManager {
   }
 
   fun forWhite(from: Position, to: Position): RuleResult {
-    return if (from.row > to.row) Valid() else Invalid()
+    return if (from.row > to.row) Valid() else Invalid("Invalid movement, you can only move backwards.")
   }
 
   fun forBlack(from: Position, to: Position): RuleResult {
-    return if (from.row < to.row) Valid() else Invalid()
+    return if (from.row < to.row) Valid() else Invalid("Invalid movement, you can only move backwards.")
   }
 }

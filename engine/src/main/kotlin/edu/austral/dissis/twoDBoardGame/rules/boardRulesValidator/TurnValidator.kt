@@ -12,7 +12,7 @@ class TurnValidator: RuleManager {
     val fromPiece = movement.getBoard().getPiece(movement.getFrom())
 
     return if (fromPiece != null) {
-      if (fromPiece.pieceColor == game.turn.actualTurn()) Valid() else Invalid()
-    } else Invalid()
+      if (fromPiece.pieceColor == game.turn.actualTurn()) Valid() else Invalid("Not your turn!")
+    } else Invalid("No piece in the selected position!")
   }
 }

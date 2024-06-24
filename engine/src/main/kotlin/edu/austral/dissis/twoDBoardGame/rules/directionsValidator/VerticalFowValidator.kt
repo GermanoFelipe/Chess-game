@@ -11,7 +11,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class VerticalFowValidator: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid()
+    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("No piece to move")
     return if (pieceToUse.pieceColor == Color.WHITE){
       (forWhite(movement.getFrom(), movement.getTo()))
     } else forBlack(movement.getFrom(), movement.getTo())
@@ -20,12 +20,12 @@ class VerticalFowValidator: RuleManager {
   private fun forWhite(from: Position, to: Position): RuleResult {
     return if (from.row < to.row) {
       Valid()
-    } else Invalid()
+    } else Invalid("Invalid movement for white piece")
   }
 
   private fun forBlack(from: Position, to: Position): RuleResult {
     return if (from.row > to.row){
       Valid()
-    } else Invalid()
+    } else Invalid("Invalid movement for black piece")
   }
 }

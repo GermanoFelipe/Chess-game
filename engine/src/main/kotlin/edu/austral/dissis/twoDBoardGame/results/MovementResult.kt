@@ -7,9 +7,9 @@ sealed interface MovementResult{
     fun getMessage(): String
 }
 
-class InvalidMovement : MovementResult {
+class InvalidMovement(var message: String) : MovementResult {
     override fun getMessage(): String {
-        return "Invalid Movement"
+        return message
     }
 }
 

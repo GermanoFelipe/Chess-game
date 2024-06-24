@@ -15,7 +15,7 @@ class RowNoPieceInPathValidator : RuleManager {
 
   for (i in min + 1 until max) {
       return if (movement.getBoard().getPiece(Position(movement.getFrom().row, i)) != null) {
-        Invalid()
+        Invalid("There is a piece in the path")
       } else Valid()
     }
     return Valid()

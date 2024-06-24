@@ -16,7 +16,8 @@ class DiagonalNoPieceInPathValidator : RuleManager {
     val minRow = minOf(movement.getFrom().row, movement.getTo().row)
     val minColumn = minOf(movement.getFrom().column, movement.getTo().column)
     for (i in 1 until steps) {
-      if (movement.getBoard().getPiece(Position(minRow + i, minColumn + i)) != null) return Invalid()
+      if (movement.getBoard().getPiece(Position(minRow + i, minColumn + i)) != null)
+        return Invalid("There is a piece in the path")
     }
     return Valid()
   }

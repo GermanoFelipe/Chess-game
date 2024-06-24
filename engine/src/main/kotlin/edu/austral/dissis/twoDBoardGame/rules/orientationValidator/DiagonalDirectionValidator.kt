@@ -13,6 +13,6 @@ class DiagonalDirectionValidator: RuleManager {
     if (movement.getFrom().row != movement.getTo().row && movement.getFrom().column != movement.getTo().column &&
       (movement.getFrom().row - movement.getTo().row).absoluteValue == (movement.getFrom().column - movement.getTo().column).absoluteValue)
       return Valid()
-    else return Invalid()
+    else return Invalid("Invalid Movement: Diagonal Direction is not allowed")
   }
 }

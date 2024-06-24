@@ -13,17 +13,17 @@ class ColumnNoPieceInPathValidator : RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
     val min = minOf(movement.getFrom().row, movement.getTo().row)
     val max = maxOf(movement.getFrom().row, movement.getTo().row)
-    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid()
+    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("There is no piece to move")
     if (pieceToUse.pieceColor == Color.WHITE) {
       for (i in max + 1 until min) {
         return if (movement.getBoard().getPiece(Position(i, movement.getFrom().column)) != null) {
-          Invalid()
+          Invalid("There is a piece in the path")
         } else Valid()
       }
     } else {
       for (i in min + 1 until max) {
         return if (movement.getBoard().getPiece(Position(i, movement.getFrom().column)) != null) {
-          Invalid()
+          Invalid("There is a piece in the path")
         } else Valid()
       }
     }

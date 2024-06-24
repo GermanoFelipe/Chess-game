@@ -17,6 +17,6 @@ class PermanentLimit (
 
     return if (absRow == exactLimit || absColumn == exactLimit) {
       Valid()
-    } else Invalid()
+    } else Invalid("Invalid Movement")
   }
 }

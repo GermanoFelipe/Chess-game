@@ -16,6 +16,6 @@ class LimitValidator(
     val absRow = abs (movement.getFrom().row - movement.getTo().row)
     return if (absColumn <= limit && absRow <= limit) {
       Valid()
-    } else Invalid()
+    } else Invalid("Invalid Movement: Limit Exceeded")
   }
 }

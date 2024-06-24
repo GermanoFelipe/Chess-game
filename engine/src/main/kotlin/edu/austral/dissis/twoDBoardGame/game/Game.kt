@@ -41,7 +41,7 @@ class Game (
   fun validateGameRules (move: Movement): MovementResult {
     for (rule in rules) {
       return when(val result = rule.checkMovement(this, move)) {
-        is Invalid -> InvalidMovement()
+        is Invalid -> InvalidMovement(message = result.message)
         is Valid -> continue
       }
     }
@@ -49,11 +49,11 @@ class Game (
   }
 
   fun validatePieceRules(move: Movement): MovementResult {
-    val pieceToMove = board.getPiece(move.getFrom()) ?: return InvalidMovement()
+    val pieceToMove = board.getPiece(move.getFrom()) ?: return InvalidMovement("No piece to selected")
 
     return when(val result = pieceToMove.validateMovement(move, this)){
       is Valid -> makeMovement(move, board)
-      is Invalid -> InvalidMovement()
+      is Invalid -> InvalidMovement(message = result.message)
     }
   }
 
@@ -68,7 +68,7 @@ class Game (
   fun validateTurnRules(move: Movement): MovementResult {
     return when(val result = turn.validateTurn(move, board)){
       is Valid -> ValidMovement(this)
-      is Invalid -> InvalidMovement()
+      is Invalid -> InvalidMovement(message = result.message)
     }
   }
 

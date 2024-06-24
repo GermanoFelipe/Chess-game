@@ -12,6 +12,6 @@ class InBoardValidator : RuleManager {
         return if (movement.getFrom().row in 1..8 && movement.getFrom().column in 1..8 &&
             movement.getTo().row in 1..8 && movement.getTo().column in 1..8
         ) Valid()
-        else Invalid()
+        else Invalid("Movement out of board")
     }
 }

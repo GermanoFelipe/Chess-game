@@ -11,6 +11,6 @@ class ToLeftValidator: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
     return if (movement.getFrom().column > movement.getTo().column){
       Valid()
-    } else Invalid()
+    } else Invalid("Invalid movement to the left")
   }
 }

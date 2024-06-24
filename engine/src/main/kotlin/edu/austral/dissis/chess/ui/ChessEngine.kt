@@ -4,7 +4,6 @@ import edu.austral.dissis.chess.engine.factory.createDefaultBoard
 import edu.austral.dissis.chess.engine.game.TurnDefault
 import edu.austral.dissis.chess.engine.winCondition.CheckMate
 import edu.austral.dissis.twoDBoardGame.game.Game
-import edu.austral.dissis.twoDBoardGame.results.MovementResult
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -47,10 +46,10 @@ class ChessEngine: GameEngine {
         newGameStateAdapter(result)
       }
       is InvalidMovement -> {
-        invalidMoveAdapter(result)
+        InvalidMove(result.message)
       }
       is WinnerResult -> {
-        gameOverAdapter(Color.WHITE)
+        GameOver(colorAdapter(result.winner))
       }
     }
   }
@@ -129,20 +128,11 @@ class ChessEngine: GameEngine {
 
   // MoveResult adapters
 
-  fun invalidMoveAdapter(invalid : MovementResult): MoveResult {
-    val message = invalid.getMessage()
-    return InvalidMove(message)
-  }
 
 fun newGameStateAdapter(state: ValidMovement): MoveResult {
   game = state.game
   return NewGameState(getPieces(), getActualPlayerColor(), UndoState(canUndo(), canRedo()))
 }
-
-  fun gameOverAdapter(color: Color): MoveResult {
-    val winner = colorAdapter(color)
-    return GameOver(winner)
-  }
 
   fun updateGame(newGame: Game){
     this.game = newGame

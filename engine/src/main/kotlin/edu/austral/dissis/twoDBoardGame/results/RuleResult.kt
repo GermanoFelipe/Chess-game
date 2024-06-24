@@ -6,13 +6,13 @@ sealed interface RuleResult {
   fun getMessage(): String
 }
 
-class Valid () : RuleResult {
+class Valid : RuleResult {
   override fun getMessage(): String {
     return "Valid Movement"
   }
 }
-class Invalid: RuleResult {
+class Invalid (var message: String): RuleResult {
   override fun getMessage(): String {
-    return "Invalid Movement"
+    return message
   }
 }
