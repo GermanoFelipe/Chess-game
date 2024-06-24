@@ -27,8 +27,8 @@ fun moveInRow(): RuleManager{
 fun moveInColumn(): RuleManager{
   return AndValidator(
     listOf(
-        RowDirectionValidator(),
-        RowNoPieceInPathValidator()
+        ColumnDirectionValidator(),
+        ColumnNoPieceInPathValidator()
     )
   )
 }

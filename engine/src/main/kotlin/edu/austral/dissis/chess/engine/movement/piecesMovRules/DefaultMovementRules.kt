@@ -1,17 +1,5 @@
 package edu.austral.dissis.chess.engine.movement.piecesMovRules
 
-import edu.austral.dissis.chess.engine.movement.validator.GeneralPieceRules.PieceRuleValidator
-import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.AndValidator
-import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
-import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.ColumnDirectionValidator
-import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.DiagonalDirectionValidator
-import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.RowDirectionValidator
-import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.ColumnNoPieceInPathValidator
-import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.DiagonalNoPieceInPathValidator
-import edu.austral.dissis.twoDBoardGame.rules.inPathValidator.RowNoPieceInPathValidator
-import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.InBoardValidator
-import edu.austral.dissis.twoDBoardGame.rules.limitsValidator.LimitValidator
-
 //class DefaultMovementRules {
 //  fun createRookRules(): PieceRuleValidator {
 //    val limit = 7

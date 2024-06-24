@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.movement.validator.limits
+package edu.austral.dissis.chess.engine.rules.winCondition
 
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -7,11 +7,14 @@ import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
-class HasMovedLimit: RuleManager {
+class IsNotInCheck : RuleManager {
+  val check = Check()
   override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val piece = game.board.getPiece(movement.getFrom())
-    val pieceMoved = piece!!.hasMoved() //true if moved
-    return if (pieceMoved) Invalid("Piece has already moved")
-    else Valid()
+    val boardMoved = game.board.movePiece(movement.getFrom(), movement.getTo())
+
+    if (check.inCheck(game, boardMoved, movement.getTurn() )){
+      return Invalid("You cant leave in Check")
+    }
+    return Valid()
   }
 }

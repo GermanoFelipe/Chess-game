@@ -1,9 +1,10 @@
 package edu.austral.dissis.twoDBoardGame.winCondition
 
-import edu.austral.dissis.twoDBoardGame.board.Board
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
+import edu.austral.dissis.twoDBoardGame.game.Game
+import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
-import java.awt.Color
 
 interface WinCondition {
-  fun checkWinner(board: Board, color: Color, gameRules: List<RuleManager>): Boolean
+  fun checkWinner(board: DefaultBoard, color: Color, gameRules: List<RuleManager>, game: Game): Boolean
 }

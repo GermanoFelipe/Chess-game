@@ -1,7 +1,8 @@
 package edu.austral.dissis.chess.engine.factory
 
 import edu.austral.dissis.chess.engine.game.TurnDefault
-import edu.austral.dissis.chess.engine.winCondition.CheckMate
+import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
+import edu.austral.dissis.chess.engine.rules.winCondition.IsNotInCheck
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
@@ -19,7 +20,7 @@ object DefualtChessGame{
       turn = TurnDefault(Color.WHITE),
       rules = createNormalRules(),
       history = mapOf<Piece?, List<Movement>>(),
-      winningCondition = CheckMate(),
+      winningCondition = IsCheckMate(),
       movementApplier = DefaultMovApplier()
     )
 
@@ -33,11 +34,14 @@ fun createDefaultChess (): Game {
     turn = TurnDefault(Color.WHITE),
     rules = createNormalRules(),
     history = mapOf<Piece?, List<Movement>>(),
-    winningCondition = CheckMate(),
+    winningCondition = IsCheckMate(),
     movementApplier = DefaultMovApplier()
   )
 }
 
 fun createNormalRules(): List<RuleManager>{
-  return listOf(PieceExistsValidator(), TurnValidator(), SameTeamValidator()) //falta el check
+  return listOf(PieceExistsValidator(),
+    TurnValidator(),
+    SameTeamValidator(),
+    IsNotInCheck())
 }
