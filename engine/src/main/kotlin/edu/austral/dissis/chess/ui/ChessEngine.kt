@@ -29,22 +29,20 @@ class ChessEngine: GameEngine {
     val to = Position(move.to.row, move.to.column)
 
     return when (val result = game.movePiece(from, to)) {
-      is SuccessfullMovementResult -> {
-        undoStack.push(game)
+      is SuccessfullMovementResult -> { undoStack.push(game)
         redoStack.clear()
-        newGameStateAdapter(result)
+        getNewGameState(result)
       }
-      is UnsuccessfullMovementResult -> {
-        InvalidMove(result.message)
-      }
-      is WinnerResult -> {
-        GameOver(colorAdapter(result.winner))
-      }
+      is UnsuccessfullMovementResult -> { InvalidMove(result.message) }
+
+      is WinnerResult -> { GameOver(colorAdapter(result.winner)) }
     }
   }
 
   override fun init(): InitialState {
-    return InitialState(boardSizeAdapter(), getPieces(), getActualPlayerColor())
+    return InitialState(boardSizeAdapter(),
+      getPieces(),
+      getActualPlayerColor())
   }
 
 
@@ -120,7 +118,7 @@ class ChessEngine: GameEngine {
   // MoveResult adapters
 
 
-fun newGameStateAdapter(state: SuccessfullMovementResult): MoveResult {
+fun getNewGameState(state: SuccessfullMovementResult): MoveResult {
   game = state.game
   return NewGameState(getPieces(), getActualPlayerColor(), UndoState(canUndo(), canRedo()))
 }

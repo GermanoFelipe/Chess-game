@@ -1,6 +1,6 @@
 package edu.austral.dissis.chess.engine.factory
 
-import edu.austral.dissis.chess.engine.rules.uniques.KnightMovement
+import edu.austral.dissis.chess.engine.rules.KnightMovement
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.results.ApplyMovement
 import edu.austral.dissis.twoDBoardGame.results.ConvertPiece

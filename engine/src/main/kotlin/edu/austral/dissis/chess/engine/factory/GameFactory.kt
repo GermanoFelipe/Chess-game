@@ -1,6 +1,6 @@
 package edu.austral.dissis.chess.engine.factory
 
-import edu.austral.dissis.chess.engine.game.TurnDefault
+import edu.austral.dissis.chess.engine.chessTurn.TurnDefault
 import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
 import edu.austral.dissis.chess.engine.rules.winCondition.IsNotInCheck
 import edu.austral.dissis.twoDBoardGame.game.Game

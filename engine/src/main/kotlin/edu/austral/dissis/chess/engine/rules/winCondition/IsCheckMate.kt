@@ -1,6 +1,5 @@
 package edu.austral.dissis.chess.engine.rules.winCondition
 
-import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -13,14 +12,19 @@ import java.util.NoSuchElementException
 
 class IsCheckMate : WinCondition {
   val check = Check()
-  override fun checkWinner(board: DefaultBoard, color: Color, gameRules: List<RuleManager>, game: Game): Boolean {
-    val piecePositions = getEnemies(board, color)
+
+  override fun checkWinner(board: DefaultBoard,
+                           enemy: Color,
+                           gameRules: List<RuleManager>,
+                           game: Game): Boolean {
+
+    val piecePositions = getEnemies(board, enemy)
 
     for (piecePosition in piecePositions){
       val validMoves = findALlMovements(piecePosition, board, gameRules, game)
 
       for (validMove in validMoves){
-        if (notInCheck(board, validMove, color, game)){
+        if (notInCheck(board, validMove, enemy, game)){
           return false
         }
       }
@@ -30,12 +34,14 @@ class IsCheckMate : WinCondition {
 
 
   fun findALlMovements(position: Position, board: DefaultBoard,
-                       ruleManager: List<RuleManager>, game: Game): List<Movement> {
+                       ruleManager: List<RuleManager>,
+                       game: Game): List<Movement> {
+
     val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
     val color = piece.pieceColor
     var movements = emptyList<Movement>()
     for (i in 1..board.getRow()) {
-      for (j in 0..board.getColumn()) {
+      for (j in 1..board.getColumn()) {
         val to = Position(i, j)
         val movement = Movement(position, to, board, color)
         if (piece.validateMovement(movement, game) is Valid && ruleManager.all {
@@ -52,14 +58,15 @@ class IsCheckMate : WinCondition {
 
   fun getEnemies (
     board: DefaultBoard,
-    enemy: Color) : List<Position> {
+    enemy: Color)  = board.getUsedPositions().filter{ position ->
+    board.getPiece(position)?.pieceColor == enemy }
 
-    val usingPositions = board.getUsedPositions()
 
-    return usingPositions.filter { position -> board.getPiece(position)?.pieceColor == enemy }
-  }
 
-  fun notInCheck (board: DefaultBoard, validMove: Movement, enemy: Color, game: Game): Boolean{
+  fun notInCheck (board: DefaultBoard,
+                  validMove: Movement,
+                  enemy: Color,
+                  game: Game): Boolean{
     val newBoard = board.movePiece(validMove.getFrom(), validMove.getTo())
     return !check.inCheck(game, newBoard, enemy)
   }

@@ -13,7 +13,8 @@ import java.util.NoSuchElementException
 class Check {
 
   fun inCheck(game: Game, board: DefaultBoard, kingTeam: Color): Boolean{
-    val kingPosition = kingPosition(board, kingTeam) ?: return false
+    val kingPosition = kingPosition(board, kingTeam) ?: throw NoSuchElementException("No king in board")
+
     val opponentPieces = board.getUsedPositions()
 
     for(position in opponentPieces){
@@ -25,25 +26,30 @@ class Check {
   }
 
   fun kingPosition(board: DefaultBoard, kingTeam: Color): Position? {
-    board.getUsedPositions().forEach(){position ->
+    board.getUsedPositions().forEach {position ->
       if (board.getPiece(position)?.type == ChessPieceType.KING &&
-    board.getPiece(position)?.pieceColor == kingTeam){
-      return position }
+          board.getPiece(position)?.pieceColor == kingTeam){
+          return position
+      }
     }
     return null
   }
 
-  fun pieceAttacksKing(board: DefaultBoard, position: Position,
-                       kingColor: Color, kingPosition: Position, game: Game): Boolean{
+  fun pieceAttacksKing(board: DefaultBoard,
+                       position: Position,
+                       kingColor: Color,
+                       kingPosition: Position,
+                       game: Game): Boolean{
+
     if (board.getPiece(position)?.pieceColor != kingColor){
       val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
-      val movement = Movement(position,kingPosition, board, kingColor)
+      val movement = Movement(position, kingPosition, board, kingColor)
 
       when (
         piece.validateMovement(movement, game)
       ) {
         is Valid -> return true
-        is Invalid -> {  }
+        is Invalid -> {}
       }
     }
     return false

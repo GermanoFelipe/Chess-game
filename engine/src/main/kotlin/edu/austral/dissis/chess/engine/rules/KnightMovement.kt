@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.rules.uniques
+package edu.austral.dissis.chess.engine.rules
 
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement

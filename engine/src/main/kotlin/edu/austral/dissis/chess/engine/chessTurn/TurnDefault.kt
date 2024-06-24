@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.engine.game
+package edu.austral.dissis.chess.engine.chessTurn
 
 import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.game.Movement
