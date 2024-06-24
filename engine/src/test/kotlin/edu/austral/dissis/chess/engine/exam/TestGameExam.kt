@@ -28,15 +28,9 @@ import edu.austral.dissis.chess.test.game.TestMoveSuccess
 import edu.austral.dissis.chess.ui.ChessEngine
 import java.util.*
 
-class TestGameExam (private var game: Game) : TestGameRunner {
+class TestGameExam (private var engine: ChessEngine) : TestGameRunner {
 
-  val board = game.board
 
-  private val turn = game.turn
-
-  val rules = game.ruleManager
-
-  //var game = Game(board, turn, mapOf<Piece, List<Movement>>(), rules)
 
   val undoStack = Stack<Game>()
 
@@ -46,7 +40,7 @@ class TestGameExam (private var game: Game) : TestGameRunner {
     val newPos = positionAdapterFromThemToMine(from)
     val fromRow = newPos.row
     val fromCol = newPos.column
-    val result = game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
+    val result = engine.game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
 
     return if (result is ValidMovement) {
       return TestMoveSuccess(this)
@@ -56,16 +50,15 @@ class TestGameExam (private var game: Game) : TestGameRunner {
   }
 
   override fun getBoard(): TestBoard {
-    val rowSize = board.row
-    val colSize = board.column
+    val rowSize = engine.game.board.row
+    val colSize = engine.game.board.column
     val translatedSize = TestSize(rowSize, colSize)
     var translatedPiece: Map<TestPosition, TestPiece> = mapOf()
-    for (piece in board.getPieces()){
+    for (piece in engine.game.board.getPieces()){
       val newPosition = translateMyPositionToThem(piece.key)
-      val color = piece.value.pieceColor
-      val translateColor = translateMyColorToThem(color)
+      val color = translateMyColorToThem(piece.value.pieceColor)
       val translatePiece = translatePieceMineToThem(piece.value)
-      val newPiece = TestPiece(translatePiece, translateColor)
+      val newPiece = TestPiece(translatePiece, color)
       translatedPiece = translatedPiece + (newPosition to newPiece)
     }
     return TestBoard(translatedSize, translatedPiece)
@@ -106,9 +99,8 @@ class TestGameExam (private var game: Game) : TestGameRunner {
       }
     }
     val newBoard = DefaultBoard(board.size.rows, board.size.cols, pieces)
-    val newGame = Game(newBoard, turn, mapOf(), rules)
-    val engine = ChessEngine()
-    this.game = newGame
+    val newGame = Game(newBoard, engine.game.turn, mapOf(), engine.game.ruleManager)
+    engine = ChessEngine(newGame)
     return this
   }
 

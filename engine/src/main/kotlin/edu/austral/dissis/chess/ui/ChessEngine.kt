@@ -17,23 +17,13 @@ import edu.austral.dissis.chess.engine.rules.RuleManager
 import edu.austral.dissis.chess.gui.*
 import java.util.Stack
 
-class ChessEngine () : GameEngine {
+class ChessEngine (var game: Game) : GameEngine {
 
-  val board = DefaultBoard(8,8, emptyMap())
-
-  private val turn = TurnDefault(Color.WHITE)
-
-  val rules = ChessRuleManager()
-
-  private var game = Game(board, turn, mapOf<Piece, List<Movement>>(), rules)
 
   val undoStack = Stack<Game>()
 
   val redoStack = Stack<Game>()
 
-  fun setGame(game: Game) {
-    this.game = game
-  }
 
   override fun applyMove(move: Move): MoveResult {
     val from = Position(move.from.row, move.from.column)
@@ -43,7 +33,7 @@ class ChessEngine () : GameEngine {
     val result = game.movePiece(from, to)
 
     return if (result is ValidMovement) {
-      val newPieces = piecesAdapter(board.getPieces())
+      val newPieces = piecesAdapter(game.board.getPieces())
 
       val newTurn = game.turn.nextTurn()
 

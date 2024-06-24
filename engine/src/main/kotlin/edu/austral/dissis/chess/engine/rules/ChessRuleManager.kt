@@ -11,6 +11,7 @@ import edu.austral.dissis.chess.engine.piece.Position
 class ChessRuleManager: RuleManager {
   override fun checkMovement(game: Game, movement: Movement): MovementResult {
     val pieceToCheck = movement.getPiece()
+    val colorToCheck = pieceToCheck.pieceColor
     val ruleResult = pieceToCheck.pieceRules
     val from = movement.getFrom()
     val to = movement.getTo()
