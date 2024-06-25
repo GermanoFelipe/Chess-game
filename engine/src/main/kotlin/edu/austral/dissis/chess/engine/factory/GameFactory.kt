@@ -19,7 +19,6 @@ object DefualtChessGame{
       board = createDefaultBoard(),
       turn = TurnDefault(Color.WHITE),
       rules = createNormalRules(),
-      history = mapOf<Piece?, List<Movement>>(),
       winningCondition = IsCheckMate(),
       movementApplier = DefaultMovApplier()
     )
@@ -33,7 +32,6 @@ fun createDefaultChess (): Game {
     board = createDefaultBoard(),
     turn = TurnDefault(Color.WHITE),
     rules = createNormalRules(),
-    history = mapOf<Piece?, List<Movement>>(),
     winningCondition = IsCheckMate(),
     movementApplier = DefaultMovApplier()
   )

@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.directionsValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -10,10 +11,9 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class VerticalFowValidator: RuleManager {
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("No piece to move")
-    return if (pieceToUse.pieceColor == Color.WHITE){
-      (forWhite(movement.getFrom(), movement.getTo()))
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+    return if (movement.getTurn() == Color.WHITE) {
+      forWhite(movement.getFrom(), movement.getTo())
     } else forBlack(movement.getFrom(), movement.getTo())
   }
 

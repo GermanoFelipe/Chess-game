@@ -1,6 +1,7 @@
 package edu.austral.dissis.twoDBoardGame.piece
 
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.results.RuleResult
@@ -13,8 +14,8 @@ data class Piece(val type: PieceType,
                  val pieceRuleManager: RuleManager,
             ) {
 
-  fun validateMovement(movement: Movement, game: Game): RuleResult {
-    return pieceRuleManager.checkMovement(game, movement)
+  fun validateMovement(movement: Movement, board: DefaultBoard): RuleResult {
+    return pieceRuleManager.checkMovement(board, movement)
   }
   fun hasMoved(): Boolean {
     return hasMoved

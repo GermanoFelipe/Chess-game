@@ -40,7 +40,7 @@ class TestGameExam () : TestGameRunner {
     val newPos = positionAdapterFromThemToMine(from)
     val fromRow = newPos.row
     val fromCol = newPos.column
-    val result = engine.game.movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
+    val result = engine.getGame().movePiece(Position(fromRow, fromCol), Position(to.row, to.col))
 
     return if (result is SuccessfullMovementResult) {
       return TestMoveSuccess(this)
@@ -50,11 +50,11 @@ class TestGameExam () : TestGameRunner {
   }
 
   override fun getBoard(): TestBoard {
-    val rowSize = engine.game.board.getRow()
-    val colSize = engine.game.board.getColumn()
+    val rowSize = engine.getGame().getBoard().getRow()
+    val colSize = engine.getGame().getBoard().getColumn()
     val translatedSize = TestSize(rowSize, colSize)
     var translatedPiece: Map<TestPosition, TestPiece> = mapOf()
-    for (piece in engine.game.board.getPieces()){
+    for (piece in engine.getGame().getBoard().getPieces()){
       val newPosition = translateMyPositionToThem(piece.key)
       val color = translateMyColorToThem(piece.value.pieceColor)
       val translatePiece = translatePieceMineToThem(piece.value)
@@ -135,7 +135,7 @@ class TestGameExam () : TestGameRunner {
     val newBoard = DefaultBoard(board.size.rows, board.size.cols, pieces)
     val rules = mutableListOf<RuleManager>()
     val winCondition = IsCheckMate()
-    val newGame = Game(newBoard, engine.game.turn, rules, emptyMap(), winCondition, engine.game.movementApplier)
+    val newGame = Game(newBoard, engine.getGame().turn, rules, emptyMap(), winCondition, engine.getGame().movementApplier)
     engine = ChessEngine()
     return this
   }

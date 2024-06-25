@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.inPathValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -9,14 +10,26 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class RowNoPieceInPathValidator : RuleManager {
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val min = minOf(movement.getFrom().column, movement.getTo().column)
-    val max = maxOf(movement.getFrom().column, movement.getTo().column)
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+    if (movement.getFrom().row != movement.getTo().row) {
+      return Valid()
+    }
 
-  for (i in min + 1 until max) {
-      return if (movement.getBoard().getPiece(Position(movement.getFrom().row, i)) != null) {
-        Invalid("There is a piece in the path")
-      } else Valid()
+    var currentPosition = if (movement.getFrom().column < movement.getTo().column) {
+      Position(movement.getFrom().row, movement.getFrom().column + 1)
+    } else
+      Position(movement.getFrom().row, movement.getFrom().column - 1)
+
+    while (currentPosition.column != movement.getTo().column) {
+      if (board.getPiece(currentPosition) != null) {
+        return Invalid("There is a piece in the path")
+      }
+
+      currentPosition = if (currentPosition.column < movement.getTo().column) {
+        Position(currentPosition.row, currentPosition.column + 1)
+      } else {
+        Position(currentPosition.row, currentPosition.column - 1)
+      }
     }
     return Valid()
   }

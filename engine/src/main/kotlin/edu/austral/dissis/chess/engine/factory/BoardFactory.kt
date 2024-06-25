@@ -1,13 +1,16 @@
 package edu.austral.dissis.chess.engine.factory
 
+import edu.austral.dissis.chess.gui.BoardSize
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.board.Board
+import edu.austral.dissis.twoDBoardGame.board.Size
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
 fun createDefaultBoard(): DefaultBoard {
   val map: MutableMap<Position, Piece> = mutableMapOf()
+  val size: Size = Size(8,8)
 
  // Pawn
  for (i in 1..8){
@@ -41,5 +44,5 @@ fun createDefaultBoard(): DefaultBoard {
   map[Position(1,5)] = createKing(Color.WHITE)
   map[Position(8,5)] = createKing(Color.BLACK)
 
-  return DefaultBoard(8,8,map)
+  return DefaultBoard(size,map)
 }

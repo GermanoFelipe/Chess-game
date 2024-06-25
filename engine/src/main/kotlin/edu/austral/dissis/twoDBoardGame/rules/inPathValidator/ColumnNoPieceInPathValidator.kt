@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.inPathValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
@@ -10,28 +11,27 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class ColumnNoPieceInPathValidator (private val inclusive: Boolean = false): RuleManager {
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val min = minOf(movement.getFrom().row, movement.getTo().row)
-    val max = maxOf(movement.getFrom().row, movement.getTo().row)
-    val pieceToUse = movement.getBoard().getPiece(movement.getFrom()) ?: return Invalid("There is no piece to move")
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
 
-    if (pieceToUse.pieceColor == Color.WHITE) {
-      for (i in max + 1 until min) {
-        return if (movement.getBoard().getPiece(Position(i, movement.getFrom().column)) != null) {
-          Invalid("There is a piece in the path")
-        } else Valid()
+    var currentPosition = if(movement.getFrom().row < movement.getTo().row){
+      Position(movement.getFrom().row + 1, movement.getFrom().column)
+    } else
+      Position(movement.getFrom().row - 1, movement.getFrom().column)
+
+    while (currentPosition.row != movement.getTo().row) {
+      if (board.getPiece(currentPosition) != null) {
+        return Invalid("There is a piece in the path")
       }
-    } else {
-      for (i in min + 1 until max) {
-        return if (movement.getBoard().getPiece(Position(i, movement.getFrom().column)) != null) {
-          Invalid("There is a piece in the path")
-        } else Valid()
+      currentPosition = if (currentPosition.row < movement.getTo().row) {
+        Position(currentPosition.row + 1, currentPosition.column)
+      } else {
+        Position(currentPosition.row - 1, currentPosition.column)
       }
     }
-
-    return if (!(inclusive) && movement.getBoard().getPiece(movement.getTo()) != null) Valid()
-    else Invalid("There is a piece in the path")
-
-    return Valid()
+    return if(!(inclusive && board.getPiece(movement.getTo()) != null)){
+      Valid()
+    } else {
+      Invalid("There is a piece in the destination")
+    }
   }
 }

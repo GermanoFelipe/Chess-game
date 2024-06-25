@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.inPathValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.position.Position
@@ -10,14 +11,29 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import kotlin.math.abs
 
 class DiagonalNoPieceInPathValidator : RuleManager {
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
-    val rowDiff = movement.getTo().row - movement.getFrom().row
-    val steps = abs(rowDiff)
-    val minRow = minOf(movement.getFrom().row, movement.getTo().row)
-    val minColumn = minOf(movement.getFrom().column, movement.getTo().column)
-    for (i in 1 until steps) {
-      if (movement.getBoard().getPiece(Position(minRow + i, minColumn + i)) != null)
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+    if (abs(movement.getFrom().row - movement.getTo().row) !=
+            abs(movement.getFrom().column - movement.getTo().column)) {
+      return Valid()
+    }
+
+    var currentPosition = movement.getFrom()
+
+    while (currentPosition.row != movement.getTo().row && currentPosition.column != movement.getTo().column) {
+      currentPosition = if (currentPosition.row < movement.getTo().row && currentPosition.column < movement.getTo().column) {
+        Position(currentPosition.row + 1, currentPosition.column + 1)
+      } else if (currentPosition.row < movement.getTo().row) {
+        Position(currentPosition.row + 1, currentPosition.column - 1)
+      } else if (currentPosition.column < movement.getTo().column) {
+        Position(currentPosition.row - 1, currentPosition.column + 1)
+      } else {
+        Position(currentPosition.row - 1, currentPosition.column - 1)
+      }
+
+      if (currentPosition.row != movement.getTo().row &&
+              currentPosition.column != movement.getTo().column && board.getPiece(currentPosition) != null) {
         return Invalid("There is a piece in the path")
+    }
     }
     return Valid()
   }

@@ -15,16 +15,15 @@ class IsCheckMate : WinCondition {
 
   override fun checkWinner(board: DefaultBoard,
                            enemy: Color,
-                           gameRules: List<RuleManager>,
-                           game: Game): Boolean {
+                           gameRules: List<RuleManager>): Boolean {
 
     val piecePositions = getEnemies(board, enemy)
 
     for (piecePosition in piecePositions){
-      val validMoves = findALlMovements(piecePosition, board, gameRules, game)
+      val validMoves = findALlMovements(piecePosition, board, gameRules)
 
       for (validMove in validMoves){
-        if (notInCheck(board, validMove, enemy, game)){
+        if (notInCheck(board, validMove, enemy)){
           return false
         }
       }
@@ -33,9 +32,9 @@ class IsCheckMate : WinCondition {
   }
 
 
-  fun findALlMovements(position: Position, board: DefaultBoard,
-                       ruleManager: List<RuleManager>,
-                       game: Game): List<Movement> {
+  fun findALlMovements(position: Position,
+                       board: DefaultBoard,
+                       ruleManager: List<RuleManager>): List<Movement> {
 
     val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
     val color = piece.pieceColor
@@ -43,9 +42,9 @@ class IsCheckMate : WinCondition {
     for (i in 1..board.getRow()) {
       for (j in 1..board.getColumn()) {
         val to = Position(i, j)
-        val movement = Movement(position, to, board, color)
-        if (piece.validateMovement(movement, game) is Valid && ruleManager.all {
-            it.checkMovement(game, movement) is Valid
+        val movement = Movement(position, to, color)
+        if (piece.validateMovement(movement, board) is Valid && ruleManager.all {
+            it.checkMovement(board, movement) is Valid
           }) {
           movements = movements.plus(movement)
         }
@@ -65,10 +64,9 @@ class IsCheckMate : WinCondition {
 
   fun notInCheck (board: DefaultBoard,
                   validMove: Movement,
-                  enemy: Color,
-                  game: Game): Boolean{
+                  enemy: Color): Boolean{
     val newBoard = board.movePiece(validMove.getFrom(), validMove.getTo())
-    return !check.inCheck(game, newBoard, enemy)
+    return !check.inCheck(newBoard, enemy)
   }
 
 }

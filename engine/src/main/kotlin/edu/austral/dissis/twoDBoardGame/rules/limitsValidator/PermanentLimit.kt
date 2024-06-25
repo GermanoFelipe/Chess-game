@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.limitsValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.results.Invalid
@@ -11,7 +12,7 @@ import java.lang.Math.abs
 class PermanentLimit (
                       val exactLimit: Int
                       ): RuleManager {
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
     val absColumn = abs(movement.getFrom().column - movement.getTo().column)
     val absRow = abs(movement.getFrom().row - movement.getTo().row)
 

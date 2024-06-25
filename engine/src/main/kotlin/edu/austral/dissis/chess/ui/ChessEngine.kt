@@ -21,6 +21,10 @@ class ChessEngine: GameEngine {
 
   private var redoStack = Stack<Game>()
 
+  fun getGame(): Game{
+    return game
+  }
+
   init {
     undoStack.push(game)
   }
@@ -104,7 +108,7 @@ class ChessEngine: GameEngine {
   fun getPiecePosition (position: Position) = edu.austral.dissis.chess.gui.Position(position.row, position.column)
 
   fun getCurrentPlayerColor(): PlayerColor {
-    return if (game.turn.actualTurn() == Color.WHITE) PlayerColor.WHITE
+    return if (game.getTurn() == Color.WHITE) PlayerColor.WHITE
     else PlayerColor.BLACK
   }
 

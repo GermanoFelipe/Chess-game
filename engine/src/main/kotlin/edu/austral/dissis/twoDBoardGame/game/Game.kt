@@ -16,16 +16,15 @@ import java.util.NoSuchElementException
 
 class Game (
   private var board: DefaultBoard,
-  val turn: TurnManager = TurnDefault(Color.WHITE),
-  val rules: List<RuleManager>,
-  val history: Map<Piece?, List<Movement>>,
-  val winningCondition: WinCondition = IsCheckMate(),
-  val movementApplier: MovementApplier = DefaultMovApplier()
+  private val turn: TurnManager = TurnDefault(Color.WHITE),
+  private val rules: List<RuleManager>,
+  private val winningCondition: WinCondition = IsCheckMate(),
+  private val movementApplier: MovementApplier = DefaultMovApplier()
   ) {
 
 
   fun movePiece(from: Position, to: Position): MovementResult {
-    val move = Movement(from, to, this.board, turn.actualTurn())
+    val move = Movement(from, to, turn.actualTurn())
 
     val gameValidation = validateGameRules(move)
     if (gameValidation !is SuccessfullMovementResult) return gameValidation
@@ -36,8 +35,8 @@ class Game (
     val turnValidation = validateTurnRules(move)
     if (turnValidation !is SuccessfullMovementResult) return turnValidation
 
-    if (isCheckMate(pieceValidation.game.getBoard()))
-      return WinnerResult(turn.actualTurn())
+   if (isCheckMate(pieceValidation.game.getBoard()))
+     return WinnerResult(turn.actualTurn())
 
     return pieceValidation
     }
@@ -47,11 +46,15 @@ class Game (
     return this.board
   }
 
+  fun getTurn(): Color{
+    return this.turn.actualTurn()
+  }
+
   fun validateGameRules (move: Movement): MovementResult {
     for (rule in rules) {
-      return when (val result = rule.checkMovement(this, move)) {
-        is Invalid -> UnsuccessfullMovementResult(result.message)
+      return when (val result = rule.checkMovement(board, move)) {
         is Valid -> continue
+        is Invalid -> UnsuccessfullMovementResult(result.message)
       }
     }
     return SuccessfullMovementResult(this)
@@ -60,7 +63,7 @@ class Game (
   fun validatePieceRules(move: Movement): MovementResult {
     val pieceToMove = board.getPiece(move.getFrom()) ?: throw NoSuchElementException("No piece to selected")
 
-    return when(val result = pieceToMove.validateMovement(move, this)){
+    return when(val result = pieceToMove.validateMovement(move, board)){
       is Valid -> makeMovement(move, board, result.getActionResult())
       is Invalid -> UnsuccessfullMovementResult(result.message)
     }
@@ -75,7 +78,6 @@ class Game (
         newBoard,
         turn.nextTurn(),
         rules,
-        history,
         winningCondition,
         movementApplier))
   }
@@ -95,7 +97,7 @@ class Game (
   }
 
   fun isCheckMate(board: DefaultBoard): Boolean{
-    return winningCondition.checkWinner(board, getEnemyColor(), rules, this)
+    return winningCondition.checkWinner(board, getEnemyColor(), rules)
   }
 
 }

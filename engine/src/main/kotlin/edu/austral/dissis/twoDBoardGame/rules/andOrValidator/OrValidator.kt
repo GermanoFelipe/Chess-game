@@ -1,5 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.andOrValidator
 
+import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.results.ActionResult
@@ -14,9 +15,9 @@ class OrValidator(
   )
   : RuleManager {
 
-  override fun checkMovement(game: Game, movement: Movement): RuleResult {
+  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
     for (rule in rules) {
-      return when (val result = rule.checkMovement(game, movement)) {
+      return when (val result = rule.checkMovement(board, movement)) {
         is Valid ->  return Valid(result.getActionResult() + actions)
         is Invalid -> continue
       }

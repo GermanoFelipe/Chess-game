@@ -12,13 +12,13 @@ import java.util.NoSuchElementException
 
 class Check {
 
-  fun inCheck(game: Game, board: DefaultBoard, kingTeam: Color): Boolean{
+  fun inCheck(board: DefaultBoard, kingTeam: Color): Boolean{
     val kingPosition = kingPosition(board, kingTeam) ?: throw NoSuchElementException("No king in board")
 
     val opponentPieces = board.getUsedPositions()
 
     for(position in opponentPieces){
-      if (pieceAttacksKing(board, position, kingTeam, kingPosition, game)){
+      if (pieceAttacksKing(board, position, kingTeam, kingPosition)){
         return true
       }
     }
@@ -38,15 +38,14 @@ class Check {
   fun pieceAttacksKing(board: DefaultBoard,
                        position: Position,
                        kingColor: Color,
-                       kingPosition: Position,
-                       game: Game): Boolean{
+                       kingPosition: Position): Boolean{
 
     if (board.getPiece(position)?.pieceColor != kingColor){
       val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
-      val movement = Movement(position, kingPosition, board, kingColor)
+      val movement = Movement(position, kingPosition, kingColor)
 
       when (
-        piece.validateMovement(movement, game)
+        piece.validateMovement(movement, board)
       ) {
         is Valid -> return true
         is Invalid -> {}
