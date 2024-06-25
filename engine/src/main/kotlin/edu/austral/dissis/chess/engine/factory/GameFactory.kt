@@ -4,10 +4,8 @@ import edu.austral.dissis.chess.engine.chessTurn.TurnDefault
 import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
 import edu.austral.dissis.chess.engine.rules.winCondition.IsNotInCheck
 import edu.austral.dissis.twoDBoardGame.game.Game
-import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
-import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.PieceExistsValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.SameTeamValidator

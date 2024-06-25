@@ -1,6 +1,5 @@
 package edu.austral.dissis.chess.engine.chessTurn
 
-import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.game.TurnManager

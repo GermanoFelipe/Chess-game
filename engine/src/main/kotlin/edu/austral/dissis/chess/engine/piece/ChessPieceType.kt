@@ -8,7 +8,9 @@ enum class ChessPieceType(private val string: String) : PieceType {
     KNIGHT("knight"),
     BISHOP("bishop"),
     QUEEN("queen"),
-    KING("king");
+    KING("king"),
+    ARCHBISHOP("archbishop"),
+    CHANCELLOR("chancellor");
 
     override fun string(): String {
         return string

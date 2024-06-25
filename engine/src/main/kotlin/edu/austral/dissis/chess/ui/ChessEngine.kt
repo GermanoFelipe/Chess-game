@@ -6,7 +6,6 @@ import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.chess.gui.*
-import edu.austral.dissis.twoDBoardGame.board.Board
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.results.UnsuccessfullMovementResult
 import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
