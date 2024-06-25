@@ -1,5 +1,6 @@
 package edu.austral.dissis.chess.ui
 
+import edu.austral.dissis.checkers.factory.createDefaultCheckers
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.piece.Color
@@ -14,8 +15,9 @@ import java.util.Stack
 
 class ChessEngine: GameEngine {
 
-  private var game = createDefaultChess()
+  //private var game = createDefaultChess()
 
+  private var game = createDefaultCheckers()
 
   private var undoStack = Stack<Game>()
 

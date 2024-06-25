@@ -15,13 +15,13 @@ fun createDefaultCheckers(): Game {
   return Game(
     board = createCheckersBoard(),
     turn = TurnCheckers(Color.WHITE),
-    rules = createNormalRules(),
+    rules = createNormalCheckersRules(),
     winningCondition = EatAll(),
     movementApplier = DefaultMovApplier()
   )
 }
 
-fun createNormalRules(): List<RuleManager> {
+fun createNormalCheckersRules(): List<RuleManager> {
   return listOf(
     PieceExistsValidator(),
     TurnValidator(),

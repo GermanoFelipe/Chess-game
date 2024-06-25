@@ -35,7 +35,7 @@ class Game (
     if (turnValidation !is SuccessfullMovementResult) return turnValidation
 
    if (isCheckMate(pieceValidation.game.getBoard()))
-     return WinnerResult(turn.actualTurn())
+     return WinnerResult(turn.actualTurn(), pieceValidation.getGameResult())
 
     return pieceValidation
     }
@@ -57,11 +57,19 @@ class Game (
     return this.movementApplier
   }
 
+  fun getRules(): List<RuleManager>{
+    return this.rules
+  }
+
+  fun getWinningCondition(): WinCondition{
+    return this.winningCondition
+  }
+
   fun validateGameRules (move: Movement): MovementResult {
     for (rule in rules) {
       return when (val result = rule.checkMovement(board, move)) {
         is Valid -> continue
-        is Invalid -> UnsuccessfullMovementResult(result.message)
+        is Invalid -> UnsuccessfullMovementResult(result.message, this)
       }
     }
     return SuccessfullMovementResult(this)
@@ -72,7 +80,7 @@ class Game (
 
     return when(val result = pieceToMove.validateMovement(move, board)){
       is Valid -> makeMovement(move, board, result.getActionResult())
-      is Invalid -> UnsuccessfullMovementResult(result.message)
+      is Invalid -> UnsuccessfullMovementResult(result.message, this)
     }
   }
 
@@ -92,7 +100,7 @@ class Game (
   fun validateTurnRules(move: Movement): MovementResult {
     return when (val result = turn.validateTurn(move, board)){
       is Valid -> SuccessfullMovementResult(this)
-      is Invalid -> UnsuccessfullMovementResult(result.message)
+      is Invalid -> UnsuccessfullMovementResult(result.message, this)
     }
   }
 

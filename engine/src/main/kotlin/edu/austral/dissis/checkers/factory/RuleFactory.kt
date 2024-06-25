@@ -1,5 +1,6 @@
 package edu.austral.dissis.checkers.factory
 
+import edu.austral.dissis.checkers.rules.EnemyInBetweenKing
 import edu.austral.dissis.checkers.rules.EnemyInBetweenValidator
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.results.ConvertPiece
@@ -43,7 +44,7 @@ fun captureBackward(): RuleManager {
       VerticalBack(),
       DiagonalDirectionValidator(),
       PermanentLimit(2),
-      EnemyInBetweenValidator()
+      EnemyInBetweenKing()
     )
   )
 }

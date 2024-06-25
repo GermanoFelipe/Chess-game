@@ -52,11 +52,16 @@ class TurnCheckers (
   }
 
   override fun nextTurn(): TurnManager {
-    TODO("Not yet implemented")
+    return color.let {
+      when (it) {
+        Color.WHITE -> TurnCheckers(Color.BLACK)
+        Color.BLACK -> TurnCheckers(Color.WHITE)
+      }
+    }
   }
 
   override fun nextColor(turn: Color): Color {
-    TODO("Not yet implemented")
+    return turn
   }
 
   private fun hasToBeCapture(move: Movement, board: DefaultBoard): Boolean {
