@@ -3,7 +3,6 @@ package edu.austral.dissis.twoDBoardGame.game
 import edu.austral.dissis.chess.engine.chessTurn.TurnDefault
 import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
 import edu.austral.dissis.twoDBoardGame.position.Position
-import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.game.mover.MovementApplier
@@ -48,6 +47,14 @@ class Game (
 
   fun getTurn(): Color{
     return this.turn.actualTurn()
+  }
+
+  fun getTurnMan(): TurnManager{
+    return this.turn
+  }
+
+  fun getMovementApplier(): MovementApplier{
+    return this.movementApplier
   }
 
   fun validateGameRules (move: Movement): MovementResult {

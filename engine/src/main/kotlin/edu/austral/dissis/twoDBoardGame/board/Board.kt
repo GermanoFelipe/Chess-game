@@ -22,4 +22,12 @@ interface Board {
   fun getColumn(): Int
 
   fun addPiece(position: Position, piece: Piece): Board
+
+  fun hasPosition(position: Position): Boolean
+
+  fun getSize(): Size
+
+  fun getPositions(): Map<Position, Piece>
+
+  fun inBounds(position: Position): Boolean
 }

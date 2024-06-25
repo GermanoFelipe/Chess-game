@@ -1,7 +1,4 @@
 package edu.austral.dissis.twoDBoardGame.results
-
-import edu.austral.dissis.twoDBoardGame.game.Game
-
 sealed interface RuleResult {
 }
 

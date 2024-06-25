@@ -1,7 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.inPathValidator
 
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
-import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.twoDBoardGame.results.Invalid

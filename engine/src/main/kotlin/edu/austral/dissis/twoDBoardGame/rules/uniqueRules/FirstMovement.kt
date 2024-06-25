@@ -1,7 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.rules.uniqueRules
 
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
-import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.Movement
 import edu.austral.dissis.twoDBoardGame.results.Invalid
 import edu.austral.dissis.twoDBoardGame.results.RuleResult

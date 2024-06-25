@@ -49,19 +49,19 @@ class DefaultBoard (
     return DefaultBoard(boardSize, pieces + Pair(position, piece))
   }
 
-  fun hasPosition(position: Position): Boolean{
+  override fun hasPosition(position: Position): Boolean{
     return pieces.containsKey(position)
   }
 
-  fun getSize(): Size {
+  override fun getSize(): Size {
     return boardSize
   }
 
-  fun getPositions(): Map<Position, Piece>{
+  override fun getPositions(): Map<Position, Piece>{
     return pieces
   }
 
-  fun inBounds(position: Position): Boolean {
+  override fun inBounds(position: Position): Boolean {
     return position.row in 1..boardSize.getRows() && position.column in 1..boardSize.getColumns()
   }
 
