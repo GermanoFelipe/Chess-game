@@ -23,7 +23,7 @@ import edu.austral.dissis.chess.test.game.TestMoveFailure
 import edu.austral.dissis.chess.test.game.TestMoveResult
 import edu.austral.dissis.chess.test.game.TestMoveSuccess
 import edu.austral.dissis.chess.ui.ChessEngine
-import edu.austral.dissis.twoDBoardGame.board.Size
+import edu.austral.dissis.twoDBoardGame.board.SizeOfBoard
 import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
@@ -133,7 +133,7 @@ class TestGameExam () : TestGameRunner {
 
       }
     }
-    val size = Size(board.size.rows, board.size.cols)
+    val size = SizeOfBoard(board.size.rows, board.size.cols)
     val turn = engine.getGame().getTurnMan()
     val newBoard = DefaultBoard(size, pieces)
     val rules = listOf<RuleManager>()

@@ -25,7 +25,7 @@ interface Board {
 
   fun hasPosition(position: Position): Boolean
 
-  fun getSize(): Size
+  fun getSize(): SizeOfBoard
 
   fun getPositions(): Map<Position, Piece>
 

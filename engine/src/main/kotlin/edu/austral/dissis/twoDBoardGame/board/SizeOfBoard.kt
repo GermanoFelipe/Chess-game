@@ -1,6 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.board
 
-class Size (private val columns: Int, private val rows: Int){
+class SizeOfBoard (private val columns: Int, private val rows: Int){
 
   fun getColumns(): Int {
     return columns

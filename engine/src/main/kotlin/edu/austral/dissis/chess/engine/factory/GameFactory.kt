@@ -2,7 +2,7 @@ package edu.austral.dissis.chess.engine.factory
 
 import edu.austral.dissis.chess.engine.chessTurn.TurnDefault
 import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
-import edu.austral.dissis.chess.engine.rules.winCondition.IsNotInCheck
+import edu.austral.dissis.chess.engine.rules.winCondition.IsNotInCheckValidator
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
@@ -40,6 +40,6 @@ fun createNormalRules(): List<RuleManager>{
     PieceExistsValidator(),
     TurnValidator(),
     SameTeamValidator(),
-    IsNotInCheck()
+    IsNotInCheckValidator()
   )
 }

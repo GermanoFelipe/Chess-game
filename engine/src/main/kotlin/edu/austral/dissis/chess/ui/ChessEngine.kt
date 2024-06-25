@@ -16,6 +16,7 @@ class ChessEngine: GameEngine {
 
   private var game = createDefaultChess()
 
+
   private var undoStack = Stack<Game>()
 
   private var redoStack = Stack<Game>()

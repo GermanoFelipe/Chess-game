@@ -1,0 +1,30 @@
+package edu.austral.dissis.checkers.factory
+
+import edu.austral.dissis.checkers.checkersTurn.TurnCheckers
+import edu.austral.dissis.checkers.winCondition.EatAll
+import edu.austral.dissis.chess.engine.factory.createNormalRules
+import edu.austral.dissis.twoDBoardGame.game.Game
+import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
+import edu.austral.dissis.twoDBoardGame.piece.Color
+import edu.austral.dissis.twoDBoardGame.rules.RuleManager
+import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.NotUsedPos
+import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.PieceExistsValidator
+import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.TurnValidator
+
+fun createDefaultCheckers(): Game {
+  return Game(
+    board = createCheckersBoard(),
+    turn = TurnCheckers(Color.WHITE),
+    rules = createNormalRules(),
+    winningCondition = EatAll(),
+    movementApplier = DefaultMovApplier()
+  )
+}
+
+fun createNormalRules(): List<RuleManager> {
+  return listOf(
+    PieceExistsValidator(),
+    TurnValidator(),
+    NotUsedPos()
+  )
+}

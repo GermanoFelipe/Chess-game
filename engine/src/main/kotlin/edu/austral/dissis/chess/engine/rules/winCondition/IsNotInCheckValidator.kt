@@ -7,7 +7,7 @@ import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
-class IsNotInCheck : RuleManager {
+class IsNotInCheckValidator : RuleManager {
   val check = Check()
 
   override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {

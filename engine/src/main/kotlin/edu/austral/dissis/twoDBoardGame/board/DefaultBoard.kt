@@ -4,7 +4,7 @@ import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 
 class DefaultBoard (
-  private val boardSize: Size = Size(8,8),
+  private val boardSize: SizeOfBoard = SizeOfBoard(8,8),
   private val pieces: Map<Position, Piece>
   ) : Board {
 
@@ -53,7 +53,7 @@ class DefaultBoard (
     return pieces.containsKey(position)
   }
 
-  override fun getSize(): Size {
+  override fun getSize(): SizeOfBoard {
     return boardSize
   }
 
@@ -65,7 +65,7 @@ class DefaultBoard (
     return position.row in 1..boardSize.getRows() && position.column in 1..boardSize.getColumns()
   }
 
-  fun checkBoardSize(pieces: Map<Position, Piece>, boardSize: Size){
+  fun checkBoardSize(pieces: Map<Position, Piece>, boardSize: SizeOfBoard){
     for (position in pieces.keys){
       if (!inBounds(position)){
         throw IllegalArgumentException("Position $position is out of bounds")
