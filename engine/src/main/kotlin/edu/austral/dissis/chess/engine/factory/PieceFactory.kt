@@ -100,5 +100,30 @@ fun createKnight(color: Color): Piece {
 
 // variantes extras
 
-// fun createArchibishop
-// fun createCancellor
+fun createArchibishop(color: Color): Piece {
+  return Piece(
+    ChessPieceType.ARCHBISHOP,
+    color,
+    false,
+    "",
+    OrValidator(listOf(
+      moveInDiagonal(),
+      moveInL()
+    ))
+  )
+}
+fun createCancellor(color: Color): Piece{
+  return Piece(
+    ChessPieceType.CHANCELLOR,
+    color,
+    false,
+    "",
+    OrValidator(
+      listOf(
+        moveInRow(),
+        moveInColumn(),
+        moveInL()
+      )
+    )
+  )
+}

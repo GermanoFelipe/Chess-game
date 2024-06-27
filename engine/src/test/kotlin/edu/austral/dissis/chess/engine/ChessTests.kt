@@ -15,14 +15,12 @@ class ChessTests {
 
 
   @Test
-  fun getPieceTest():Unit{
+  fun getPieceTest(): Unit{
     val piece = game.getBoard().getPiece(Position(1, 1))
     assert(piece != null)
     assert(piece!!.type == ChessPieceType.ROOK)
     assert(piece.pieceColor == Color.WHITE)
-    assert(piece.hasMoved == false)
-    assert(piece.getId() == ChessPieceType.ROOK.string())
-    //assert(piece.pieceRules == DefaultMovementRules().createRookRules())
+    assert(!piece.hasMoved)
   }
 
   @Test

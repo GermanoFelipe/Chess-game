@@ -102,8 +102,8 @@ fun pawnMove(): RuleManager{
     listOf(
       ColumnDirectionValidator(),
       LimitValidator(1),
-      ColumnNoPieceInPathValidator(),
-      //VerticalFowValidator()
+      ColumnNoPieceInPathValidator(true),
+      VerticalFowValidator()
     )
   )
 }
@@ -114,8 +114,8 @@ fun pawnFirstMove(): RuleManager{
       FirstMovement(),
       ColumnDirectionValidator(),
       LimitValidator(2),
-      ColumnNoPieceInPathValidator(),
-      //VerticalFowValidator()
+      ColumnNoPieceInPathValidator(true),
+      VerticalFowValidator()
     )
   )
 }
@@ -151,7 +151,6 @@ fun crownFoward(color: Color): RuleManager{
     )).withSpecial(listOf(
       ConvertPiece(RelativePosition(1,0), createQueen(color))
   )
-
   )
 }
 

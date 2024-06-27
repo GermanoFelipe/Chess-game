@@ -18,4 +18,12 @@ class KnightMoveTests {
         )
     }
 
+    @Test
+    fun `test basic bishop moves`() {
+        moveTester.testMove(
+            "/moves/knight/valid_bishop.txt",
+            TestPosition(4, 4),
+            ParseSettings(INVALID)
+        )
+    }
 }

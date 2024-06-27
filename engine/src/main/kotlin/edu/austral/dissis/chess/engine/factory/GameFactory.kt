@@ -43,3 +43,14 @@ fun createNormalRules(): List<RuleManager>{
     IsNotInCheckValidator()
   )
 }
+
+fun createVariantChess(): Game{
+  return Game(
+    board = createCappablancaBoard(),
+    turn = TurnDefault(Color.WHITE),
+    rules = createNormalRules(),
+    winningCondition = IsCheckMate(),
+    movementApplier = DefaultMovApplier()
+  )
+
+}

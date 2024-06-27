@@ -2,6 +2,7 @@ package edu.austral.dissis.chess.ui
 
 import edu.austral.dissis.checkers.factory.createDefaultCheckers
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
+import edu.austral.dissis.chess.engine.factory.createVariantChess
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
@@ -15,9 +16,11 @@ import java.util.Stack
 
 class ChessEngine: GameEngine {
 
-  //private var game = createDefaultChess()
+  private var game = createDefaultChess()
 
-  private var game = createDefaultCheckers()
+  //private var game = createDefaultCheckers()
+
+  //private var game = createVariantChess()
 
   private var undoStack = Stack<Game>()
 
@@ -27,9 +30,9 @@ class ChessEngine: GameEngine {
     return game
   }
 
-  init {
-    undoStack.push(game)
-  }
+//  init {
+//    undoStack.push(game)
+//  }
 
   override fun applyMove(move: Move): MoveResult {
     val from = Position(move.from.row, move.from.column)
@@ -52,7 +55,6 @@ class ChessEngine: GameEngine {
       getPieces(),
       getCurrentPlayerColor())
   }
-
 
   override fun redo(): NewGameState {
     return if(canRedo()){

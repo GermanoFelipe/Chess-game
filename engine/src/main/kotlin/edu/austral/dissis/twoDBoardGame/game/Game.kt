@@ -53,6 +53,9 @@ class Game (
     return this.turn
   }
 
+  fun getResetedTM(): TurnManager{
+    return TurnDefault(Color.WHITE)
+  }
   fun getMovementApplier(): MovementApplier{
     return this.movementApplier
   }
