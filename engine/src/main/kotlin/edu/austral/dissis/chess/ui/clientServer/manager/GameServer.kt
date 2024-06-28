@@ -34,8 +34,22 @@ class GameServer(private val engine: ChessEngine, serverBuilder: ServerBuilder) 
             .build()
     }
 
-    fun handleMove(movementInfo: MoveWithTeam) {
-           val result= engine.applyMove(movementInfo.move)
+
+  fun handleNewGame(clientId:String){
+    if (!clients.containsValue("WHITE")){
+      clients=clients.plus(Pair(clientId,"WHITE"))
+    }
+    else if (!clients.containsValue("BLACK")){
+      clients=clients.plus(Pair(clientId,"BLACK"))
+    }
+    else{
+      clients=clients.plus(Pair(clientId,"OBSERVER"))
+    }
+    server.sendMessage(clientId,Message("init", InitializeClient(engine.init() , clientId)))
+  }
+
+  fun handleMove(movementInfo: MoveWithTeam) {
+           val result = engine.applyMove(movementInfo.move)
      broadcastState(result)
    }
 
@@ -67,19 +81,6 @@ class GameServer(private val engine: ChessEngine, serverBuilder: ServerBuilder) 
             val result= engine.undo()
         broadcastState(result)
         }
-    }
-
-    fun handleNewGame(clientId:String){
-        if (!clients.containsValue("WHITE")){
-            clients=clients.plus(Pair(clientId,"WHITE"))
-        }
-        else if (!clients.containsValue("BLACK")){
-            clients=clients.plus(Pair(clientId,"BLACK"))
-        }
-        else{
-            clients=clients.plus(Pair(clientId,"OBSERVER"))
-        }
-     server.sendMessage(clientId,Message("init", InitializeClient(engine.init() , clientId)))
     }
 
     fun handleQuit(clientId: String){

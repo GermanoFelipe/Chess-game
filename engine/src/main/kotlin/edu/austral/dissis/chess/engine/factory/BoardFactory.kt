@@ -8,7 +8,7 @@ import edu.austral.dissis.twoDBoardGame.position.Position
 
 fun createDefaultBoard(): DefaultBoard {
   val map: MutableMap<Position, Piece> = mutableMapOf()
-  val size: SizeOfBoard = SizeOfBoard(8,8)
+  val sizeOfBoard: SizeOfBoard = SizeOfBoard(8,8)
 
  // Pawn
  for (i in 1..8){
@@ -42,7 +42,7 @@ fun createDefaultBoard(): DefaultBoard {
   map[Position(1,5)] = createKing(Color.WHITE)
   map[Position(8,5)] = createKing(Color.BLACK)
 
-  return DefaultBoard(size,map)
+  return DefaultBoard(sizeOfBoard,map)
 }
 
 fun createCappablancaBoard(): DefaultBoard{
