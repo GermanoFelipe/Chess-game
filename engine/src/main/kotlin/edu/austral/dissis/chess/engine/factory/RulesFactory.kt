@@ -134,8 +134,8 @@ fun crown(color: Color): RuleManager{
   return OrValidator(
     listOf(
       crownFoward(color),
-      crownLeft(color),
-      crownRight(color)
+      crownRight(color),
+      crownLeft(color)
     )
   )
 }

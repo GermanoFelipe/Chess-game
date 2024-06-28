@@ -8,7 +8,11 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class SameTeamValidator: RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
   val fromPiece = board.getPiece(movement.getFrom()) ?: return Invalid("No piece selected")
 
     board.getPiece(movement.getTo())?.let {

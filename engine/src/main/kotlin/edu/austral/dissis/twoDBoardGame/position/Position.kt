@@ -2,7 +2,10 @@ package edu.austral.dissis.twoDBoardGame.position
 
 import java.util.*
 
-class Position(val row: Int, val column: Int) {
+class Position(
+  val row: Int,
+  val column: Int) {
+
   fun getPosition(): Position {
     return Position(row, column)
   }

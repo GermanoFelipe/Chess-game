@@ -9,7 +9,11 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class RowNoPieceInPathValidator : RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     if (movement.getFrom().row != movement.getTo().row) {
       return Valid()
     }

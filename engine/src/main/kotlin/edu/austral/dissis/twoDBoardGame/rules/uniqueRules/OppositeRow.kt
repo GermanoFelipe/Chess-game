@@ -9,16 +9,21 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class OppositeRow: RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     return if (movement.getTurn() == Color.WHITE){
       if (movement.getTo().row == board.getRow()){
         Valid()
-      }else
+      } else
         Invalid("Invalid movement")
-    }else
+
+    } else
       if (movement.getTo().row == 1){
         Valid()
-      }else
+      } else
         Invalid("Invalid movement")
   }
 }

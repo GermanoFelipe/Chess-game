@@ -8,8 +8,19 @@ import edu.austral.dissis.twoDBoardGame.results.RuleResult
 import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
-class ColumnNoPieceInPathValidator (private val inclusive: Boolean = false): RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+class ColumnNoPieceInPathValidator (
+  private val inclusive:
+  Boolean = false
+): RuleManager {
+
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
+    if (movement.getFrom().column != movement.getTo().column){
+      return Valid()
+    } //check if correct
 
     var currentPosition = if(movement.getFrom().row < movement.getTo().row){
       Position(movement.getFrom().row + 1, movement.getFrom().column)

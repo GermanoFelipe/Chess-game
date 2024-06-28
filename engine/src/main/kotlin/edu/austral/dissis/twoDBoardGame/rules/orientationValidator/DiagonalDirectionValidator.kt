@@ -9,10 +9,16 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import kotlin.math.abs
 
 class DiagonalDirectionValidator: RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     return if (abs(movement.getFrom().row - movement.getTo().row) ==
       abs(movement.getFrom().column - movement.getTo().column)) {
+
       Valid()
+
     } else {
       Invalid("Invalid Movement: Diagonal movement must have the same distance in rows and columns")
     }

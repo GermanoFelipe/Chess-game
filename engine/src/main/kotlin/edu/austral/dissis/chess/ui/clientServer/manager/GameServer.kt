@@ -53,33 +53,33 @@ class GameServer(private val engine: ChessEngine, serverBuilder: ServerBuilder) 
      broadcastState(result)
    }
 
+  fun handleUndo(clientId: String){
+    if (clients[clientId]=="OBSERVER"){
+      server.sendMessage(clientId,Message("invalidMove",InvalidMove("You are an observer")))
+      return
+    }
+    else{
+      val result= engine.undo()
+      broadcastState(result)
+    }
+  }
+
+  fun handleRedo(clientId: String){
+    if (clients[clientId]=="OBSERVER"){
+      server.sendMessage(clientId,Message("invalidMove",InvalidMove("You are an observer")))
+      return
+    }
+    else{
+      val result = engine.redo()
+      broadcastState(result)
+    }
+  }
+
     private fun broadcastState(result: MoveResult) {
         when(result){
-            is NewGameState -> server.broadcast(Message("newGameState",result))
-            is GameOver -> server.broadcast(Message("gameOver",result))
-            is InvalidMove -> server.broadcast(Message("invalidMove",result))
-        }
-    }
-
-    fun handleRedo(clientId: String){
-        if (clients[clientId]=="OBSERVER"){
-            server.sendMessage(clientId,Message("invalidMove",InvalidMove("You are an observer")))
-            return
-        }
-        else{
-          val result = engine.redo()
-          broadcastState(result)
-        }
-    }
-
-    fun handleUndo(clientId: String){
-        if (clients[clientId]=="OBSERVER"){
-            server.sendMessage(clientId,Message("invalidMove",InvalidMove("You are an observer")))
-            return
-        }
-        else{
-            val result= engine.undo()
-        broadcastState(result)
+            is NewGameState -> server.broadcast(Message("newGameState", result))
+            is GameOver -> server.broadcast(Message("gameOver", result))
+            is InvalidMove -> server.broadcast(Message("invalidMove", result))
         }
     }
 

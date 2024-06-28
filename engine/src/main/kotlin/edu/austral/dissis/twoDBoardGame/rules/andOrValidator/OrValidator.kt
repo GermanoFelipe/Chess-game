@@ -14,7 +14,11 @@ class OrValidator(
   )
   : RuleManager {
 
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     for (rule in rules) {
       return when (val result = rule.checkMovement(board, movement)) {
         is Valid ->  return Valid(result.getActionResult() + actions)

@@ -8,9 +8,14 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class ToRightValidator : RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     return if (movement.getFrom().column < movement.getTo().column) {
       Valid()
+
     } else Invalid("Invalid movement to the right")
   }
 }

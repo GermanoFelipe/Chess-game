@@ -7,10 +7,10 @@ import edu.austral.dissis.twoDBoardGame.rules.andOrValidator.OrValidator
 
 fun createMan(color: Color): Piece {
   return Piece(
-    type = CheckersPieceType.MAN,
-    pieceColor = color,
-    hasMoved = false,
-    id = "",
+    CheckersPieceType.MAN,
+    color,
+    false,
+    "",
     OrValidator(
       listOf(
         crown(color),
@@ -23,10 +23,10 @@ fun createMan(color: Color): Piece {
 
 fun createKing(color: Color): Piece{
   return Piece(
-    type = CheckersPieceType.KING,
-    pieceColor = color,
-    hasMoved = false,
-    id = "",
+    CheckersPieceType.KING,
+    color,
+    false,
+    "",
     OrValidator(
       listOf(
         singleDiagonal(),

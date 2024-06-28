@@ -9,9 +9,14 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class ColumnDirectionValidator: RuleManager {
 
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     return if (movement.getFrom().column == movement.getTo().column) {
       Valid()
+
     } else Invalid("Invalid Movement: Column direction must be the same")
   }
 }

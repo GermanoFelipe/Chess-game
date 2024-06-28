@@ -104,3 +104,42 @@ fun normalCrownLeft(color: Color): RuleManager {
     )
   ))
 }
+
+fun captureAndCrown(color: Color): RuleManager {
+  return OrValidator(
+    listOf(
+      captureCrownRight(color),
+      captureCrownLeft(color)
+    )
+  )
+}
+
+fun captureCrownRight(color: Color): RuleManager {
+  return AndValidator(
+    listOf(
+      captureFoward(),
+      OppositeRow(),
+      ToRightValidator()
+    )
+  ).withSpecial(listOf(
+    ConvertPiece(
+      RelativePosition(2,2),
+      createKing(color)
+    )
+  ))
+}
+
+fun captureCrownLeft(color: Color): RuleManager {
+  return AndValidator(
+    listOf(
+      captureFoward(),
+      OppositeRow(),
+      ToLeftValidator()
+    )
+  ).withSpecial(listOf(
+    ConvertPiece(
+      RelativePosition(2,-2),
+      createKing(color)
+    )
+  ))
+}

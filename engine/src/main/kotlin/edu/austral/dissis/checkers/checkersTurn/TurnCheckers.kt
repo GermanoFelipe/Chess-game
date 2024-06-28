@@ -36,8 +36,10 @@ class TurnCheckers (
   override fun validateTurn(move: Movement, board: DefaultBoard): RuleResult {
     val piece = board.getPiece(move.getFrom()) ?: return Invalid("There is no piece in the selected position")
     return if (capture)
-      if (piece.type == CheckersPieceType.KING && isKingCapture(move, board) &&
-              isTheSamePiece(move, board))
+      if (piece.type == CheckersPieceType.KING
+          && isKingCapture(move, board)
+          && isTheSamePiece(move, board))
+
         Valid()
       else if (isManCapture(move, board) && isTheSamePiece(move, board))
         Valid()

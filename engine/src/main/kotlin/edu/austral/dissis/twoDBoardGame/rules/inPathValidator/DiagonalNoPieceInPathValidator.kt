@@ -10,7 +10,11 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 import kotlin.math.abs
 
 class DiagonalNoPieceInPathValidator : RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     if (abs(movement.getFrom().row - movement.getTo().row) !=
             abs(movement.getFrom().column - movement.getTo().column)) {
       return Valid()

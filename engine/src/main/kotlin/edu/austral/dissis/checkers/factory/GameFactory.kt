@@ -11,10 +11,22 @@ import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.NotUsedPos
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.PieceExistsValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.TurnValidator
 
+object DefaultCheckersGame {
+  operator fun invoke(): Game {
+    return Game(
+      board = createCheckersBoard(),
+      turn = TurnCheckers(Color.WHITE, true,""),
+      rules = createNormalCheckersRules(),
+      winningCondition = EatAll(),
+      movementApplier = DefaultMovApplier()
+    )
+  }
+}
+
 fun createDefaultCheckers(): Game {
   return Game(
     board = createCheckersBoard(),
-    turn = TurnCheckers(Color.WHITE),
+    turn = TurnCheckers(Color.WHITE, true, ""),
     rules = createNormalCheckersRules(),
     winningCondition = EatAll(),
     movementApplier = DefaultMovApplier()

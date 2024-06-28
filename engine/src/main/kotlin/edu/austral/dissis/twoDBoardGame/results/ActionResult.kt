@@ -17,7 +17,11 @@ class RelativePosition(
     return column
   }
 
-  fun getAbsPos(position: Position, isFoward: Boolean): Position{
+  fun getAbsPos(
+    position: Position,
+    isFoward: Boolean
+  ): Position{
+
     return Position(
       position.row + row * if (isFoward) 1 else -1,
       position.column + column
@@ -26,7 +30,10 @@ class RelativePosition(
 }
 
 
-class ApplyMovement(private val from: RelativePosition = RelativePosition(), private val to: RelativePosition = RelativePosition()) : ActionResult {
+class ApplyMovement(
+  private val from: RelativePosition = RelativePosition(),
+  private val to: RelativePosition = RelativePosition()
+    ) : ActionResult {
 
   fun getFrom(position: Position, fowardPositive: Boolean): Position {
     return from.getAbsPos(position, fowardPositive)
@@ -49,7 +56,9 @@ class ConvertPiece (
     return newPiece
   } }
 
-class RemoveAction (private val from: RelativePosition = RelativePosition()): ActionResult {
+class RemoveAction (
+  private val from: RelativePosition = RelativePosition()
+): ActionResult {
   fun getFrom(position: Position, fowardPositive: Boolean): Position {
     return from.getAbsPos(position, fowardPositive)
   }

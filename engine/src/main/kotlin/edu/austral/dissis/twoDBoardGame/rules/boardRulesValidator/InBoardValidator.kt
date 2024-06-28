@@ -8,9 +8,14 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class InBoardValidator : RuleManager {
-    override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+    override fun checkMovement(
+        board: DefaultBoard,
+        movement: Movement
+    ): RuleResult {
+
         return if (board.inBounds(movement.getTo())) {
             Valid()
+
         } else Invalid("Invalid Movement: Position out of board")
     }
 }

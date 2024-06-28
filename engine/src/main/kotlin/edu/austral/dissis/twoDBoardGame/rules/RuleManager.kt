@@ -6,5 +6,8 @@ import edu.austral.dissis.twoDBoardGame.results.RuleResult
 
 interface RuleManager {
 
-  fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult
+  fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult
 }

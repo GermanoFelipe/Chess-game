@@ -8,7 +8,11 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class TurnValidator: RuleManager {
-  override fun checkMovement(board: DefaultBoard, movement: Movement): RuleResult {
+  override fun checkMovement(
+    board: DefaultBoard,
+    movement: Movement
+  ): RuleResult {
+
     val fromPiece = board.getPiece(movement.getFrom()) ?: return Invalid("No piece to selected")
 
     return if (fromPiece.pieceColor == movement.getTurn()) Valid()
