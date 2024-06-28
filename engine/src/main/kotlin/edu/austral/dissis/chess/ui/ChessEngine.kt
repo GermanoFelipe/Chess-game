@@ -16,9 +16,9 @@ import java.util.Stack
 
 class ChessEngine: GameEngine {
 
-  private var game = createDefaultChess()
+  //private var game = createDefaultChess()
 
-  //private var game = createDefaultCheckers()
+  private var game = createDefaultCheckers()
 
   //private var game = createVariantChess()
 

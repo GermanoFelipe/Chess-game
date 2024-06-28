@@ -15,7 +15,7 @@ object DefaultCheckersGame {
   operator fun invoke(): Game {
     return Game(
       board = createCheckersBoard(),
-      turn = TurnCheckers(Color.WHITE, true,""),
+      turn = TurnCheckers(Color.WHITE),
       rules = createNormalCheckersRules(),
       winningCondition = EatAll(),
       movementApplier = DefaultMovApplier()
@@ -23,15 +23,15 @@ object DefaultCheckersGame {
   }
 }
 
-fun createDefaultCheckers(): Game {
-  return Game(
-    board = createCheckersBoard(),
-    turn = TurnCheckers(Color.WHITE, true, ""),
-    rules = createNormalCheckersRules(),
-    winningCondition = EatAll(),
-    movementApplier = DefaultMovApplier()
-  )
-}
+//fun createDefaultCheckers(): Game {
+//  return Game(
+//    board = createCheckersBoard(),
+//    turn = TurnCheckers(Color.WHITE, false, ""),
+//    rules = createNormalCheckersRules(),
+//    winningCondition = EatAll(),
+//    movementApplier = DefaultMovApplier()
+//  )
+//}
 
 fun createNormalCheckersRules(): List<RuleManager> {
   return listOf(

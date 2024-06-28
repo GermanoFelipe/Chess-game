@@ -72,8 +72,6 @@ class TurnCheckers (
     else (isKingCapture(move, board) || capture) && kingHasAvailableCapture(move, board)
   }
 
-
-
   private fun manHasAvailableCapture(move: Movement, board: DefaultBoard): Boolean {
     val boardSize = board.getSize()
     val foward = if(color == Color.WHITE) 1 else -1

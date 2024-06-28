@@ -62,6 +62,7 @@ fun crown(color: Color): RuleManager {
   return OrValidator(
     listOf(
       normalCrown(color),
+      captureAndCrown(color)
     )
   )
 }
