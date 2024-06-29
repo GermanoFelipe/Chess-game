@@ -23,7 +23,7 @@ class TurnCheckers (
   private val kingCaptureValidator = captureBackward()
 
   override fun getNextTurn(move: Movement, board: DefaultBoard): TurnManager {
-    return if (hasToBeCapture(move, board))
+    return if (nextHasToBeCapture(move, board))
       createTurnWithCapture(move, board)
     else
       createTurnWithoutCapture()
@@ -39,8 +39,8 @@ class TurnCheckers (
       if (piece.type == CheckersPieceType.KING
           && isKingCapture(move, board)
           && isTheSamePiece(move, board))
-
         Valid()
+
       else if (isManCapture(move, board) && isTheSamePiece(move, board))
         Valid()
       else
@@ -49,32 +49,15 @@ class TurnCheckers (
       Valid()
   }
 
-  override fun initialTurn(): Color {
-    return color
-  }
-
-  override fun nextTurn(): TurnManager {
-    return color.let {
-      when (it) {
-        Color.WHITE -> TurnCheckers(Color.BLACK)
-        Color.BLACK -> TurnCheckers(Color.WHITE)
-      }
-    }
-  }
-
-  override fun nextColor(turn: Color): Color {
-    return turn
-  }
-
-  private fun hasToBeCapture(move: Movement, board: DefaultBoard): Boolean {
+  private fun nextHasToBeCapture(move: Movement, board: DefaultBoard): Boolean {
     return if (board.getPiece(move.getFrom())?.type == CheckersPieceType.MAN)
-      (isManCapture(move, board) || capture && manHasAvailableCapture(move, board))
+      (isManCapture(move, board) || capture) && manHasAvailableCapture(move, board)
     else (isKingCapture(move, board) || capture) && kingHasAvailableCapture(move, board)
   }
 
   private fun manHasAvailableCapture(move: Movement, board: DefaultBoard): Boolean {
     val boardSize = board.getSize()
-    val foward = if(color == Color.WHITE) 1 else -1
+    val foward = if (color == Color.WHITE) 1 else -1
 
     val left = Movement(
       move.getTo(),

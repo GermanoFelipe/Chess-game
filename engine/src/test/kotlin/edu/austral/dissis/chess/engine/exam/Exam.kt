@@ -12,4 +12,9 @@ class Exam {
         return GameTester(TestGameExam()).test()
        //return GameTester(DummyTestGameRunner()).test()
    }
+
+  @TestFactory
+  fun `pawns mate`(): Stream<DynamicTest> {
+    return GameTester(TestGameExam()).debug("mate_pawn.md")
+  }
 }

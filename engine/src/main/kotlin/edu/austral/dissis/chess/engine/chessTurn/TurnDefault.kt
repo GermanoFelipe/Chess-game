@@ -9,10 +9,6 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 
 class TurnDefault (private val turnColor: Color) : TurnManager {
 
-  override fun initialTurn(): Color {
-    return Color.WHITE
-  }
-
   override fun getNextTurn(move: Movement, board: DefaultBoard): TurnManager {
     return when(turnColor){
       Color.WHITE -> TurnDefault(Color.BLACK)
@@ -26,15 +22,5 @@ class TurnDefault (private val turnColor: Color) : TurnManager {
 
   override fun validateTurn(move: Movement, board: DefaultBoard): RuleResult {
     return Valid()
-  }
-
-  override fun nextTurn(): TurnManager {
-    return if (turnColor == Color.WHITE) TurnDefault(Color.BLACK)
-    else TurnDefault(Color.WHITE)
-  }
-
-  override fun nextColor(turn: Color): Color {
-    return if (turn == Color.WHITE) Color.BLACK
-    else Color.WHITE
   }
 }

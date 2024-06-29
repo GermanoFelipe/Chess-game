@@ -94,7 +94,7 @@ class Game (
     return SuccessfullMovementResult(
       Game(
         newBoard,
-        turn.nextTurn(),
+        turn.getNextTurn(move, this.board),
         rules,
         winningCondition,
         movementApplier))

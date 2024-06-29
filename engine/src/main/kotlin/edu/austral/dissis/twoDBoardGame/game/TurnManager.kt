@@ -10,10 +10,4 @@ interface TurnManager {
   fun actualTurn() : Color
 
   fun validateTurn(move: Movement, board: DefaultBoard): RuleResult
-
-  fun initialTurn() : Color
-
-  fun nextTurn() : TurnManager
-
-  fun nextColor(turn: Color) : Color
 }
