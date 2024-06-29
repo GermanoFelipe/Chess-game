@@ -1,6 +1,9 @@
 package edu.austral.dissis.chess.ui
 
 
+import edu.austral.dissis.checkers.factory.createDefaultCheckers
+import edu.austral.dissis.chess.engine.factory.createDefaultChess
+import edu.austral.dissis.chess.engine.factory.createVariantChess
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
 import edu.austral.dissis.chess.gui.SimpleGameEngine
@@ -15,10 +18,15 @@ fun main() {
     launch(ChessGameApplication::class.java)
 }
 
+private var defaultChess = createDefaultChess()
+
+private var defaultCheckers = createDefaultCheckers()
+
+private var variantChess = createVariantChess()
 
 
 class ChessGameApplication : Application() {
-    private val gameEngine = ChessEngine()
+    private val gameEngine = ChessEngine(defaultChess)
     private val gameEngineDummy = SimpleGameEngine()
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 

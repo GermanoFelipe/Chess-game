@@ -14,13 +14,7 @@ import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
 import edu.austral.dissis.twoDBoardGame.results.WinnerResult
 import java.util.Stack
 
-class ChessEngine: GameEngine {
-
-  //private var game = createDefaultChess()
-
-  private var game = createDefaultCheckers()
-
-  //private var game = createVariantChess()
+class ChessEngine (private var game: Game): GameEngine {
 
   private var undoStack = Stack<Game>()
 
