@@ -2,6 +2,7 @@ package edu.austral.dissis.twoDBoardGame.ui
 
 
 import edu.austral.dissis.checkers.factory.createDefaultCheckers
+import edu.austral.dissis.checkers.factory.createEatAllCheckers
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
 import edu.austral.dissis.chess.engine.factory.createVariantChess
 import edu.austral.dissis.chess.gui.CachedImageResolver
@@ -24,10 +25,11 @@ private var defaultCheckers = createDefaultCheckers()
 
 private var variantChess = createVariantChess()
 
+private var eatAllCheckers = createEatAllCheckers()
 
 class ChessGameApplication : Application() {
     private val gameEngine = ChessEngine(defaultChess)
-    private val gameEngineDummy = SimpleGameEngine()
+    //private val gameEngineDummy = SimpleGameEngine()
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 
     companion object {

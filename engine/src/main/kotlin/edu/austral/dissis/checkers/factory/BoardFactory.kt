@@ -26,3 +26,13 @@ fun createCheckersBoard(): DefaultBoard {
 
   return DefaultBoard(size, map)
 }
+
+fun createEatAllBoard(): DefaultBoard{
+  val map: MutableMap<Position, Piece> = mutableMapOf()
+  val sizeOfBoard: SizeOfBoard = SizeOfBoard(8, 8)
+
+  map[Position(1, 1)] = createMan(Color.WHITE)
+  map[Position(2, 2)] = createMan(Color.BLACK)
+
+  return DefaultBoard(sizeOfBoard, map)
+}

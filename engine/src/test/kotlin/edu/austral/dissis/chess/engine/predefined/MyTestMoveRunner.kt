@@ -15,7 +15,7 @@ import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
-import edu.austral.dissis.twoDBoardGame.results.Valid
+
 object MyTestMoveRunner : TestMoveRunner {
 
   override fun executeMove(testBoard: TestBoard, from: TestPosition, to: TestPosition): Validity {

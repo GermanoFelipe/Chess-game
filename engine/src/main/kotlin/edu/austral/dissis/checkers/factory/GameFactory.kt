@@ -26,7 +26,7 @@ object DefaultCheckersGame {
 fun createDefaultCheckers(): Game {
   return Game(
     board = createCheckersBoard(),
-    turn = TurnCheckers(Color.WHITE, false, ""),
+    turn = TurnCheckers(Color.WHITE),
     rules = createNormalCheckersRules(),
     winningCondition = EatAll(),
     movementApplier = DefaultMovApplier()
@@ -38,5 +38,15 @@ fun createNormalCheckersRules(): List<RuleManager> {
     PieceExistsValidator(),
     TurnValidator(),
     NotUsedPos()
+  )
+}
+
+fun createEatAllCheckers(): Game {
+  return Game(
+    board = createEatAllBoard(),
+    turn = TurnCheckers(Color.WHITE),
+    rules = createNormalCheckersRules(),
+    winningCondition = EatAll(),
+    movementApplier = DefaultMovApplier()
   )
 }

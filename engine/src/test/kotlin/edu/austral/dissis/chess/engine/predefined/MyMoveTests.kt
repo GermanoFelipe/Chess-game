@@ -6,7 +6,7 @@ import edu.austral.dissis.chess.test.move.MoveTester
 import edu.austral.dissis.chess.test.parser.ParseSettings
 import org.junit.jupiter.api.Test
 
-class KnightMoveTests {
+class MyMoveTests {
     private val moveTester: MoveTester = MoveTester(MyTestMoveRunner)
 
     @Test
