@@ -7,6 +7,7 @@ import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
+import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.InBoardValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.PieceExistsValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.SameTeamValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.TurnValidator

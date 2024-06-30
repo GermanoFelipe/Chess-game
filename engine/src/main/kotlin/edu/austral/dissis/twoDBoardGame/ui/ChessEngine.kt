@@ -1,8 +1,5 @@
-package edu.austral.dissis.chess.ui
+package edu.austral.dissis.twoDBoardGame.ui
 
-import edu.austral.dissis.checkers.factory.createDefaultCheckers
-import edu.austral.dissis.chess.engine.factory.createDefaultChess
-import edu.austral.dissis.chess.engine.factory.createVariantChess
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece

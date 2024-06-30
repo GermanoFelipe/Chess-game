@@ -1,0 +1,9 @@
+   1  2  3  4  5  6  7  8
+1 |OO|  |  |OO|  |  |OO|  |
+2 |  |OO|  |OO|  |OO|  |BK|
+3 |  |  |OO|OO|OO|  |  |  |
+4 |OO|OO|OO|WQ|OO|OO|OO|OO|OO
+5 |  |  |OO|OO|OO|WK|  |  |
+6 |  |OO|  |OO|  |OO|  |  |
+7 |OO|  |  |OO|  |  |OO|  |
+8 |  |  |  |OO|  |  |  |OO|

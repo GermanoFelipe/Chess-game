@@ -20,11 +20,4 @@ object DummyTestMoveRunner : TestMoveRunner {
     override fun executeMove(testBoard: TestBoard, from: TestPosition, to: TestPosition): Validity {
         return if (to in validMoves) Validity.VALID else return Validity.INVALID
     }
-
-    private val validBishopMoves = listOf<TestPosition>(
-        TestPosition(3, 3),
-        TestPosition(3, 5),
-        TestPosition(5, 3),
-        TestPosition(5, 5),
-    )
 }

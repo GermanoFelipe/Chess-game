@@ -1,7 +1,7 @@
 package edu.austral.dissis.chess.engine.exam
 
 import edu.austral.dissis.chess.test.game.GameTester
-import edu.austral.dissis.chess.ui.ChessEngine
+import edu.austral.dissis.twoDBoardGame.ui.ChessEngine
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream

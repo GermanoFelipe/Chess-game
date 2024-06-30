@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.ui
+package edu.austral.dissis.twoDBoardGame.ui
 
 
 import edu.austral.dissis.checkers.factory.createDefaultCheckers

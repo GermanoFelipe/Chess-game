@@ -1,6 +1,6 @@
-package edu.austral.dissis.chess.ui.clientServer.serverListeners
+package edu.austral.dissis.twoDBoardGame.ui.clientServer.serverListeners
 
-import edu.austral.dissis.chess.ui.clientServer.manager.LocalClient
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.manager.LocalClient
 import edu.austral.dissis.chess.gui.GameOver
 import edu.austral.ingsis.clientserver.Message
 import edu.austral.ingsis.clientserver.MessageListener

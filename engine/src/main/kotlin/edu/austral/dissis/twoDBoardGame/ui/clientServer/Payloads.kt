@@ -1,4 +1,4 @@
-package edu.austral.dissis.chess.ui.clientServer
+package edu.austral.dissis.twoDBoardGame.ui.clientServer
 
 import edu.austral.dissis.chess.gui.InitialState
 import edu.austral.dissis.chess.gui.Move

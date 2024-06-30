@@ -1,15 +1,15 @@
-package edu.austral.dissis.chess.ui.clientServer.manager
+package edu.austral.dissis.twoDBoardGame.ui.clientServer.manager
 
 import com.fasterxml.jackson.core.type.TypeReference
-import edu.austral.dissis.chess.ui.clientServer.serverListeners.MoveListener
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.serverListeners.MoveListener
 
 import edu.austral.dissis.chess.gui.*
-import edu.austral.dissis.chess.ui.ChessEngine
-import edu.austral.dissis.chess.ui.clientServer.InitializeClient
-import edu.austral.dissis.chess.ui.clientServer.MoveWithTeam
-import edu.austral.dissis.chess.ui.clientServer.serverListeners.RedoListener
-import edu.austral.dissis.chess.ui.clientServer.serverListeners.UndoListener
-import edu.austral.dissis.chess.ui.clientServer.serverListeners.NewClientListener
+import edu.austral.dissis.twoDBoardGame.ui.ChessEngine
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.InitializeClient
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.MoveWithTeam
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.serverListeners.RedoListener
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.serverListeners.UndoListener
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.serverListeners.NewClientListener
 import edu.austral.ingsis.clientserver.Message
 import edu.austral.ingsis.clientserver.Server
 import edu.austral.ingsis.clientserver.ServerBuilder

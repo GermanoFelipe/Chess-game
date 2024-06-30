@@ -4,8 +4,8 @@ import edu.austral.dissis.checkers.factory.createDefaultCheckers
 import edu.austral.dissis.chess.engine.factory.createDefaultChess
 import edu.austral.dissis.chess.engine.factory.createNormalRules
 import edu.austral.dissis.chess.engine.factory.createVariantChess
-import edu.austral.dissis.chess.ui.ChessEngine
-import edu.austral.dissis.chess.ui.clientServer.manager.GameServer
+import edu.austral.dissis.twoDBoardGame.ui.ChessEngine
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.manager.GameServer
 import edu.austral.ingsis.clientserver.netty.server.NettyServerBuilder
 
 fun main(){

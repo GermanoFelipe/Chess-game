@@ -1,6 +1,6 @@
-package edu.austral.dissis.chess.ui.clientServer
+package edu.austral.dissis.twoDBoardGame.ui.clientServer
 
-import edu.austral.dissis.chess.ui.clientServer.manager.LocalClient
+import edu.austral.dissis.twoDBoardGame.ui.clientServer.manager.LocalClient
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
 import edu.austral.dissis.chess.gui.GameView
