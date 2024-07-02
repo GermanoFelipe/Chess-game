@@ -37,7 +37,7 @@ private var checkMateTester = createCheckMateTest()
 private var promotionTester = createPromotionTestGame()
 
 class ChessGameApplication : Application() {
-    private val gameEngine = ChessEngine(promotionTester)
+    private val gameEngine = ChessEngine(defaultChess)
     //private val gameEngineDummy = SimpleGameEngine()
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 

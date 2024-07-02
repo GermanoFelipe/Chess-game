@@ -1,7 +1,6 @@
 package edu.austral.dissis.twoDBoardGame.game
 
 import edu.austral.dissis.chess.engine.chessTurn.TurnDefault
-import edu.austral.dissis.chess.engine.rules.winCondition.IsCheckMate
 import edu.austral.dissis.twoDBoardGame.position.Position
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
@@ -15,9 +14,9 @@ import java.util.NoSuchElementException
 
 class Game (
   private var board: DefaultBoard,
-  private val turn: TurnManager = TurnDefault(Color.WHITE),
+  private val turn: TurnManager,
   private val rules: List<RuleManager>,
-  private val winningCondition: WinCondition = IsCheckMate(),
+  private val winningCondition: WinCondition,
   private val movementApplier: MovementApplier = DefaultMovApplier()
   ) {
 
