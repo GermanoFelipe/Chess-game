@@ -1,6 +1,5 @@
 package edu.austral.dissis.twoDBoardGame.results
-sealed interface RuleResult {
-}
+sealed interface RuleResult
 
 class Valid (
   private val actions: List<ActionResult> = emptyList()
@@ -12,4 +11,4 @@ class Valid (
 }
 class Invalid (
   var message: String
-  ): RuleResult {}
+  ): RuleResult

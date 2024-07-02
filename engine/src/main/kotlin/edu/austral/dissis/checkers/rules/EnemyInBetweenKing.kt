@@ -27,14 +27,14 @@ class EnemyInBetweenKing: RuleManager{
 
   private fun isPresentAndOppositeColor(piece: Piece?, color: Color): Boolean {
     return if (piece != null){
-      piece.pieceColor != color
+      piece.getColor() != color
     } else {
       false
     }
   }
 
   private fun getActions(from: Position, position: Position, color: Color): List<ActionResult>{
-    val reltiveFrom =
+    val relativeFrom =
       if (color == Color.WHITE) {
         RelativePosition(position.row - from.row, position.column - from.column)
       } else {
@@ -44,7 +44,7 @@ class EnemyInBetweenKing: RuleManager{
           RelativePosition(position.row - from.row, position.column - from.column)
       }
     return listOf(
-      RemoveAction(reltiveFrom),
+      RemoveAction(relativeFrom),
     )
   }
 }

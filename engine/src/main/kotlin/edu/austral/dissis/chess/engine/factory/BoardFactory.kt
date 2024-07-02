@@ -8,7 +8,7 @@ import edu.austral.dissis.twoDBoardGame.position.Position
 
 fun createDefaultBoard(): DefaultBoard {
   val map: MutableMap<Position, Piece> = mutableMapOf()
-  val sizeOfBoard: SizeOfBoard = SizeOfBoard(8,8)
+  val sizeOfBoard = SizeOfBoard(8,8)
 
  // Pawn
  for (i in 1..8){
@@ -45,9 +45,9 @@ fun createDefaultBoard(): DefaultBoard {
   return DefaultBoard(sizeOfBoard,map)
 }
 
-fun createCappablancaBoard(): DefaultBoard{
+fun createCapablancaBoard(): DefaultBoard{
  val map: MutableMap<Position, Piece> = mutableMapOf()
- val size: SizeOfBoard = SizeOfBoard(10, 8)
+ val size = SizeOfBoard(10, 8)
 
  //Pawn
  for (i in 1..10){
@@ -68,8 +68,8 @@ fun createCappablancaBoard(): DefaultBoard{
  map[Position(8,9)] = createKnight(Color.BLACK)
 
  // ArchiBishop
- map[Position(1,3)] = createArchibishop(Color.WHITE)
- map[Position(8,3)] = createArchibishop(Color.BLACK)
+ map[Position(1,3)] = createArchbishop(Color.WHITE)
+ map[Position(8,3)] = createArchbishop(Color.BLACK)
 
  //Bishop
  map[Position(1,4)] = createBishop(Color.WHITE)
@@ -85,9 +85,49 @@ fun createCappablancaBoard(): DefaultBoard{
  map[Position(1,6)] = createKing(Color.WHITE)
  map[Position(8,6)] = createKing(Color.BLACK)
 
- //Cancellor
- map[Position(1, 8)] = createCancellor(Color.WHITE)
- map[Position(8, 8)] = createCancellor(Color.BLACK)
+ //Chancellor
+ map[Position(1, 8)] = createChancellor(Color.WHITE)
+ map[Position(8, 8)] = createChancellor(Color.BLACK)
+
+ return DefaultBoard(size, map)
+}
+
+fun createCheckMateTestBoard(): DefaultBoard{
+ val map: MutableMap<Position, Piece> = mutableMapOf()
+ val size = SizeOfBoard(8, 8)
+
+ map[Position(1,5)] = createKing(Color.WHITE)
+
+ map[Position(5,6)] = createKnight(Color.WHITE)
+ map[Position(6,5)] = createPawn(Color.WHITE)
+ map[Position(6,6)] = createQueen(Color.WHITE)
+
+ map[Position(7,6)] = createPawn(Color.BLACK)
+ map[Position(8,6)] = createBishop(Color.BLACK)
+ map[Position(8,5)] = createKing(Color.BLACK)
+ map[Position(8,4)] = createQueen(Color.BLACK)
+
+ return DefaultBoard(size, map)
+}
+
+fun createPromotionTestBoard(): DefaultBoard{
+ val map: MutableMap<Position, Piece> = mutableMapOf()
+ val size = SizeOfBoard(8, 8)
+
+ map[Position(1,5)] = createKing(Color.WHITE)
+ map[Position(8,5)] = createKing(Color.BLACK)
+
+ map[Position(7,1)] = createPawn(Color.WHITE)
+ map[Position(7,2)] = createPawn(Color.WHITE)
+ map[Position(7,8)] = createPawn(Color.WHITE)
+ map[Position(8,1)] = createArchbishop(Color.BLACK)
+ map[Position(8,2)] = createArchbishop(Color.BLACK)
+
+ map[Position(2,1)] = createPawn(Color.BLACK)
+ map[Position(2,2)] = createPawn(Color.BLACK)
+ map[Position(2,8)] = createPawn(Color.BLACK)
+ map[Position(1,1)] = createChancellor(Color.WHITE)
+ map[Position(1,2)] = createChancellor(Color.WHITE)
 
  return DefaultBoard(size, map)
 }

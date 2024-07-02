@@ -2,6 +2,7 @@ package edu.austral.dissis.chess.engine.predefined
 
 import edu.austral.dissis.chess.test.TestPosition
 import edu.austral.dissis.chess.test.Validity.INVALID
+import edu.austral.dissis.chess.test.Validity.VALID
 import edu.austral.dissis.chess.test.move.MoveTester
 import edu.austral.dissis.chess.test.parser.ParseSettings
 import org.junit.jupiter.api.Test

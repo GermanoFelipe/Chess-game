@@ -13,7 +13,7 @@ import edu.austral.dissis.chess.test.TestPosition
 import edu.austral.dissis.chess.test.TestSize
 import edu.austral.dissis.chess.test.game.*
 import edu.austral.dissis.twoDBoardGame.board.SizeOfBoard
-import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
+import edu.austral.dissis.twoDBoardGame.results.SuccessfulMovementResult
 import edu.austral.dissis.twoDBoardGame.results.WinnerResult
 import java.util.*
 
@@ -23,7 +23,7 @@ class TestGameExam : TestGameRunner {
 
   val redoStack = Stack<Game>()
 
-  private var game: Game = DefualtChessGame()
+  private var game: Game = DefaultChessGame()
 
   fun updateGame(newGame: Game){
     game = newGame
@@ -87,7 +87,7 @@ class TestGameExam : TestGameRunner {
     val lastGame = game
     game = result.getGameResult()
 
-    if (result is SuccessfullMovementResult) {
+    if (result is SuccessfulMovementResult) {
       undoStack.push(lastGame)
       redoStack.clear()
       return TestMoveSuccess(this)

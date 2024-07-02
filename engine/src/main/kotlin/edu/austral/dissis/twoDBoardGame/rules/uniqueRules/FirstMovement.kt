@@ -15,7 +15,7 @@ class FirstMovement: RuleManager {
 
     val piece = board.getPiece(movement.getFrom()) ?: return Invalid("No piece in position")
 
-    if (piece.hasMoved) return Invalid("Piece has already moved")
+    if (piece.hasMoved()) return Invalid("Piece has already moved")
     return Valid()
   }
 }

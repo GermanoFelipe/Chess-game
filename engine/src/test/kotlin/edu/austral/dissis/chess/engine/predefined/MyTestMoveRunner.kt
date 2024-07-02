@@ -14,7 +14,7 @@ import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
-import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
+import edu.austral.dissis.twoDBoardGame.results.SuccessfulMovementResult
 
 object MyTestMoveRunner : TestMoveRunner {
 
@@ -32,7 +32,7 @@ object MyTestMoveRunner : TestMoveRunner {
     if (!newBoard.inBounds(myToPosition)) return Validity.INVALID
     val result = game.movePiece(myFromPosition, myToPosition)
     println(result)
-    return if (result is SuccessfullMovementResult) {
+    return if (result is SuccessfulMovementResult) {
       Validity.VALID
     } else Validity.INVALID
   }

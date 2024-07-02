@@ -14,8 +14,8 @@ fun createMan(color: Color): Piece {
     OrValidator(
       listOf(
         crown(color),
-        singleDiagonalFoward(),
-        captureFoward()
+        singleDiagonalForward(),
+        captureForward()
       )
     )
   )
@@ -30,7 +30,7 @@ fun createKing(color: Color): Piece{
     OrValidator(
       listOf(
         singleDiagonal(),
-        captureFoward(),
+        captureForward(),
         captureBackward()
       )
     )

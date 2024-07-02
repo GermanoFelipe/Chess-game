@@ -24,30 +24,31 @@ class Check {
     return false
   }
 
-  fun kingPosition(board: DefaultBoard, kingTeam: Color): Position? {
+  private fun kingPosition(board: DefaultBoard, kingTeam: Color): Position? {
     board.getUsedPositions().forEach {position ->
-      if (board.getPiece(position)?.type == ChessPieceType.KING &&
-          board.getPiece(position)?.pieceColor == kingTeam){
+      if (board.getPiece(position)?.getType() == ChessPieceType.KING &&
+          board.getPiece(position)?.getColor() == kingTeam){
           return position
       }
     }
     return null
   }
 
-  fun pieceAttacksKing(board: DefaultBoard,
-                       position: Position,
-                       kingColor: Color,
-                       kingPosition: Position): Boolean{
+  private fun pieceAttacksKing(board: DefaultBoard,
+                               position: Position,
+                               kingColor: Color,
+                               kingPosition: Position): Boolean{
 
-    if (board.getPiece(position)?.pieceColor != kingColor){
+    if (board.getPiece(position)?.getColor() != kingColor){
       val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
-      val movement = Movement(position, kingPosition, kingColor)
 
       when (
-        piece.validateMovement(movement, board)
+        piece.validateMovement(
+          Movement(position, kingPosition, kingColor), board
+        )
       ) {
-        is Valid -> return true
         is Invalid -> {}
+        is Valid -> return true
       }
     }
     return false

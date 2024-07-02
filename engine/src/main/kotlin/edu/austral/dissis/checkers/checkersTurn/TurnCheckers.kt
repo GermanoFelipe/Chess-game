@@ -1,7 +1,7 @@
 package edu.austral.dissis.checkers.checkersTurn
 
 import edu.austral.dissis.checkers.factory.captureBackward
-import edu.austral.dissis.checkers.factory.captureFoward
+import edu.austral.dissis.checkers.factory.captureForward
 import edu.austral.dissis.checkers.piece.CheckersPieceType
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.board.SizeOfBoard
@@ -19,7 +19,7 @@ class TurnCheckers (
   private val previousId: String = ""
         ): TurnManager {
 
-  private val manCaptureValidator = captureFoward()
+  private val manCaptureValidator = captureForward()
   private val kingCaptureValidator = captureBackward()
 
   override fun getNextTurn(move: Movement, board: DefaultBoard): TurnManager {
@@ -36,7 +36,7 @@ class TurnCheckers (
   override fun validateTurn(move: Movement, board: DefaultBoard): RuleResult {
     val piece = board.getPiece(move.getFrom()) ?: return Invalid("There is no piece in the selected position")
     return if (capture)
-      if (piece.type == CheckersPieceType.KING
+      if (piece.getType() == CheckersPieceType.KING
           && isKingCapture(move, board)
           && isTheSamePiece(move, board))
         Valid()
@@ -50,25 +50,25 @@ class TurnCheckers (
   }
 
   private fun nextHasToBeCapture(move: Movement, board: DefaultBoard): Boolean {
-    return if (board.getPiece(move.getFrom())?.type == CheckersPieceType.MAN)
+    return if (board.getPiece(move.getFrom())?.getType() == CheckersPieceType.MAN)
       (isManCapture(move, board) || capture) && manHasAvailableCapture(move, board)
     else (isKingCapture(move, board) || capture) && kingHasAvailableCapture(move, board)
   }
 
   private fun manHasAvailableCapture(move: Movement, board: DefaultBoard): Boolean {
     val boardSize = board.getSize()
-    val foward = if (color == Color.WHITE) 1 else -1
+    val forward = if (color == Color.WHITE) 1 else -1
 
     val left = Movement(
       move.getTo(),
-      Position(move.getTo().row + (2 * foward), move.getTo().column - 2),
+      Position(move.getTo().row + (2 * forward), move.getTo().column - 2),
       color
     )
     if (inBounds(left, boardSize) && isManCapture(left, board)) return true
 
     val right = Movement(
       move.getTo(),
-      Position(move.getTo().row + (2 * foward), move.getTo().column + 2),
+      Position(move.getTo().row + (2 * forward), move.getTo().column + 2),
       color
     )
 
@@ -85,9 +85,8 @@ class TurnCheckers (
 
   private fun isManCapture(move: Movement, board: DefaultBoard): Boolean {
     if (board.getPiece(move.getTo()) != null) return false
-    val ruleResult = manCaptureValidator.checkMovement(board, move)
 
-    return when (ruleResult){
+    return when (manCaptureValidator.checkMovement(board, move)){
       is Valid -> true
       is Invalid -> false
     }
@@ -95,9 +94,8 @@ class TurnCheckers (
 
   private fun isKingCapture(move: Movement, board: DefaultBoard): Boolean{
     if (board.getPiece(move.getTo()) != null) return false
-    val ruleResult = kingCaptureValidator.checkMovement(board, move)
 
-    return when(ruleResult){
+    return when(kingCaptureValidator.checkMovement(board, move)){
       is Valid -> true
       is Invalid -> false
     }
@@ -106,21 +104,21 @@ class TurnCheckers (
   private fun kingHasAvailableCapture(move: Movement, board: DefaultBoard): Boolean {
     val boardSize = board.getSize()
 
-    val leftFoward = Movement(
+    val leftForward = Movement(
       move.getTo(),
       Position(move.getTo().row -2, move.getTo().column - 2),
       color
     )
 
-    if (inBounds(leftFoward, boardSize) && isKingCapture(leftFoward, board)) return true
+    if (inBounds(leftForward, boardSize) && isKingCapture(leftForward, board)) return true
 
-    val rightFoward = Movement(
+    val rightForward = Movement(
       move.getTo(),
       Position(move.getTo().row - 2, move.getTo().column + 2),
       color
     )
 
-    if (inBounds(rightFoward, boardSize) && isKingCapture(rightFoward, board)) return true
+    if (inBounds(rightForward, boardSize) && isKingCapture(rightForward, board)) return true
 
     val leftBackwards = Movement(
       move.getTo(),

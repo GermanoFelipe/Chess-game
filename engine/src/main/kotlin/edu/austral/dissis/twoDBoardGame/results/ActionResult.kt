@@ -9,21 +9,14 @@ class RelativePosition(
   private val row: Int = 0,
   private val column: Int = 0,
 ){
-  fun getRow(): Int {
-    return row
-  }
-
-  fun getColumn(): Int {
-    return column
-  }
 
   fun getAbsPos(
     position: Position,
-    isFoward: Boolean
+    isForward: Boolean
   ): Position{
 
     return Position(
-      position.row + row * if (isFoward) 1 else -1,
+      position.row + row * if (isForward) 1 else -1,
       position.column + column
     )
   }
@@ -35,12 +28,12 @@ class ApplyMovement(
   private val to: RelativePosition = RelativePosition()
     ) : ActionResult {
 
-  fun getFrom(position: Position, fowardPositive: Boolean): Position {
-    return from.getAbsPos(position, fowardPositive)
+  fun getFrom(position: Position, forwardPositive: Boolean): Position {
+    return from.getAbsPos(position, forwardPositive)
   }
 
-  fun getTo(position: Position, fowardPositive: Boolean): Position {
-    return to.getAbsPos(position, fowardPositive)
+  fun getTo(position: Position, forwardPositive: Boolean): Position {
+    return to.getAbsPos(position, forwardPositive)
   }
 }
 
@@ -48,8 +41,8 @@ class ConvertPiece (
   private val from: RelativePosition = RelativePosition(),
   private val newPiece: Piece
         ): ActionResult{
-          fun getFrom(position: Position, fowardPositive: Boolean): Position {
-            return from.getAbsPos(position, fowardPositive)
+          fun getFrom(position: Position, forwardPositive: Boolean): Position {
+            return from.getAbsPos(position, forwardPositive)
           }
 
   fun getNewPiece(): Piece {
@@ -59,8 +52,8 @@ class ConvertPiece (
 class RemoveAction (
   private val from: RelativePosition = RelativePosition()
 ): ActionResult {
-  fun getFrom(position: Position, fowardPositive: Boolean): Position {
-    return from.getAbsPos(position, fowardPositive)
+  fun getFrom(position: Position, forwardPositive: Boolean): Position {
+    return from.getAbsPos(position, forwardPositive)
   }
 }
 

@@ -7,7 +7,7 @@ import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 interface WinCondition {
   fun checkWinner(
     board: DefaultBoard,
-    color: Color,
+    enemy: Color,
     gameRules: List<RuleManager>
   ): Boolean
 }

@@ -7,12 +7,11 @@ import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.game.mover.DefaultMovApplier
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
-import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.InBoardValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.PieceExistsValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.SameTeamValidator
 import edu.austral.dissis.twoDBoardGame.rules.boardRulesValidator.TurnValidator
 
-object DefualtChessGame{
+object DefaultChessGame{
   operator fun invoke(): Game{
     return Game(
       board = createDefaultBoard(),
@@ -47,11 +46,30 @@ fun createNormalRules(): List<RuleManager>{
 
 fun createVariantChess(): Game{
   return Game(
-    board = createCappablancaBoard(),
+    board = createCapablancaBoard(),
     turn = TurnDefault(Color.WHITE),
     rules = createNormalRules(),
     winningCondition = IsCheckMate(),
     movementApplier = DefaultMovApplier()
   )
+}
 
+fun createCheckMateTest(): Game{
+  return Game(
+    board = createCheckMateTestBoard(),
+    turn = TurnDefault(Color.WHITE),
+    rules = createNormalRules(),
+    winningCondition = IsCheckMate(),
+    movementApplier = DefaultMovApplier()
+  )
+}
+
+fun createPromotionTestGame(): Game{
+  return Game(
+    board = createPromotionTestBoard(),
+    turn = TurnDefault(Color.WHITE),
+    rules = createNormalRules(),
+    winningCondition = IsCheckMate(),
+    movementApplier = DefaultMovApplier()
+  )
 }

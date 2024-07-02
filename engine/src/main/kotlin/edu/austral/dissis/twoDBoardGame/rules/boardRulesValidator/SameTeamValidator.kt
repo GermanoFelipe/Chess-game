@@ -16,7 +16,7 @@ class SameTeamValidator: RuleManager {
   val fromPiece = board.getPiece(movement.getFrom()) ?: return Invalid("No piece selected")
 
     board.getPiece(movement.getTo())?.let {
-        if (it.pieceColor == fromPiece.pieceColor)
+        if (it.getColor() == fromPiece.getColor())
           return Invalid("You can't move to a square with a piece of the same team")
         else return Valid()
     }

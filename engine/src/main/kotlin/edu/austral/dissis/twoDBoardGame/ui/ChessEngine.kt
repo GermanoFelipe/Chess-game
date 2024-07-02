@@ -1,13 +1,13 @@
 package edu.austral.dissis.twoDBoardGame.ui
 
+import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.twoDBoardGame.game.Game
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.piece.Piece
 import edu.austral.dissis.twoDBoardGame.position.Position
-import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
-import edu.austral.dissis.twoDBoardGame.results.UnsuccessfullMovementResult
-import edu.austral.dissis.twoDBoardGame.results.SuccessfullMovementResult
+import edu.austral.dissis.twoDBoardGame.results.UnsuccessfulMovementResult
+import edu.austral.dissis.twoDBoardGame.results.SuccessfulMovementResult
 import edu.austral.dissis.twoDBoardGame.results.WinnerResult
 import java.util.Stack
 
@@ -17,24 +17,16 @@ class ChessEngine (private var game: Game): GameEngine {
 
   private var redoStack = Stack<Game>()
 
-  fun getGame(): Game{
-    return game
-  }
-
-//  init {
-//    undoStack.push(game)
-//  }
-
   override fun applyMove(move: Move): MoveResult {
     val from = Position(move.from.row, move.from.column)
     val to = Position(move.to.row, move.to.column)
 
     return when (val result = game.movePiece(from, to)) {
-      is SuccessfullMovementResult -> { undoStack.push(game)
+      is SuccessfulMovementResult -> { undoStack.push(game)
         redoStack.clear()
         getNewGameState(result)
       }
-      is UnsuccessfullMovementResult ->  InvalidMove(result.message)
+      is UnsuccessfulMovementResult ->  InvalidMove(result.message)
 
       is WinnerResult -> GameOver(getPlayerColor(result.winner))
     }
@@ -65,17 +57,17 @@ class ChessEngine (private var game: Game): GameEngine {
 
   //Adapter methods
 
-  fun getBoardSize(): BoardSize {
+  private fun getBoardSize(): BoardSize {
     val board = game.getBoard()
     return BoardSize(board.getColumn(), board.getRow())
   }
 
-  fun getPieces(): List<ChessPiece>{
+  private fun getPieces(): List<ChessPiece>{
     val board = game.getBoard()
     return toChessPieceAdapter(board.getUsedPositions(), board)
   }
 
-  fun toChessPieceAdapter(positions: List<Position>, board: DefaultBoard): List<ChessPiece> {
+  private fun toChessPieceAdapter(positions: List<Position>, board: DefaultBoard): List<ChessPiece> {
     return positions.map {
       val piece = board.getPiece(it)!!
       ChessPiece(
@@ -86,23 +78,23 @@ class ChessEngine (private var game: Game): GameEngine {
     }
   }
 
-  fun getPieceType (piece: Piece): String{
-    return piece.type.string()
+  private fun getPieceType (piece: Piece): String{
+    return piece.getType().string()
   }
 
-  fun getPiecePlayerColor(piece: Piece) =
-    if (piece.pieceColor == Color.WHITE) PlayerColor.WHITE
+  private fun getPiecePlayerColor(piece: Piece) =
+    if (piece.getColor() == Color.WHITE) PlayerColor.WHITE
     else PlayerColor.BLACK
 
-  fun getPlayerColor(color: Color) =
+  private fun getPlayerColor(color: Color) =
     if (color == Color.WHITE) PlayerColor.WHITE
     else PlayerColor.BLACK
 
-  fun getId (piece:Piece) = piece.getId()
+  private fun getId (piece:Piece) = piece.getId()
 
-  fun getPiecePosition (position: Position) = edu.austral.dissis.chess.gui.Position(position.row, position.column)
+  private fun getPiecePosition (position: Position) = edu.austral.dissis.chess.gui.Position(position.row, position.column)
 
-  fun getCurrentPlayerColor(): PlayerColor {
+  private fun getCurrentPlayerColor(): PlayerColor {
     return if (game.getTurn() == Color.WHITE) PlayerColor.WHITE
     else PlayerColor.BLACK
   }
@@ -110,25 +102,25 @@ class ChessEngine (private var game: Game): GameEngine {
   // MoveResult adapters
 
 
-fun getNewGameState(state: SuccessfullMovementResult): MoveResult {
+private fun getNewGameState(state: SuccessfulMovementResult): MoveResult {
   game = state.game
   return NewGameState(
     getPieces(),
     getCurrentPlayerColor(),
     UndoState(canUndo(), canRedo()))
 }
-  fun getUpdatedGameState(): NewGameState{
+  private fun getUpdatedGameState(): NewGameState{
     return NewGameState(
       getPieces(),
       getCurrentPlayerColor(),
       UndoState(canUndo(), canRedo()))
   }
 
-  fun updateGame(newGame: Game){
+  private fun updateGame(newGame: Game){
     this.game = newGame
   }
 
-  fun undoMove() {
+  private fun undoMove() {
     if (canUndo()){
       redoStack.push(game)
       val lastState = undoStack.pop()
@@ -136,7 +128,7 @@ fun getNewGameState(state: SuccessfullMovementResult): MoveResult {
     }
   }
 
-  fun redoMove() {
+  private fun redoMove() {
     if(canRedo()){
       undoStack.push(game)
       val lastState = redoStack.pop()
@@ -144,11 +136,11 @@ fun getNewGameState(state: SuccessfullMovementResult): MoveResult {
     }
   }
 
-  fun canUndo(): Boolean {
+  private fun canUndo(): Boolean {
     return !undoStack.isEmpty()
   }
 
-  fun canRedo(): Boolean {
+  private fun canRedo(): Boolean {
     return !redoStack.isEmpty()
   }
 }

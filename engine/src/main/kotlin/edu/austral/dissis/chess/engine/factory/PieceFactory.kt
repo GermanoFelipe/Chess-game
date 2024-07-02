@@ -100,7 +100,7 @@ fun createKnight(color: Color): Piece {
 
 // variantes extras
 
-fun createArchibishop(color: Color): Piece {
+fun createArchbishop(color: Color): Piece {
   return Piece(
     ChessPieceType.ARCHBISHOP,
     color,
@@ -112,7 +112,7 @@ fun createArchibishop(color: Color): Piece {
     ))
   )
 }
-fun createCancellor(color: Color): Piece{
+fun createChancellor(color: Color): Piece{
   return Piece(
     ChessPieceType.CHANCELLOR,
     color,

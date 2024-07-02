@@ -133,14 +133,14 @@ fun pawnAttack(): RuleManager{
 fun crown(color: Color): RuleManager{
   return OrValidator(
     listOf(
-      crownFoward(color),
+      crownForward(color),
       crownRight(color),
       crownLeft(color)
     )
   )
 }
 
-fun crownFoward(color: Color): RuleManager{
+fun crownForward(color: Color): RuleManager{
   return AndValidator(
     listOf(
       ColumnDirectionValidator(),

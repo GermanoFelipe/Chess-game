@@ -15,7 +15,7 @@ class TurnValidator: RuleManager {
 
     val fromPiece = board.getPiece(movement.getFrom()) ?: return Invalid("No piece to selected")
 
-    return if (fromPiece.pieceColor == movement.getTurn()) Valid()
+    return if (fromPiece.getColor() == movement.getTurn()) Valid()
     else Invalid("Not your turn")
   }
 }

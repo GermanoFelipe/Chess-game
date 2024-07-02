@@ -15,7 +15,7 @@ class Enemy : RuleManager {
 
     board.getPiece(movement.getTo())?.let {
 
-      if (it.pieceColor != movement.getTurn()) return Valid()
+      if (it.getColor() != movement.getTurn()) return Valid()
       else Invalid("Invalid Movement: Pawn can't eat its own piece")
 
     }

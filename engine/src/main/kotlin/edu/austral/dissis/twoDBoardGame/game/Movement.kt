@@ -1,7 +1,5 @@
 package edu.austral.dissis.twoDBoardGame.game
 
-import edu.austral.dissis.twoDBoardGame.board.Board
-import edu.austral.dissis.twoDBoardGame.board.DefaultBoard
 import edu.austral.dissis.twoDBoardGame.piece.Color
 import edu.austral.dissis.twoDBoardGame.position.Position
 

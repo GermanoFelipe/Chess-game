@@ -17,7 +17,7 @@ import edu.austral.dissis.twoDBoardGame.rules.limitsValidator.PermanentLimit
 import edu.austral.dissis.twoDBoardGame.rules.orientationValidator.DiagonalDirectionValidator
 import edu.austral.dissis.twoDBoardGame.rules.uniqueRules.OppositeRow
 
-fun singleDiagonalFoward(): RuleManager {
+fun singleDiagonalForward(): RuleManager {
   return AndValidator(
     listOf(
       DiagonalDirectionValidator(),
@@ -27,7 +27,7 @@ fun singleDiagonalFoward(): RuleManager {
   )
 }
 
-fun captureFoward(): RuleManager {
+fun captureForward(): RuleManager {
   return AndValidator(
     listOf(
       VerticalFowValidator(),
@@ -79,7 +79,7 @@ fun normalCrown(color: Color): RuleManager{
 fun normalCrownRight(color: Color): RuleManager {
   return AndValidator(
     listOf(
-      singleDiagonalFoward(),
+      singleDiagonalForward(),
       OppositeRow(),
       ToRightValidator()
     )
@@ -94,7 +94,7 @@ fun normalCrownRight(color: Color): RuleManager {
 fun normalCrownLeft(color: Color): RuleManager {
   return AndValidator(
     listOf(
-      singleDiagonalFoward(),
+      singleDiagonalForward(),
       OppositeRow(),
       ToLeftValidator()
     )
@@ -118,7 +118,7 @@ fun captureAndCrown(color: Color): RuleManager {
 fun captureCrownRight(color: Color): RuleManager {
   return AndValidator(
     listOf(
-      captureFoward(),
+      captureForward(),
       OppositeRow(),
       ToRightValidator()
     )
@@ -133,7 +133,7 @@ fun captureCrownRight(color: Color): RuleManager {
 fun captureCrownLeft(color: Color): RuleManager {
   return AndValidator(
     listOf(
-      captureFoward(),
+      captureForward(),
       OppositeRow(),
       ToLeftValidator()
     )

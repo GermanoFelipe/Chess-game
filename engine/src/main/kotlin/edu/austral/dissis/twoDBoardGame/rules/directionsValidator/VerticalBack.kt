@@ -19,7 +19,7 @@ class VerticalBack: RuleManager {
     else forBlack(movement.getFrom(), movement.getTo())
   }
 
-  fun forWhite(
+  private fun forWhite(
     from: Position,
     to: Position
   ): RuleResult {
@@ -28,7 +28,7 @@ class VerticalBack: RuleManager {
     else Invalid("Invalid movement, you can only move backwards.")
   }
 
-  fun forBlack(
+  private fun forBlack(
     from: Position,
     to: Position
   ): RuleResult {

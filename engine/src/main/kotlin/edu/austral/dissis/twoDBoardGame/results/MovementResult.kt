@@ -7,7 +7,7 @@ sealed interface MovementResult{
   fun getGameResult(): Game
 }
 
-class UnsuccessfullMovementResult(
+class UnsuccessfulMovementResult(
   val message: String,
   val game: Game
   ) : MovementResult {
@@ -17,7 +17,7 @@ class UnsuccessfullMovementResult(
   }
 }
 
-class SuccessfullMovementResult (
+class SuccessfulMovementResult (
   val game: Game
   ): MovementResult {
   override fun getGameResult(): Game {

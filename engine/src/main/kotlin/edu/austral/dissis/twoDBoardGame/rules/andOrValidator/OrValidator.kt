@@ -9,8 +9,8 @@ import edu.austral.dissis.twoDBoardGame.results.Valid
 import edu.austral.dissis.twoDBoardGame.rules.RuleManager
 
 class OrValidator(
-  val rules: List<RuleManager>,
-  val actions: List<ActionResult> = emptyList()
+  private val rules: List<RuleManager>,
+  private val actions: List<ActionResult> = emptyList()
   )
   : RuleManager {
 
@@ -28,7 +28,7 @@ class OrValidator(
     return Invalid("Invalid Movement")
   }
 
-  fun withActions(actions: List<ActionResult>): RuleManager {
+  fun withSpecial(actions: List<ActionResult>): RuleManager {
     return OrValidator(rules, actions)
   }
 }

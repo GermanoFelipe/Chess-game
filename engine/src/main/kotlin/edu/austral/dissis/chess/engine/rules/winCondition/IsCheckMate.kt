@@ -10,7 +10,7 @@ import edu.austral.dissis.twoDBoardGame.winCondition.WinCondition
 import java.util.NoSuchElementException
 
 class IsCheckMate : WinCondition {
-  val check = Check()
+  private val check = Check()
 
   override fun checkWinner(board: DefaultBoard,
                            enemy: Color,
@@ -31,12 +31,12 @@ class IsCheckMate : WinCondition {
   }
 
 
-  fun findALlMovements(position: Position,
-                       board: DefaultBoard,
-                       ruleManager: List<RuleManager>): List<Movement> {
+  private fun findALlMovements(position: Position,
+                               board: DefaultBoard,
+                               ruleManager: List<RuleManager>): List<Movement> {
 
     val piece = board.getPiece(position) ?: throw NoSuchElementException("No piece in position")
-    val color = piece.pieceColor
+    val color = piece.getColor()
     var movements = emptyList<Movement>()
     for (i in 1..board.getRow()) {
       for (j in 1..board.getColumn()) {
@@ -54,16 +54,16 @@ class IsCheckMate : WinCondition {
 
 
 
-  fun getEnemies (
+  private fun getEnemies (
     board: DefaultBoard,
     enemy: Color)  = board.getUsedPositions().filter{ position ->
-    board.getPiece(position)?.pieceColor == enemy }
+    board.getPiece(position)?.getColor() == enemy }
 
 
 
-  fun notInCheck (board: DefaultBoard,
-                  validMove: Movement,
-                  enemy: Color): Boolean{
+  private fun notInCheck (board: DefaultBoard,
+                          validMove: Movement,
+                          enemy: Color): Boolean{
     val newBoard = board.movePiece(validMove.getFrom(), validMove.getTo())
     return !check.inCheck(newBoard, enemy)
   }

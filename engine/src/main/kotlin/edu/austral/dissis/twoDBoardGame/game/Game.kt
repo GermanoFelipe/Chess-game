@@ -26,13 +26,13 @@ class Game (
     val move = Movement(from, to, turn.actualTurn())
 
     val gameValidation = validateGameRules(move)
-    if (gameValidation !is SuccessfullMovementResult) return gameValidation
+    if (gameValidation !is SuccessfulMovementResult) return gameValidation
 
     val pieceValidation = validatePieceRules(move)
-    if (pieceValidation !is SuccessfullMovementResult) return pieceValidation
+    if (pieceValidation !is SuccessfulMovementResult) return pieceValidation
 
     val turnValidation = validateTurnRules(move)
-    if (turnValidation !is SuccessfullMovementResult) return turnValidation
+    if (turnValidation !is SuccessfulMovementResult) return turnValidation
 
    if (isCheckMate(pieceValidation.game.getBoard()))
      return WinnerResult(turn.actualTurn(), pieceValidation.getGameResult())
@@ -68,30 +68,30 @@ class Game (
     return this.winningCondition
   }
 
-  fun validateGameRules (move: Movement): MovementResult {
+  private fun validateGameRules (move: Movement): MovementResult {
     for (rule in rules) {
       return when (val result = rule.checkMovement(board, move)) {
         is Valid -> continue
-        is Invalid -> UnsuccessfullMovementResult(result.message, this)
+        is Invalid -> UnsuccessfulMovementResult(result.message, this)
       }
     }
-    return SuccessfullMovementResult(this)
+    return SuccessfulMovementResult(this)
   }
 
-  fun validatePieceRules(move: Movement): MovementResult {
+  private fun validatePieceRules(move: Movement): MovementResult {
     val pieceToMove = board.getPiece(move.getFrom()) ?: throw NoSuchElementException("No piece to selected")
 
     return when(val result = pieceToMove.validateMovement(move, board)){
       is Valid -> makeMovement(move, board, result.getActionResult())
-      is Invalid -> UnsuccessfullMovementResult(result.message, this)
+      is Invalid -> UnsuccessfulMovementResult(result.message, this)
     }
   }
 
-  fun makeMovement(move: Movement, board: DefaultBoard, actions: List<ActionResult>): SuccessfullMovementResult{
+  private fun makeMovement(move: Movement, board: DefaultBoard, actions: List<ActionResult>): SuccessfulMovementResult{
     var newBoard: DefaultBoard = movementApplier.applyMovement(move, board)
         newBoard = movementApplier.executeSpecial(move, newBoard, actions)
 
-    return SuccessfullMovementResult(
+    return SuccessfulMovementResult(
       Game(
         newBoard,
         turn.getNextTurn(move, this.board),
@@ -100,21 +100,21 @@ class Game (
         movementApplier))
   }
 
-  fun validateTurnRules(move: Movement): MovementResult {
+  private fun validateTurnRules(move: Movement): MovementResult {
     return when (val result = turn.validateTurn(move, board)){
-      is Valid -> SuccessfullMovementResult(this)
-      is Invalid -> UnsuccessfullMovementResult(result.message, this)
+      is Valid -> SuccessfulMovementResult(this)
+      is Invalid -> UnsuccessfulMovementResult(result.message, this)
     }
   }
 
-  fun getEnemyColor(): Color{
+  private fun getEnemyColor(): Color{
     return when(turn.actualTurn()){
       Color.WHITE -> Color.BLACK
       Color.BLACK -> Color.WHITE
     }
   }
 
-  fun isCheckMate(board: DefaultBoard): Boolean{
+  private fun isCheckMate(board: DefaultBoard): Boolean{
     return winningCondition.checkWinner(board, getEnemyColor(), rules)
   }
 

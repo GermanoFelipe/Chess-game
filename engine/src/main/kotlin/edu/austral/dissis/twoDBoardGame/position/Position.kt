@@ -6,12 +6,8 @@ class Position(
   val row: Int,
   val column: Int) {
 
-  fun getPosition(): Position {
-    return Position(row, column)
-  }
-
   override fun toString(): String {
-    return row.toString() + "," + column.toString()
+    return "$row,$column"
   }
   override fun equals(other: Any?): Boolean {
     if (other is Position) {

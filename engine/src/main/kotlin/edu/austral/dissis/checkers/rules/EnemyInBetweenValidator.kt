@@ -29,7 +29,7 @@ class EnemyInBetweenValidator: RuleManager {
 
   private fun isPresentAndOppositeColor(piece: Piece?, color: Color): Boolean{
     return if (piece != null) {
-      piece.pieceColor != color
+      piece.getColor() != color
     }else
       false
   }

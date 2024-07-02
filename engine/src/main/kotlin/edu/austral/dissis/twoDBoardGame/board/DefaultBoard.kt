@@ -64,12 +64,4 @@ class DefaultBoard (
   override fun inBounds(position: Position): Boolean {
     return position.row in 1..boardSize.getRows() && position.column in 1..boardSize.getColumns()
   }
-
-  fun checkBoardSize(pieces: Map<Position, Piece>, boardSize: SizeOfBoard){
-    for (position in pieces.keys){
-      if (!inBounds(position)){
-        throw IllegalArgumentException("Position $position is out of bounds")
-      }
-    }
-  }
 }
