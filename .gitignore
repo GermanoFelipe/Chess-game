@@ -5,3 +5,4 @@
 build
 
 buildSrc/gradle.properties
+gradle.properties
